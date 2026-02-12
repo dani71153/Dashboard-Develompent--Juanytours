@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Gestión de Viajes</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+    <header id="main-header">
+        <h1>Panel de Control de Viajes</h1>
+        <nav id="main-nav">
+            <ul>
+            <button id="toggle-gds">Ocultar GDS</button>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="dashboard-container">
+        <section id="section-gds" class="dashboard-section">
+            <h2>Sistemas GDS</h2>
+            <div id="container-gds" class="data-wrapper">
+                <ol id="gds-list">
+                    <li>Cargando datos de GDS...</li>
+                </ol>
+                </div>
+        </section>
+
+        <section id="section-hoteles" class="dashboard-section">
+            <h2>Gestión de Hoteles</h2>
+            <div id="container-hoteles" class="data-wrapper">
+                <ol id="hoteles-list">
+                    <li>Cargando datos de hoteles...</li>
+                </ol>
+                </div>
+        </section>
+
+        <section id="section-aviones" class="dashboard-section">
+            <h2>Vuelos y Aviones</h2>
+            <div id="container-aviones" class="data-wrapper">
+                <ol id="aviones-list">
+                    <li>Cargando datos de vuelos...</li>
+                    </ol>
+                </div>
+        </section>
+
+        <section id="section-renta" class="dashboard-section">
+            <h2>Renta de Vehículos</h2>
+            <div id="container-renta" class="data-wrapper">
+                </div>
+        </section>
+
+    </main>
+
+    <script src="/assets/js/script.js"></script>
+</body>
+</html>

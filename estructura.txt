@@ -1,0 +1,33 @@
+
+/dashboard
+│
+├── index.html
+│
+├── /assets
+│   ├── /css
+│   │   ├── reset.css
+│   │   ├── variables.css
+│   │   ├── layout.css
+│   │   └── components.css
+│   │
+│   ├── /js
+│   │   ├── main.js
+│   │   ├── router.js
+│   │   ├── state.js
+│   │   ├── api.js
+│   │   └── utils.js
+│   │
+│   └── /img
+│
+├── /components
+│   ├── navbar.html
+│   ├── sidebar.html
+│   ├── card.html
+│
+├── /pages
+│   ├── dashboard.html
+│   ├── proveedores.html
+│   ├── pagos.html
+│
+└── /data
+    └── mock-data.json
