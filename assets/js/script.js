@@ -53,7 +53,17 @@ function crearElementoGDS(data,indice, contenedor) {
     linkgds.textContent = ``; // Asigna el texto al elemento usando el valor de la informacion obtenida
     linkgds.target = '_blank'; // Hace que el enlace se abra en una nueva pestaña
     linkgds.rel = 'noopener noreferrer'; // Mejora la seguridad al abrir el enlace en una nueva pestaña
+    linkgds.id = `gds-item-${indice}`;
 
+    // --- LÓGICA DE PERSISTENCIA ---
+    // Leemos la "libreta" para ver si ya había un estado guardado para este ID
+    const estadoGuardado = localStorage.getItem(`gds-item-${indice}`);
+    
+    if (estadoGuardado) {
+        // Si existe una nota guardada, la aplicamos de inmediato
+        linkgds.style.display = estadoGuardado;
+    }
+    // ------------------------------
     const imgtestgds = document.createElement('img');
     imgtestgds.src = proveedor.logo; // Asigna la ruta de la imagen al atributo src del elemento
     imgtestgds.alt = `${proveedor.nombre} Logo`; // Asigna el texto alternativo al atributo alt del elemento
@@ -64,7 +74,9 @@ function crearElementoGDS(data,indice, contenedor) {
     // Metemos la imagen DENTRO del enlace
     linkgds.appendChild(imgtestgds);
     contenedor.appendChild(linkgds);
+    
 }
+
 
 function showGDS() {
     const gdsList = document.getElementById('toggle-gds'); 
@@ -72,6 +84,18 @@ function showGDS() {
     //Seleccionamos los botones y la caja que quiero hacer invisible.
     const sectionContainer = document.getElementById('section-gds');
 
+
+    // --- BLOQUE DE RECUPERACIÓN (LEER AL CARGAR) ---
+    // Apenas se ejecuta la función, preguntamos: "¿Había algo guardado?"
+    const savedStatus = localStorage.getItem('toggle-gds');
+
+    if (savedStatus) {
+        // Aplicamos el estilo guardado (block o none)
+        sectionContainer.style.display = savedStatus;
+        // Actualizamos el texto del botón para que coincida
+        gdsList.textContent = (savedStatus === 'none') ? 'Mostrar GDS' : 'Ocultar GDS';
+    }
+    
     //Agregamos un trigger de eventos, y dentro del trigger de eventos definimos la accion que se va a tomar
     // cuando se haga ese evento, es basicamente lo que se espera que suceda al presionar el elemento que llame del DOM
     //Al clickearlo se dispara la funcion y ejecuta las condicionales que ameritan.
@@ -85,9 +109,117 @@ function showGDS() {
             sectionContainer.style.display='none';
             gdsList.textContent = 'Mostrar GDS'; 
         }
+        // --- BLOQUE DE PERSISTENCIA (GUARDAR) ---
+        // Guardamos el estado bajo el ID del elemento
+        localStorage.setItem('toggle-gds', sectionContainer.style.display);
     });
+
+}
+
+function showHoteles() {
+    const hotelsList = document.getElementById('toggle-hotels'); 
+    //Seguimos la misma logica anterior, buscamos el elemento que queremos trabajar por Identificador, en este caso
+    //Seleccionamos los botones y la caja que quiero hacer invisible.
+    const sectionContainerHoteles = document.getElementById('section-hoteles');
+
+    //Agregamos un trigger de eventos, y dentro del trigger de eventos definimos la accion que se va a tomar
+    // cuando se haga ese evento, es basicamente lo que se espera que suceda al presionar el elemento que llame del DOM
+    //Al clickearlo se dispara la funcion y ejecuta las condicionales que ameritan.
+    hotelsList.addEventListener('click', function(){
+
+        if(sectionContainerHoteles.style.display == 'none'){ //Si, no se muestra, se pasa al else.
+            sectionContainerHoteles.style.display='block';
+            hotelsList.textContent = 'Ocultar Hoteles'; //Definimos el cambio de texto
+        }else {
+
+            sectionContainerHoteles.style.display='none';
+            hotelsList.textContent = 'Mostrar Hoteles'; 
+        }
+    });
+}
+
+function showFlights() {
+    const flightList = document.getElementById('toggle-airplanes'); 
+    //Seguimos la misma logica anterior, buscamos el elemento que queremos trabajar por Identificador, en este caso
+    //Seleccionamos los botones y la caja que quiero hacer invisible.
+    const sectionContainerFlights = document.getElementById('section-aviones');
+
+    //Agregamos un trigger de eventos, y dentro del trigger de eventos definimos la accion que se va a tomar
+    // cuando se haga ese evento, es basicamente lo que se espera que suceda al presionar el elemento que llame del DOM
+    //Al clickearlo se dispara la funcion y ejecuta las condicionales que ameritan.
+    flightList.addEventListener('click', function(){
+
+        if(sectionContainerFlights.style.display == 'none'){ //Si, no se muestra, se pasa al else.
+            sectionContainerFlights.style.display='block';
+            flightList.textContent = 'Ocultar Aviones'; //Definimos el cambio de texto
+        }else {
+
+            sectionContainerFlights.style.display='none';
+            flightList.textContent = 'Mostrar Aviones'; 
+        }
+    });
+}
+
+function showCarRentals() {
+    const carlist = document.getElementById('toggle-cars'); 
+    //Seguimos la misma logica anterior, buscamos el elemento que queremos trabajar por Identificador, en este caso
+    //Seleccionamos los botones y la caja que quiero hacer invisible.
+    const sectionContainerCar = document.getElementById('section-renta');
+
+    //Agregamos un trigger de eventos, y dentro del trigger de eventos definimos la accion que se va a tomar
+    // cuando se haga ese evento, es basicamente lo que se espera que suceda al presionar el elemento que llame del DOM
+    //Al clickearlo se dispara la funcion y ejecuta las condicionales que ameritan.
+    carlist.addEventListener('click', function(){
+
+        if(sectionContainerCar.style.display == 'none'){ //Si, no se muestra, se pasa al else.
+            sectionContainerCar.style.display='block';
+            carlist.textContent = 'Ocultar RentCar'; //Definimos el cambio de texto
+        }else {
+
+            sectionContainerCar.style.display='none';
+            carlist.textContent = 'Mostrar RentCar'; 
+        }
+    });
+}
+
+/**
+ * Oculta o muestra un proveedor específico de la lista.
+ * @param {number} indice - El número del proveedor que queremos afectar.
+ */
+function toggleProveedorEspecifico(indice) {
+    const idElemento = `gds-item-${indice}`;
+    const elemento = document.getElementById(idElemento);
+    
+    if (elemento) {
+        let nuevoEstado;
+        if (elemento.style.display === 'none') {
+            nuevoEstado = 'inline-block';
+        } else {
+            nuevoEstado = 'none';
+        }
+
+        // Aplicamos el cambio visual
+        elemento.style.display = nuevoEstado;
+
+        // --- BLOQUE DE PERSISTENCIA (GUARDAR) ---
+        // Guardamos el estado bajo el ID del elemento
+        localStorage.setItem(idElemento, nuevoEstado);
+    }
 }
 
 
 document.addEventListener('DOMContentLoaded', JsonFetch); //Esto hace que el navegador espere a que este cargado todo para ejecutar la funcion
 document.addEventListener('DOMContentLoaded',showGDS);
+document.addEventListener('DOMContentLoaded',showHoteles);
+document.addEventListener('DOMContentLoaded',showFlights);
+document.addEventListener('DOMContentLoaded',showCarRentals);
+document.getElementById('ocultar-primero').addEventListener('click', function() {
+    toggleProveedorEspecifico(0); // Llama a la función para el índice 0
+}); 
+// Buscamos el botón por su ID
+const boton = document.getElementById('btnAbrir');
+
+// Le asignamos la función cuando alguien haga clic
+boton.addEventListener('click', function() {
+    window.open("https://www.google.com", "_blank", "width=600,height=400");
+});
