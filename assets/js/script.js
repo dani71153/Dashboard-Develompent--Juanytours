@@ -14,7 +14,9 @@ async function JsonFetch() {
     // console.log(data.nombre);
     // console.log(data.version);
 
-    loadGDS(data); 
+    loadMayoristas(data);
+    loadHoteles(data);
+    loadAviones(data);
     return data;
 };
 
@@ -36,18 +38,48 @@ boton.addEventListener('click', function() {
  * los elementos visuales accediendo a los datos del JSON.
  * @param {Object} data - El objeto JSON con la información de la empresa y proveedores.
  */
-function loadGDS(data) {
-    const contenedor = document.getElementById('gds-list');
+function loadMayoristas(data) {
+    const contenedor = document.getElementById('mayoristas-list');
     contenedor.innerHTML = ''; 
-    crearElementoGDS(data, 0, contenedor);
-    crearElementoGDS(data, 1, contenedor);
-    crearElementoGDS(data, 2, contenedor);
-    crearElementoGDS(data, 3, contenedor);
-    crearElementoGDS(data, 4, contenedor);
-    crearElementoGDS(data, 5, contenedor);
-    crearElementoGDS(data, 6, contenedor);
-    crearElementoGDS(data, 7, contenedor);
+    crearElementoMayoristas(data, 0, contenedor);
+    crearElementoMayoristas(data, 1, contenedor);
+    crearElementoMayoristas(data, 2, contenedor);
+    crearElementoMayoristas(data, 3, contenedor);
+    crearElementoMayoristas(data, 4, contenedor);
+    crearElementoMayoristas(data, 5, contenedor);
+    crearElementoMayoristas(data, 6, contenedor);
+    crearElementoMayoristas(data, 7, contenedor);
+    crearElementoMayoristas(data, 8, contenedor);
 }
+
+function loadHoteles(data) {
+    const contenedorHoteles = document.getElementById('hoteles-list');
+    contenedorHoteles.innerHTML = ''; 
+    crearElementoHoteles(data, 0, contenedorHoteles);
+    crearElementoHoteles(data, 1, contenedorHoteles);
+    // crearElementoHoteles(data, 2, contenedorHoteles);
+    // crearElementoHoteles(data, 3, contenedorHoteles);
+    // crearElementoHoteles(data, 4, contenedorHoteles);
+    // crearElementoHoteles(data, 5, contenedorHoteles);
+    // crearElementoHoteles(data, 6, contenedorHoteles);
+    // crearElementoHoteles(data, 7, contenedorHoteles);
+    // crearElementoHoteles(data, 8, contenedorHoteles);
+}
+
+function loadAviones(data) {
+    const contenedorAviones = document.getElementById('aviones-list');
+    contenedorAviones.innerHTML = ''; 
+    crearElementoAviones(data, 0, contenedorAviones);
+    crearElementoAviones(data, 1, contenedorAviones);
+    crearElementoAviones(data, 2, contenedorAviones);
+    crearElementoAviones(data, 3, contenedorAviones);
+    crearElementoAviones(data, 4, contenedorAviones);
+    crearElementoAviones(data, 5, contenedorAviones);
+    crearElementoAviones(data, 6, contenedorAviones);
+    crearElementoAviones(data, 7, contenedorAviones);
+    crearElementoAviones(data, 8, contenedorAviones);
+}
+
 
 
 
@@ -60,68 +92,106 @@ function loadGDS(data) {
  * los demas modulos, de manera que yo lo entienda y pueda replicar de manera sencilla
  * En esta función se crea un enlace con una imagen para cada proveedor de GDS, utilizando la información del JSON. Se asignan atributos como href, alt y title para mejorar la accesibilidad y usabilidad. Luego, se inserta el enlace en el contenedor del DOM correspondiente.
  */
-function crearElementoGDS(data,indice, contenedor) {
+function crearElementoMayoristas(data,indice, contenedor) {
 
-    const proveedor =data.categorias.gds[indice]; // Obtiene el proveedor específico del arreglo de proveedores usando el índice proporcionado
+    const proveedor =data.categorias.mayoristas[indice]; // Obtiene el proveedor específico del arreglo de proveedores usando el índice proporcionado
 
-    const linkgds = document.createElement('a');
-    linkgds.href = proveedor.enlace_portal; // Asigna el enlace al atributo href del elemento
-    linkgds.textContent = ``; // Asigna el texto al elemento usando el valor de la informacion obtenida
-    linkgds.target = '_blank'; // Hace que el enlace se abra en una nueva pestaña
-    linkgds.rel = 'noopener noreferrer'; // Mejora la seguridad al abrir el enlace en una nueva pestaña
-    linkgds.id = `gds-item-${indice}`;
+    const linkgmayoristas = document.createElement('a');
+    linkgmayoristas.href = proveedor.enlace_portal; // Asigna el enlace al atributo href del elemento
+    linkgmayoristas.textContent = ``; // Asigna el texto al elemento usando el valor de la informacion obtenida
+    linkgmayoristas.target = '_blank'; // Hace que el enlace se abra en una nueva pestaña
+    linkgmayoristas.rel = 'noopener noreferrer'; // Mejora la seguridad al abrir el enlace en una nueva pestaña
+    linkgmayoristas.id = `mayoristas-item-${indice}`;
 
     // --- LÓGICA DE PERSISTENCIA ---
     // Leemos la "libreta" para ver si ya había un estado guardado para este ID
-    const estadoGuardado = localStorage.getItem(`gds-item-${indice}`);
+    const estadoGuardado = localStorage.getItem(`mayoristas-item-${indice}`);
     
     if (estadoGuardado) {
         // Si existe una nota guardada, la aplicamos de inmediato
-        linkgds.style.display = estadoGuardado;
+        linkgmayoristas.style.display = estadoGuardado;
     }
     // ------------------------------
-    const imgtestgds = document.createElement('img');
-    imgtestgds.src = proveedor.logo; // Asigna la ruta de la imagen al atributo src del elemento
-    imgtestgds.alt = `${proveedor.nombre} Logo`; // Asigna el texto alternativo al atributo alt del elemento
-    imgtestgds.title = `Visitar el portal de ${proveedor.nombre}`; // Asigna el título al atributo title del elemento
-    imgtestgds.style.width = '45px '; // Ajusta el tamaño de la imagen
-    imgtestgds.style.height = 'auto';
-    imgtestgds.style.position = 'relative'; // Centra la imagen dentro del enlace  
+    const imgtestmayoristas = document.createElement('img');
+    imgtestmayoristas.src = proveedor.logo; // Asigna la ruta de la imagen al atributo src del elemento
+    imgtestmayoristas.alt = `${proveedor.nombre} Logo`; // Asigna el texto alternativo al atributo alt del elemento
+    imgtestmayoristas.title = `Visitar el portal de ${proveedor.nombre}`; // Asigna el título al atributo title del elemento
+    imgtestmayoristas.style.width = '45px '; // Ajusta el tamaño de la imagen
+    imgtestmayoristas.style.height = 'auto';
+    imgtestmayoristas.style.position = 'relative'; // Centra la imagen dentro del enlace  
     // Metemos la imagen DENTRO del enlace
-    linkgds.appendChild(imgtestgds);
-    contenedor.appendChild(linkgds);
+    linkgmayoristas.appendChild(imgtestmayoristas);
+    contenedor.appendChild(linkgmayoristas);
     
 }
 
 
-function showGDS() {
-    const gdsList = document.getElementById('toggle-gds'); 
+function showMayoristas() {
+    const mayoristasList = document.getElementById('toggle-mayoristas'); 
     // Seguimos la misma logica anterior, buscamos el elemento que queremos trabajar por Identificador, en este caso
     // Seleccionamos los botones y la caja que quiero hacer invisible.
-    const sectionContainer = document.getElementById('section-gds');
+    const sectionContainer = document.getElementById('section-mayoristas');
 
     // setupVisualSync('toggle-gds', section-gds, gdsList);
 
-    gdsList.addEventListener('click', function() {
+    mayoristasList.addEventListener('click', function() {
 
         // MEJORA: Añadimos || sectionContainer.style.display === '' 
         // porque a veces el JS no lee el CSS externo en el primer clic.
         if (sectionContainer.style.display === 'none' || sectionContainer.style.display === '') { 
             sectionContainer.style.display = 'block';
-            gdsList.textContent = 'Ocultar GDS'; // Definimos el cambio de texto
+            mayoristasList.textContent = 'Ocultar Mayoristas'; // Definimos el cambio de texto
         } else {
             sectionContainer.style.display = 'none';
-            gdsList.textContent = 'Mostrar GDS'; 
+            mayoristasList.textContent = 'Mostrar Mayoristas'; 
         }
 
         // --- BLOQUE DE PERSISTENCIA (GUARDAR) ---
         // Guardamos el estado bajo el ID del elemento
         // localStorage.setItem('toggle-gds', sectionContainer.style.display);
-        gestionarPersistencia('toggle-gds',sectionContainer,'toggle-gds','gds');
+        gestionarPersistencia('toggle-mayoristas',sectionContainer,'toggle-mayoristas','mayoristas');
     }); // <--- AQUÍ CERRAMOS EL LISTENER DEL CLICK
 
 
 } // <--- CIERRE FINAL DE LA FUNCIÓN showGDS
+
+
+
+//Hoteles
+
+function crearElementoHoteles(data,indice, contenedor) {
+
+    const proveedorHoteles =data.categorias.hoteles[indice]; // Obtiene el proveedor específico del arreglo de proveedores usando el índice proporcionado
+
+    const linkHoteles= document.createElement('a');
+    linkHoteles.href = proveedorHoteles.enlace_portal; // Asigna el enlace al atributo href del elemento
+    linkHoteles.textContent = ``; // Asigna el texto al elemento usando el valor de la informacion obtenida
+    linkHoteles.target = '_blank'; // Hace que el enlace se abra en una nueva pestaña
+    linkHoteles.rel = 'noopener noreferrer'; // Mejora la seguridad al abrir el enlace en una nueva pestaña
+    linkHoteles.id = `hoteles-item-${indice}`;
+
+    // --- LÓGICA DE PERSISTENCIA ---
+    // Leemos la "libreta" para ver si ya había un estado guardado para este ID
+    const estadoGuardadoHoteles = localStorage.getItem(`hoteles-item-${indice}`);
+    
+    if (estadoGuardadoHoteles) {c
+        // Si existe una nota guardada, la aplicamos de inmediato
+        linkHoteles.style.display = estadoGuardadoHoteles;
+    }
+    // ------------------------------
+    const imgHoteles = document.createElement('img');
+    imgHoteles.src = proveedorHoteles.logo; // Asigna la ruta de la imagen al atributo src del elemento
+    imgHoteles.alt = `${proveedorHoteles.nombre} Logo`; // Asigna el texto alternativo al atributo alt del elemento
+    imgHoteles.title = `Visitar el portal de ${proveedorHoteles.nombre}`; // Asigna el título al atributo title del elemento
+    imgHoteles.style.width = '45px '; // Ajusta el tamaño de la imagen
+    imgHoteles.style.height = 'auto';
+    imgHoteles.style.position = 'relative'; // Centra la imagen dentro del enlace  
+    // Metemos la imagen DENTRO del enlace
+    linkHoteles.appendChild(imgHoteles);
+    contenedor.appendChild(linkHoteles);
+    
+}
+
 
 function showHoteles() {
     const hotelsList = document.getElementById('toggle-hotels'); 
@@ -142,7 +212,50 @@ function showHoteles() {
             sectionContainerHoteles.style.display='none';
             hotelsList.textContent = 'Mostrar Hoteles'; 
         }
+        
+        // --- BLOQUE DE PERSISTENCIA (GUARDAR) ---
+        // Guardamos el estado bajo el ID del elemento
+        // localStorage.setItem('toggle-gds', sectionContainer.style.display);
+        gestionarPersistencia('toggle-hotels',sectionContainerHoteles,'toggle-hotels','Hoteles');
     });
+}
+
+///Final de HOTELES
+
+
+
+
+function crearElementoAviones(data,indice, contenedor) {
+
+    const proveedorAviones =data.categorias.aviones[indice]; // Obtiene el proveedor específico del arreglo de proveedores usando el índice proporcionado
+
+    const linkAviones= document.createElement('a');
+    linkAviones.href = proveedorAviones.enlace_portal; // Asigna el enlace al atributo href del elemento
+    linkAviones.textContent = ``; // Asigna el texto al elemento usando el valor de la informacion obtenida
+    linkAviones.target = '_blank'; // Hace que el enlace se abra en una nueva pestaña
+    linkAviones.rel = 'noopener noreferrer'; // Mejora la seguridad al abrir el enlace en una nueva pestaña
+    linkAviones.id = `hoteles-item-${indice}`;
+
+    // --- LÓGICA DE PERSISTENCIA ---
+    // Leemos la "libreta" para ver si ya había un estado guardado para este ID
+    const estadoGuardadoHoteles = localStorage.getItem(`hoteles-item-${indice}`);
+    
+    if (estadoGuardadoHoteles) {c
+        // Si existe una nota guardada, la aplicamos de inmediato
+        linkAviones.style.display = estadoGuardadoHoteles;
+    }
+    // ------------------------------
+    const imgAviones = document.createElement('img');
+    imgAviones.src = proveedorAviones.logo; // Asigna la ruta de la imagen al atributo src del elemento
+    imgAviones.alt = `${proveedorAviones.nombre} Logo`; // Asigna el texto alternativo al atributo alt del elemento
+    imgAviones.title = `Visitar el portal de ${proveedorAviones.nombre}`; // Asigna el título al atributo title del elemento
+    imgAviones.style.width = '45px '; // Ajusta el tamaño de la imagen
+    imgAviones.style.height = 'auto';
+    imgAviones.style.position = 'relative'; // Centra la imagen dentro del enlace  
+    // Metemos la imagen DENTRO del enlace
+    linkAviones.appendChild(imgAviones);
+    contenedor.appendChild(linkAviones);
+    
 }
 
 function showFlights() {
@@ -194,7 +307,7 @@ function showCarRentals() {
  * @param {number} indice - El número del proveedor que queremos afectar.
  */
 function toggleProveedorEspecifico(indice) {
-    const idElemento = `gds-item-${indice}`;
+    const idElemento = `mayoristas-item-${indice}`;
     const elemento = document.getElementById(idElemento);
     
     if (elemento) {
@@ -228,7 +341,7 @@ async function cargarEstadoPersistente() {
     // Definimos un mapa de las secciones que queremos persistir
     // ID del botón : { idSeccion: 'id', textoMostrar: '...', textoOcultar: '...', storageKey: '...' }
     const configuraciones = [
-        { btn: 'toggle-gds', section: 'section-gds', key: 'toggle-gds', label: 'GDS' },
+        { btn: 'toggle-mayoristas', section: 'section-mayoristas', key: 'toggle-mayoristas', label: 'Mayoristas' },
         { btn: 'toggle-hotels', section: 'section-hoteles', key: 'toggle-hotels', label: 'Hoteles' },
         { btn: 'toggle-airplanes', section: 'section-aviones', key: 'toggle-airplanes', label: 'Aviones' },
         { btn: 'toggle-cars', section: 'section-renta', key: 'toggle-cars', label: 'RentCar' }
@@ -317,7 +430,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await JsonFetch(); 
 
     // 2. Inicializamos los escuchadores de clics (Event Listeners)
-    showGDS();
+    showMayoristas();
     showHoteles();
     showFlights();
     showCarRentals();

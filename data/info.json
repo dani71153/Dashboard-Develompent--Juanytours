@@ -6,7 +6,7 @@
   },
 
   "categorias": {
-    "gds": [
+    "mayoristas": [
       {
         "id": "sky_high_dominicana",
         "nombre": "Sky High Dominicana - Portal GDS",
@@ -51,6 +51,42 @@
         "prioridad": "alta",
         "urgente": true,
         "tags": ["GDS", "Soporte", "24/7"]
+      },
+            {
+        "id": "agt_viajes",
+        "nombre": "Viajes AGT - Mayorista",
+        "enlace_portal": "https://reservas.viajesagt.com/es/login",
+        "logo": "img/delta.png",
+        "prioridad": "alta",
+        "urgente": true,
+        "tags": ["Aerolínea", "USA", "Soporte"]
+      },
+      {
+        "id": "RateHawk",
+        "nombre": "RateHawk - Portal GDS",
+        "enlace_portal": "https://www.ratehawk.com/accounts/login/",
+        "logo": "img/delta.png",
+        "prioridad": "alta",
+        "urgente": true,
+        "tags": ["Aerolínea", "USA", "Soporte"]
+      },
+        {
+        "id": "sol_mayorista_by_tropico",
+        "nombre": "Tropico Tours",
+        "enlace_portal": "https://tropicotours.com.do/login",
+        "logo": "img/delta.png",
+        "prioridad": "alta",
+        "urgente": true,
+        "tags": ["Aerolínea", "USA", "Soporte"]
+      },
+      {
+        "id": "sun_paradise_mayoristas_turisticos",
+        "nombre": "Tropico Tours",
+        "enlace_portal": "https://www.sunparadise.com.do/es/login",
+        "logo": "img/delta.png",
+        "prioridad": "alta",
+        "urgente": true,
+        "tags": ["Aerolínea", "USA", "Soporte"]
       }
     ],
 
@@ -122,15 +158,6 @@
         "id": "air_copa_facturacion_electronica",
         "nombre": "Copa Faturacion Electronica",
         "enlace_portal": "https://copado.getyourinvoice.com/",
-        "logo": "img/delta.png",
-        "prioridad": "alta",
-        "urgente": true,
-        "tags": ["Aerolínea", "USA", "Soporte"]
-      },
-      {
-        "id": "agt_viajes",
-        "nombre": "Viajes AGT - Mayorista",
-        "enlace_portal": "https://reservas.viajesagt.com/es/login",
         "logo": "img/delta.png",
         "prioridad": "alta",
         "urgente": true,
