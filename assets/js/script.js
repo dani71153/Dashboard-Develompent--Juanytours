@@ -76,7 +76,6 @@ function loadAviones(data) {
     crearElementoAviones(data, 5, contenedorAviones);
     crearElementoAviones(data, 6, contenedorAviones);
     crearElementoAviones(data, 7, contenedorAviones);
-    crearElementoAviones(data, 8, contenedorAviones);
 }
 
 
@@ -233,23 +232,24 @@ function crearElementoAviones(data,indice, contenedor) {
     linkAviones.textContent = ``; // Asigna el texto al elemento usando el valor de la informacion obtenida
     linkAviones.target = '_blank'; // Hace que el enlace se abra en una nueva pestaña
     linkAviones.rel = 'noopener noreferrer'; // Mejora la seguridad al abrir el enlace en una nueva pestaña
-    linkAviones.id = `hoteles-item-${indice}`;
+    linkAviones.id = `aviones-item-${indice}`;
 
     // --- LÓGICA DE PERSISTENCIA ---
     // Leemos la "libreta" para ver si ya había un estado guardado para este ID
-    const estadoGuardadoHoteles = localStorage.getItem(`hoteles-item-${indice}`);
+    const estadoGuardadAviones = localStorage.getItem(`aviones-item-${indice}`);
     
-    if (estadoGuardadoHoteles) {c
+    if (estadoGuardadAviones) {c
         // Si existe una nota guardada, la aplicamos de inmediato
-        linkAviones.style.display = estadoGuardadoHoteles;
+        linkAviones.style.display = estadoGuardadAviones;
     }
     // ------------------------------
     const imgAviones = document.createElement('img');
     imgAviones.src = proveedorAviones.logo; // Asigna la ruta de la imagen al atributo src del elemento
     imgAviones.alt = `${proveedorAviones.nombre} Logo`; // Asigna el texto alternativo al atributo alt del elemento
     imgAviones.title = `Visitar el portal de ${proveedorAviones.nombre}`; // Asigna el título al atributo title del elemento
-    imgAviones.style.width = '45px '; // Ajusta el tamaño de la imagen
-    imgAviones.style.height = 'auto';
+        // AÑADIMOS LA CLASE:
+    imgAviones.classList.add('logo-mayorista');
+    imgAviones.style.position = 'relative'; // Centra la imagen dentro del enlace  
     imgAviones.style.position = 'relative'; // Centra la imagen dentro del enlace  
     // Metemos la imagen DENTRO del enlace
     linkAviones.appendChild(imgAviones);

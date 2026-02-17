@@ -538,6 +538,8 @@ table tr:last-child td {
     display: block;
     margin: 0 auto;
     transition: var(--transition-smooth); /* Para que el cambio de tamaño sea suave */
+    filter: grayscale(20%); /* Opcional: un toque sutil para que el color resalte al pasar el mouse */
+    cursor: pointer;
 }
 
 /* Las Media Queries de Aspect Ratio están bien, 
@@ -553,4 +555,42 @@ table tr:last-child td {
     .logo-mayorista {
         width: 60vw;
     }
+}
+
+.logo-mayorista:hover {
+    transform: scale(1.08) translateY(-5px); /* Se agranda un poco y sube */
+    filter: grayscale(0%) drop-shadow(0 10px 15px rgba(6, 182, 212, 0.3)); /* Resalta el color y añade sombra */
+    z-index: 10; /* Se asegura de estar por encima de otros elementos */
+}
+
+.logo-aviones {
+    width: 280px; /* Tu valor inicial deseado */
+    max-width: 100%; /* <--- CRUCIAL: Evita que se corte */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    transition: var(--transition-smooth); /* Para que el cambio de tamaño sea suave */
+    filter: grayscale(20%); /* Opcional: un toque sutil para que el color resalte al pasar el mouse */
+    cursor: pointer;
+}
+
+/* Las Media Queries de Aspect Ratio están bien, 
+   pero asegúrate de que no tengan la clase repetida dentro */
+@media (min-aspect-ratio: 16/9) {
+    .logo-aviones {
+        width: 18vw; 
+        max-width: 350px; 
+    }
+}
+
+@media (max-aspect-ratio: 1/1) {
+    .logo-aviones {
+        width: 60vw;
+    }
+}
+
+.logo-aviones:hover {
+    transform: scale(1.08) translateY(-5px); /* Se agranda un poco y sube */
+    filter: grayscale(0%) drop-shadow(0 10px 15px rgba(6, 182, 212, 0.3)); /* Resalta el color y añade sombra */
+    z-index: 10; /* Se asegura de estar por encima de otros elementos */
 }

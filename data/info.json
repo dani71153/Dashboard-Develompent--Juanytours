@@ -11,7 +11,7 @@
         "id": "sky_high_dominicana",
         "nombre": "Sky High Dominicana - Portal GDS",
         "enlace_portal": "https://support.kiusys.com/portal/es/signin",
-        "logo": "assets/img/SkyHigh-GDS-V1.png",
+        "logo": "assets/img/mayoristas/SkyHigh-GDS-V1.png",
         "prioridad": "alta",
         "urgente": true,
         "tags": ["Aerolínea", "USA", "Soporte"]
@@ -20,7 +20,7 @@
         "id": "word_2_flight",
         "nombre": "Word2Flight - Portal GDS",
         "enlace_portal": "https://kiu.click/",
-        "logo": "assets/img/world2fly-gds-v1.png",
+        "logo": "assets/img/mayoristas/world2fly-gds-v1.png",
         "prioridad": "alta",
         "urgente": true,
         "tags": ["Aerolínea", "USA", "Soporte"]
@@ -29,7 +29,7 @@
         "id": "sti_corporate_travel",
         "nombre": "STI Corporate Travel-GDS",
         "enlace_portal": "https://sti.travellink.com.br/Agencias30/guiAutenticador.aspx",
-        "logo": "assets/img/STICorporate-GDS-V1.png",
+        "logo": "assets/img/mayoristas/STICorporate-GDS-V1.png",
         "prioridad": "alta",
         "urgente": false,
         "tags": ["GDS", "Reservas", "Aerolíneas"]
@@ -38,7 +38,7 @@
         "id": "grupo_vdt",
         "nombre": "Grupo VDT - Dominicana",
         "enlace_portal": "https://www.grupovdt.com.do/wtc/do/vuelos/AppLogin.aspx",
-        "logo": "assets/img/grupovdt-gds-v1.png",
+        "logo": "assets/img/mayoristas/grupovdt-gds-v1.png",
         "prioridad": "alta",
         "urgente": true,
         "tags": ["GDS", "Soporte", "24/7"]
@@ -47,7 +47,7 @@
         "id": "logitur_mayorista",
         "nombre": "Logitur - Dominicana",
         "enlace_portal": "https://reservas.viajeslogitur.com/es/login",
-        "logo": "assets/img/logitur-gds-v1.png",
+        "logo": "assets/img/mayoristas/logitur-gds-v1.png",
         "prioridad": "alta",
         "urgente": true,
         "tags": ["GDS", "Soporte", "24/7"]
@@ -56,7 +56,7 @@
         "id": "agt_viajes",
         "nombre": "Viajes AGT - Mayorista",
         "enlace_portal": "https://reservas.viajesagt.com/es/login",
-        "logo": "assets/img/agt-gds-v1.png",
+        "logo": "assets/img/mayoristas/agt-gds-v1.png",
         "prioridad": "alta",
         "urgente": true,
         "tags": ["Aerolínea", "USA", "Soporte"]
@@ -65,7 +65,7 @@
         "id": "RateHawk",
         "nombre": "RateHawk - Portal GDS",
         "enlace_portal": "https://www.ratehawk.com/accounts/login/",
-        "logo": "assets/img/Ratehawk-loginv1.png",
+        "logo": "assets/img/mayoristas/Ratehawk-loginv1.png",
         "prioridad": "alta",
         "urgente": true,
         "tags": ["Aerolínea", "USA", "Soporte"]
@@ -74,7 +74,7 @@
         "id": "sun_paradise_mayoristas_turisticos",
         "nombre": "Tropico Tours",
         "enlace_portal": "https://www.sunparadise.com.do/es/login",
-        "logo": "assets/img/tropicotours-gds.png",
+        "logo": "assets/img/mayoristas/tropicotours-gds.png",
         "prioridad": "alta",
         "urgente": true,
         "tags": ["Aerolínea", "USA", "Soporte"]
@@ -86,7 +86,7 @@
         "id": "air_arajet",
         "nombre": "Arajet Portal de Ventas",
         "enlace_portal": "https://ezy.arajet.com/es/ta",
-        "logo": "img/iberia.png",
+        "logo": "assets/img/vuelos/Arajet-portalventas-v1.png",
         "prioridad": "media",
         "urgente": false,
         "tags": ["Aerolínea", "Europa"]
@@ -95,7 +95,7 @@
         "id": "air_arajet",
         "nombre": "Arajet Portal Principal",
         "enlace_portal": "https://www.arajet.com",
-        "logo": "img/delta.png",
+        "logo": "assets/img/vuelos/Arajet-portalprincipal-v1.png",
         "prioridad": "alta",
         "urgente": true,
         "tags": ["Aerolínea", "USA", "Soporte"]
@@ -104,7 +104,7 @@
         "id": "air_copa",
         "nombre": "Copa Airlines",
         "enlace_portal": "https://www.copaair.com/",
-        "logo": "img/delta.png",
+        "logo": "assets/img/vuelos/copaairlines-portalprincipal-v1.png",
         "prioridad": "alta",
         "urgente": true,
         "tags": ["Aerolínea", "USA", "Soporte"]
@@ -113,7 +113,7 @@
         "id": "air_copa_connect_miles",
         "nombre": "Copa Connect Miles",
         "enlace_portal": "https://cm.farelogix.com/sprk/",
-        "logo": "img/delta.png",
+        "logo": "assets/img/vuelos/copaconnect-portalgds-v1.png",
         "prioridad": "alta",
         "urgente": true,
         "tags": ["Aerolínea", "USA", "Soporte"]
@@ -122,7 +122,7 @@
         "id": "air_copa_checking",
         "nombre": "Copa Check-In",
         "enlace_portal": "https://checkin.copaair.com/",
-        "logo": "img/delta.png",
+        "logo": "assets/img/vuelos/copaairlines-checkinv1.png",
         "prioridad": "alta",
         "urgente": true,
         "tags": ["Aerolínea", "USA", "Soporte"]
