@@ -131,7 +131,7 @@
         "id": "air_copa_flight_status",
         "nombre": "Copa Flight Status",
         "enlace_portal": "https://www.copaair.com/es-gs/flight-status/",
-        "logo": "img/delta.png",
+        "logo": "assets/img/vuelos/copaairlines-estatusvuelo-v1.png",
         "prioridad": "alta",
         "urgente": true,
         "tags": ["Aerolínea", "USA", "Soporte"]
@@ -140,7 +140,7 @@
         "id": "air_copa_flight_requirements",
         "nombre": "Copa Flight Requirements",
         "enlace_portal": "https://www.copaair.com/es-gs/requisitos-de-viaje",
-        "logo": "img/delta.png",
+        "logo": "assets/img/vuelos/copaairlines-requisitosviajes-v1.png",
         "prioridad": "alta",
         "urgente": true,
         "tags": ["Aerolínea", "USA", "Soporte"]
@@ -149,7 +149,7 @@
         "id": "air_copa_facturacion_electronica",
         "nombre": "Copa Faturacion Electronica",
         "enlace_portal": "https://copado.getyourinvoice.com/",
-        "logo": "img/delta.png",
+        "logo": "assets/img/vuelos/copaairlines-facturacion-v1.png",
         "prioridad": "alta",
         "urgente": true,
         "tags": ["Aerolínea", "USA", "Soporte"]
