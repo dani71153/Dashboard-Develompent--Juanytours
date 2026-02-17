@@ -530,3 +530,27 @@ table tr:last-child td {
     gap: 15px;              /* Deja un espacio elegante entre logos */
     align-items: flex-start; /* Los alinea a la izquierda */
 }
+
+.logo-mayorista {
+    width: 280px; /* Tu valor inicial deseado */
+    max-width: 100%; /* <--- CRUCIAL: Evita que se corte */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    transition: var(--transition-smooth); /* Para que el cambio de tamaño sea suave */
+}
+
+/* Las Media Queries de Aspect Ratio están bien, 
+   pero asegúrate de que no tengan la clase repetida dentro */
+@media (min-aspect-ratio: 16/9) {
+    .logo-mayorista {
+        width: 18vw; 
+        max-width: 350px; 
+    }
+}
+
+@media (max-aspect-ratio: 1/1) {
+    .logo-mayorista {
+        width: 60vw;
+    }
+}

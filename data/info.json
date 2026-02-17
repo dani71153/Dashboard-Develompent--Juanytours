@@ -11,7 +11,7 @@
         "id": "sky_high_dominicana",
         "nombre": "Sky High Dominicana - Portal GDS",
         "enlace_portal": "https://support.kiusys.com/portal/es/signin",
-        "logo": "img/delta.png",
+        "logo": "assets/img/SkyHigh-GDS-V1.png",
         "prioridad": "alta",
         "urgente": true,
         "tags": ["Aerolínea", "USA", "Soporte"]
@@ -20,7 +20,7 @@
         "id": "word_2_flight",
         "nombre": "Word2Flight - Portal GDS",
         "enlace_portal": "https://kiu.click/",
-        "logo": "img/delta.png",
+        "logo": "assets/img/world2fly-gds-v1.png",
         "prioridad": "alta",
         "urgente": true,
         "tags": ["Aerolínea", "USA", "Soporte"]
@@ -29,7 +29,7 @@
         "id": "sti_corporate_travel",
         "nombre": "STI Corporate Travel-GDS",
         "enlace_portal": "https://sti.travellink.com.br/Agencias30/guiAutenticador.aspx",
-        "logo": "img/amadeus.png",
+        "logo": "assets/img/STICorporate-GDS-V1.png",
         "prioridad": "alta",
         "urgente": false,
         "tags": ["GDS", "Reservas", "Aerolíneas"]
@@ -38,7 +38,7 @@
         "id": "grupo_vdt",
         "nombre": "Grupo VDT - Dominicana",
         "enlace_portal": "https://www.grupovdt.com.do/wtc/do/vuelos/AppLogin.aspx",
-        "logo": "img/sabre.png",
+        "logo": "assets/img/grupovdt-gds-v1.png",
         "prioridad": "alta",
         "urgente": true,
         "tags": ["GDS", "Soporte", "24/7"]
@@ -47,7 +47,7 @@
         "id": "logitur_mayorista",
         "nombre": "Logitur - Dominicana",
         "enlace_portal": "https://reservas.viajeslogitur.com/es/login",
-        "logo": "img/sabre.png",
+        "logo": "assets/img/logitur-gds-v1.png",
         "prioridad": "alta",
         "urgente": true,
         "tags": ["GDS", "Soporte", "24/7"]
@@ -56,7 +56,7 @@
         "id": "agt_viajes",
         "nombre": "Viajes AGT - Mayorista",
         "enlace_portal": "https://reservas.viajesagt.com/es/login",
-        "logo": "img/delta.png",
+        "logo": "assets/img/agt-gds-v1.png",
         "prioridad": "alta",
         "urgente": true,
         "tags": ["Aerolínea", "USA", "Soporte"]
@@ -65,16 +65,7 @@
         "id": "RateHawk",
         "nombre": "RateHawk - Portal GDS",
         "enlace_portal": "https://www.ratehawk.com/accounts/login/",
-        "logo": "img/delta.png",
-        "prioridad": "alta",
-        "urgente": true,
-        "tags": ["Aerolínea", "USA", "Soporte"]
-      },
-        {
-        "id": "sol_mayorista_by_tropico",
-        "nombre": "Tropico Tours",
-        "enlace_portal": "https://tropicotours.com.do/login",
-        "logo": "img/delta.png",
+        "logo": "assets/img/Ratehawk-loginv1.png",
         "prioridad": "alta",
         "urgente": true,
         "tags": ["Aerolínea", "USA", "Soporte"]
@@ -83,7 +74,7 @@
         "id": "sun_paradise_mayoristas_turisticos",
         "nombre": "Tropico Tours",
         "enlace_portal": "https://www.sunparadise.com.do/es/login",
-        "logo": "img/delta.png",
+        "logo": "assets/img/tropicotours-gds.png",
         "prioridad": "alta",
         "urgente": true,
         "tags": ["Aerolínea", "USA", "Soporte"]

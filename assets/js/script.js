@@ -49,7 +49,6 @@ function loadMayoristas(data) {
     crearElementoMayoristas(data, 5, contenedor);
     crearElementoMayoristas(data, 6, contenedor);
     crearElementoMayoristas(data, 7, contenedor);
-    crearElementoMayoristas(data, 8, contenedor);
 }
 
 function loadHoteles(data) {
@@ -116,8 +115,8 @@ function crearElementoMayoristas(data,indice, contenedor) {
     imgtestmayoristas.src = proveedor.logo; // Asigna la ruta de la imagen al atributo src del elemento
     imgtestmayoristas.alt = `${proveedor.nombre} Logo`; // Asigna el texto alternativo al atributo alt del elemento
     imgtestmayoristas.title = `Visitar el portal de ${proveedor.nombre}`; // Asigna el título al atributo title del elemento
-    imgtestmayoristas.style.width = '45px '; // Ajusta el tamaño de la imagen
-    imgtestmayoristas.style.height = 'auto';
+    // AÑADIMOS LA CLASE:
+    imgtestmayoristas.classList.add('logo-mayorista');
     imgtestmayoristas.style.position = 'relative'; // Centra la imagen dentro del enlace  
     // Metemos la imagen DENTRO del enlace
     linkgmayoristas.appendChild(imgtestmayoristas);
