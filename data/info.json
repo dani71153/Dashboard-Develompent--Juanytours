@@ -1,47 +1,177 @@
-
 {
   "dashboard_info": {
-    "empresa": "Juanytours",
+    "empresa": "Nombre de tu Empresa",
     "version": "1.0",
     "ultima_sincronizacion": "2026-02-12T12:20:00Z"
   },
-  "proveedores": [
-    {
-      "id": "prov_001",
-      "nombre": "Soporte Servidores (AWS)",
-      "servicio": "Infraestructura Cloud",
-      "contacto_directo": "soporte.tecnico@aws.com",
-      "telefono_emergencia": "+34 900 123 456",
-      "urgente": true,
-      "prioridad": "crítica",
-      "tags": ["IT", "24/7", "Infraestructura"],
-      "enlace_portal": "https://console.aws.amazon.com",
-      "logo": "https://logoeps.com/wp-content/uploads/2014/02/36852-amazon-logo-icon-vector-icon-vector-eps.png"
-    },
-    {
-      "id": "prov_002",
-      "nombre": "Logística Express",
-      "servicio": "Transporte de Mercancía",
-      "contacto_directo": "operaciones@logistica.com",
-      "telefono_emergencia": "+34 911 222 333",
-      "urgente": true,
-      "prioridad": "alta",
-      "tags": ["Logística", "Nacional", "Urgente"],
-      "enlace_portal": "https://taringa.net",
-      "logo": "https://www.sociedaduruguaya.org/wp-content/uploads/2015/01/taringa.jpg"
-    },
-    {
-      "id": "prov_003",
-      "nombre": "Suministros Oficina S.L.",
-      "servicio": "Papelería y Material",
-      "contacto_directo": "pedidos@suministros.com",
-      "telefono_emergencia": null,
-      "urgente": false,
-      "prioridad": "baja",
-      "tags": ["Administración", "Reposición"],
-      "enlace_portal": "https://tienda.suministros.com"
-    }
-  ],
+
+  "categorias": {
+    "gds": [
+      {
+        "id": "sky_high_dominicana",
+        "nombre": "Sky High Dominicana - Portal GDS",
+        "enlace_portal": "https://support.kiusys.com/portal/es/signin",
+        "logo": "img/delta.png",
+        "prioridad": "alta",
+        "urgente": true,
+        "tags": ["Aerolínea", "USA", "Soporte"]
+      },
+       {
+        "id": "word_2_flight",
+        "nombre": "Word2Flight - Portal GDS",
+        "enlace_portal": "https://kiu.click/",
+        "logo": "img/delta.png",
+        "prioridad": "alta",
+        "urgente": true,
+        "tags": ["Aerolínea", "USA", "Soporte"]
+      },
+      {
+        "id": "sti_corporate_travel",
+        "nombre": "STI Corporate Travel-GDS",
+        "enlace_portal": "https://sti.travellink.com.br/Agencias30/guiAutenticador.aspx",
+        "logo": "img/amadeus.png",
+        "prioridad": "alta",
+        "urgente": false,
+        "tags": ["GDS", "Reservas", "Aerolíneas"]
+      },
+      {
+        "id": "grupo_vdt",
+        "nombre": "Grupo VDT - Dominicana",
+        "enlace_portal": "https://www.grupovdt.com.do/wtc/do/vuelos/AppLogin.aspx",
+        "logo": "img/sabre.png",
+        "prioridad": "alta",
+        "urgente": true,
+        "tags": ["GDS", "Soporte", "24/7"]
+      },
+      {
+        "id": "logitur_mayorista",
+        "nombre": "Logitur - Dominicana",
+        "enlace_portal": "https://reservas.viajeslogitur.com/es/login",
+        "logo": "img/sabre.png",
+        "prioridad": "alta",
+        "urgente": true,
+        "tags": ["GDS", "Soporte", "24/7"]
+      }
+    ],
+
+    "aviones": [
+      {
+        "id": "air_arajet",
+        "nombre": "Arajet Portal de Ventas",
+        "enlace_portal": "https://ezy.arajet.com/es/ta",
+        "logo": "img/iberia.png",
+        "prioridad": "media",
+        "urgente": false,
+        "tags": ["Aerolínea", "Europa"]
+      },
+                   {
+        "id": "air_arajet",
+        "nombre": "Arajet Portal Principal",
+        "enlace_portal": "https://www.arajet.com",
+        "logo": "img/delta.png",
+        "prioridad": "alta",
+        "urgente": true,
+        "tags": ["Aerolínea", "USA", "Soporte"]
+      },
+      {
+        "id": "air_copa",
+        "nombre": "Copa Airlines",
+        "enlace_portal": "https://www.copaair.com/",
+        "logo": "img/delta.png",
+        "prioridad": "alta",
+        "urgente": true,
+        "tags": ["Aerolínea", "USA", "Soporte"]
+      },
+      {
+        "id": "air_copa_connect_miles",
+        "nombre": "Copa Connect Miles",
+        "enlace_portal": "https://cm.farelogix.com/sprk/",
+        "logo": "img/delta.png",
+        "prioridad": "alta",
+        "urgente": true,
+        "tags": ["Aerolínea", "USA", "Soporte"]
+      },
+      {
+        "id": "air_copa_checking",
+        "nombre": "Copa Check-In",
+        "enlace_portal": "https://checkin.copaair.com/",
+        "logo": "img/delta.png",
+        "prioridad": "alta",
+        "urgente": true,
+        "tags": ["Aerolínea", "USA", "Soporte"]
+      },
+      {
+        "id": "air_copa_flight_status",
+        "nombre": "Copa Flight Status",
+        "enlace_portal": "https://www.copaair.com/es-gs/flight-status/",
+        "logo": "img/delta.png",
+        "prioridad": "alta",
+        "urgente": true,
+        "tags": ["Aerolínea", "USA", "Soporte"]
+      },
+       {
+        "id": "air_copa_flight_requirements",
+        "nombre": "Copa Flight Requirements",
+        "enlace_portal": "https://www.copaair.com/es-gs/requisitos-de-viaje",
+        "logo": "img/delta.png",
+        "prioridad": "alta",
+        "urgente": true,
+        "tags": ["Aerolínea", "USA", "Soporte"]
+      },
+             {
+        "id": "air_copa_facturacion_electronica",
+        "nombre": "Copa Faturacion Electronica",
+        "enlace_portal": "https://copado.getyourinvoice.com/",
+        "logo": "img/delta.png",
+        "prioridad": "alta",
+        "urgente": true,
+        "tags": ["Aerolínea", "USA", "Soporte"]
+      },
+      {
+        "id": "agt_viajes",
+        "nombre": "Viajes AGT - Mayorista",
+        "enlace_portal": "https://reservas.viajesagt.com/es/login",
+        "logo": "img/delta.png",
+        "prioridad": "alta",
+        "urgente": true,
+        "tags": ["Aerolínea", "USA", "Soporte"]
+      }
+    ],
+
+    "hoteles": [
+      {
+        "id": "hotel_booking",
+        "nombre": "Booking",
+        "enlace_portal": "https://...",
+        "logo": "img/booking.png",
+        "prioridad": "baja",
+        "urgente": false,
+        "tags": ["Hoteles", "Reservas"]
+      },
+        {
+        "id": "checkin_group",
+        "nombre": "Check-in Group",
+        "enlace_portal": "https://www.checkingroup.com",
+        "logo": "img/sabre.png",
+        "prioridad": "alta",
+        "urgente": true,
+        "tags": ["GDS", "Soporte", "24/7"]
+      }
+    ],
+
+    "renta_vehiculos": [
+      {
+        "id": "rent_hertz",
+        "nombre": "Hertz",
+        "enlace_portal": "https://...",
+        "logo": "img/hertz.png",
+        "prioridad": "media",
+        "urgente": false,
+        "tags": ["Vehículos", "Renta", "Viajes"]
+      }
+    ]
+  },
+
   "herramientas_internas": [
     {
       "id": "app_001",

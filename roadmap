@@ -1,0 +1,4 @@
+Agregar una funcion que al momento de ejecutarse al cargar la pagina lea la memoria guardada de los estados del sistema.
+Completar la pestaña de Opciones.
+Agregar los proveedores y sus logins.
+Construir una funcion que haga de interfaz de escucha remota entre las distintas partes al abrir una nueva pestaña para mis Opciones

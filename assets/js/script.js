@@ -15,9 +15,19 @@ async function JsonFetch() {
     // console.log(data.version);
 
     loadGDS(data); 
-
     return data;
 };
+
+function loadOptions(){
+
+// Buscamos el botón por su ID
+const boton = document.getElementById('btnAbrir');
+
+// Le asignamos la función cuando alguien haga clic
+boton.addEventListener('click', function() {
+    window.open("pages/settings.html", "_blank", "width=600,height=400");
+}); 
+}
 
 
 /**
@@ -31,6 +41,12 @@ function loadGDS(data) {
     contenedor.innerHTML = ''; 
     crearElementoGDS(data, 0, contenedor);
     crearElementoGDS(data, 1, contenedor);
+    crearElementoGDS(data, 2, contenedor);
+    crearElementoGDS(data, 3, contenedor);
+    crearElementoGDS(data, 4, contenedor);
+    crearElementoGDS(data, 5, contenedor);
+    crearElementoGDS(data, 6, contenedor);
+    crearElementoGDS(data, 7, contenedor);
 }
 
 
@@ -46,7 +62,7 @@ function loadGDS(data) {
  */
 function crearElementoGDS(data,indice, contenedor) {
 
-    const proveedor =data.proveedores[indice]; // Obtiene el proveedor específico del arreglo de proveedores usando el índice proporcionado
+    const proveedor =data.categorias.gds[indice]; // Obtiene el proveedor específico del arreglo de proveedores usando el índice proporcionado
 
     const linkgds = document.createElement('a');
     linkgds.href = proveedor.enlace_portal; // Asigna el enlace al atributo href del elemento
@@ -80,41 +96,32 @@ function crearElementoGDS(data,indice, contenedor) {
 
 function showGDS() {
     const gdsList = document.getElementById('toggle-gds'); 
-    //Seguimos la misma logica anterior, buscamos el elemento que queremos trabajar por Identificador, en este caso
-    //Seleccionamos los botones y la caja que quiero hacer invisible.
+    // Seguimos la misma logica anterior, buscamos el elemento que queremos trabajar por Identificador, en este caso
+    // Seleccionamos los botones y la caja que quiero hacer invisible.
     const sectionContainer = document.getElementById('section-gds');
 
+    // setupVisualSync('toggle-gds', section-gds, gdsList);
 
-    // --- BLOQUE DE RECUPERACIÓN (LEER AL CARGAR) ---
-    // Apenas se ejecuta la función, preguntamos: "¿Había algo guardado?"
-    const savedStatus = localStorage.getItem('toggle-gds');
+    gdsList.addEventListener('click', function() {
 
-    if (savedStatus) {
-        // Aplicamos el estilo guardado (block o none)
-        sectionContainer.style.display = savedStatus;
-        // Actualizamos el texto del botón para que coincida
-        gdsList.textContent = (savedStatus === 'none') ? 'Mostrar GDS' : 'Ocultar GDS';
-    }
-    
-    //Agregamos un trigger de eventos, y dentro del trigger de eventos definimos la accion que se va a tomar
-    // cuando se haga ese evento, es basicamente lo que se espera que suceda al presionar el elemento que llame del DOM
-    //Al clickearlo se dispara la funcion y ejecuta las condicionales que ameritan.
-    gdsList.addEventListener('click', function(){
-
-        if(sectionContainer.style.display == 'none'){ //Si, no se muestra, se pasa al else.
-            sectionContainer.style.display='block';
-            gdsList.textContent = 'Ocultar GDS'; //Definimos el cambio de texto
-        }else {
-
-            sectionContainer.style.display='none';
+        // MEJORA: Añadimos || sectionContainer.style.display === '' 
+        // porque a veces el JS no lee el CSS externo en el primer clic.
+        if (sectionContainer.style.display === 'none' || sectionContainer.style.display === '') { 
+            sectionContainer.style.display = 'block';
+            gdsList.textContent = 'Ocultar GDS'; // Definimos el cambio de texto
+        } else {
+            sectionContainer.style.display = 'none';
             gdsList.textContent = 'Mostrar GDS'; 
         }
+
         // --- BLOQUE DE PERSISTENCIA (GUARDAR) ---
         // Guardamos el estado bajo el ID del elemento
-        localStorage.setItem('toggle-gds', sectionContainer.style.display);
-    });
+        // localStorage.setItem('toggle-gds', sectionContainer.style.display);
+        gestionarPersistencia('toggle-gds',sectionContainer,'toggle-gds','gds');
+    }); // <--- AQUÍ CERRAMOS EL LISTENER DEL CLICK
 
-}
+
+} // <--- CIERRE FINAL DE LA FUNCIÓN showGDS
 
 function showHoteles() {
     const hotelsList = document.getElementById('toggle-hotels'); 
@@ -207,19 +214,144 @@ function toggleProveedorEspecifico(indice) {
     }
 }
 
+/**
+ * Lee las preferencias guardadas y sincroniza el estado de la interfaz al iniciar.
+ * * Este método utiliza un sistema de "Clave-Valor" (Key-Value):
+ * 1. Key (Clave): Es el nombre de la "carpeta" en LocalStorage donde reside el dato.
+ * 2. ID: Es la dirección del elemento en el HTML para aplicar los cambios visuales.
+ * * @example
+ * // Si la Key 'toggle-hotels' tiene el Valor 'none', 
+ * // la función ocultará la sección y cambiará el texto del botón.
+ */
+async function cargarEstadoPersistente() {
 
-document.addEventListener('DOMContentLoaded', JsonFetch); //Esto hace que el navegador espere a que este cargado todo para ejecutar la funcion
-document.addEventListener('DOMContentLoaded',showGDS);
-document.addEventListener('DOMContentLoaded',showHoteles);
-document.addEventListener('DOMContentLoaded',showFlights);
-document.addEventListener('DOMContentLoaded',showCarRentals);
+    // Definimos un mapa de las secciones que queremos persistir
+    // ID del botón : { idSeccion: 'id', textoMostrar: '...', textoOcultar: '...', storageKey: '...' }
+    const configuraciones = [
+        { btn: 'toggle-gds', section: 'section-gds', key: 'toggle-gds', label: 'GDS' },
+        { btn: 'toggle-hotels', section: 'section-hoteles', key: 'toggle-hotels', label: 'Hoteles' },
+        { btn: 'toggle-airplanes', section: 'section-aviones', key: 'toggle-airplanes', label: 'Aviones' },
+        { btn: 'toggle-cars', section: 'section-renta', key: 'toggle-cars', label: 'RentCar' }
+    ];
+
+    configuraciones.forEach(conf => { //no se usar un for en cada uno, pero me imagino que esta leyendo 
+        const btn = document.getElementById(conf.btn);
+        const section = document.getElementById(conf.section);
+        const savedStatus = localStorage.getItem(conf.key);
+
+        if (savedStatus && section && btn) {
+            section.style.display = savedStatus;
+            btn.textContent = (savedStatus === 'none') ? `Mostrar ${conf.label}` : `Ocultar ${conf.label}`;
+        }
+    });
+}
+
+
+/**
+ * Persiste la visibilidad de un módulo en la memoria del navegador y actualiza la interfaz.
+ * * @param {string} key - El nombre de la "carpeta" o etiqueta en LocalStorage. 
+ * Es independiente del ID del botón; sirve para recuperar el dato 
+ * aunque el diseño del HTML cambie en el futuro.
+ * @param {HTMLElement} seccion - El contenedor físico (div, section) que queremos ocultar o mostrar.
+ * @param {HTMLElement} boton - El elemento del DOM (botón/enlace) que recibe el clic.
+ * @param {string} etiqueta - El nombre legible (ej: "Vuelos") para construir el texto dinámico.
+ */
+function guardarPreferenciaUI(key, seccion, boton, etiqueta) {
+    // 1. Capturamos el estado actual de la sección
+    const estadoActual = seccion.style.display;
+    
+    // 2. Guardamos en el "archivador" (LocalStorage) bajo la etiqueta 'key'
+    localStorage.setItem(key, estadoActual);
+    
+    // 3. Actualizamos el texto del botón basándonos en el estado recién guardado
+    boton.textContent = (estadoActual === 'none') ? `Mostrar ${etiqueta}` : `Ocultar ${etiqueta}`;
+}
+
+function gestionarPersistencia(key, seccion, boton, etiqueta) {
+    const estadoActual = seccion.style.display;
+    
+    // 1. Guardamos en la "memoria" del navegador
+    localStorage.setItem(key, estadoActual);
+    
+    // 2. Actualizamos el texto del botón según el estado
+    boton.textContent = (estadoActual === 'none') ? `Mostrar ${etiqueta}` : `Ocultar ${etiqueta}`;
+    
+    console.log(`Estado de ${etiqueta} guardado: ${estadoActual}`);
+}
+
+
+/**
+ * Sincroniza un elemento y un botón basado en una clave de LocalStorage
+ * @param {string} key - Clave de LocalStorage (ej: 'toggle-gds')
+ * @param {HTMLElement} container - El contenedor que se oculta/muestra
+ * @param {HTMLElement} trigger - El botón que cambia de texto
+ */
+function setupVisualSync(key, container, trigger) {
+    const updateUI = (value) => {
+        // Si el valor es nulo (no existe en storage), no hacemos nada
+        if (value === null) return;
+        
+        container.style.display = value;
+        // Usamos una lógica similar a tus labels
+        const etiqueta = key.replace('toggle-', '').toUpperCase(); 
+        trigger.textContent = (value === 'none') ? `Mostrar ${etiqueta}` : `Ocultar ${etiqueta}`;
+    };
+
+    // Escucha cambios de OTRAS pestañas (Ajustes -> Index)
+    window.addEventListener('storage', (event) => {
+        if (event.key === key) {
+            updateUI(event.newValue);
+        }
+    });
+
+    // Carga el estado inicial nada más arrancar
+    updateUI(localStorage.getItem(key));
+}
+
+// Unificamos todo en un solo escuchador para controlar el ORDEN
+document.addEventListener('DOMContentLoaded', async () => {
+    console.log("Iniciando carga de la aplicación...");
+
+    // 1. ESPERAMOS a que el JSON cargue y renderice (loadGDS)
+    // Sin el 'await', el código sigue de largo antes de que existan los GDS
+    await JsonFetch(); 
+
+    // 2. Inicializamos los escuchadores de clics (Event Listeners)
+    showGDS();
+    showHoteles();
+    showFlights();
+    showCarRentals();
+    loadOptions();
+    // 3. AHORA SÍ, cargamos la memoria. 
+    // Como pusimos 'await' arriba, aquí los elementos ya existen en el HTML.
+    cargarEstadoPersistente();
+    
+    console.log("Interfaz sincronizada con LocalStorage");
+});
+
+
 document.getElementById('ocultar-primero').addEventListener('click', function() {
     toggleProveedorEspecifico(0); // Llama a la función para el índice 0
 }); 
-// Buscamos el botón por su ID
-const boton = document.getElementById('btnAbrir');
 
-// Le asignamos la función cuando alguien haga clic
-boton.addEventListener('click', function() {
-    window.open("https://www.google.com", "_blank", "width=600,height=400");
+/**
+ * PUENTE DE COMUNICACIÓN
+ * Expone la función de carga para que 'settings.js' pueda activarla.
+ * Al usar windows.funcion() estoy declarando una funcion global en el contexto de la ventana
+ */
+window.aplicarCambios = function() {
+    console.log("Recibida orden desde la ventana de opciones...");
+    cargarEstadoPersistente(); 
+};
+
+/**
+ * ESCUCHADOR AUTOMÁTICO
+ * Si la ventana de opciones cambia el LocalStorage, esto actualiza el Index
+ * aunque no uses window.opener.
+ */
+window.addEventListener('storage', (event) => {
+    // Si el cambio en la memoria es sobre nuestros botones
+    if (event.key.startsWith('toggle-')) {
+        cargarEstadoPersistente();
+    }
 });

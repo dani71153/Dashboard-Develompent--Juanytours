@@ -1,0 +1,63 @@
+
+{
+  "dashboard_info": {
+    "empresa": "Juanytours",
+    "version": "1.0",
+    "ultima_sincronizacion": "2026-02-12T12:20:00Z"
+  },
+  "proveedores": [
+    {
+      "id": "prov_001",
+      "nombre": "Soporte Servidores (AWS)",
+      "servicio": "Infraestructura Cloud",
+      "contacto_directo": "soporte.tecnico@aws.com",
+      "telefono_emergencia": "+34 900 123 456",
+      "urgente": true,
+      "prioridad": "crítica",
+      "tags": ["IT", "24/7", "Infraestructura"],
+      "enlace_portal": "https://console.aws.amazon.com",
+      "logo": "https://logoeps.com/wp-content/uploads/2014/02/36852-amazon-logo-icon-vector-icon-vector-eps.png"
+    },
+    {
+      "id": "prov_002",
+      "nombre": "Logística Express",
+      "servicio": "Transporte de Mercancía",
+      "contacto_directo": "operaciones@logistica.com",
+      "telefono_emergencia": "+34 911 222 333",
+      "urgente": true,
+      "prioridad": "alta",
+      "tags": ["Logística", "Nacional", "Urgente"],
+      "enlace_portal": "https://taringa.net",
+      "logo": "https://www.sociedaduruguaya.org/wp-content/uploads/2015/01/taringa.jpg"
+    },
+    {
+      "id": "prov_003",
+      "nombre": "Suministros Oficina S.L.",
+      "servicio": "Papelería y Material",
+      "contacto_directo": "pedidos@suministros.com",
+      "telefono_emergencia": null,
+      "urgente": false,
+      "prioridad": "baja",
+      "tags": ["Administración", "Reposición"],
+      "enlace_portal": "https://tienda.suministros.com"
+    }
+  ],
+  "herramientas_internas": [
+    {
+      "id": "app_001",
+      "nombre": "Gestor de Incidencias",
+      "acceso_url": "https://tickets.empresa.com",
+      "categoria": "Soporte",
+      "icono": "bug_report",
+      "requiere_vpn": true
+    },
+    {
+      "id": "app_002",
+      "nombre": "Portal de Facturación",
+      "acceso_url": "https://facturas.empresa.com",
+      "categoria": "Finanzas",
+      "icono": "receipt_long",
+      "requiere_vpn": false
+    }
+  ]
+}
