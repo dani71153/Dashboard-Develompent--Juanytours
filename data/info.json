@@ -160,17 +160,26 @@
       {
         "id": "hotel_booking",
         "nombre": "Booking",
-        "enlace_portal": "https://...",
-        "logo": "img/booking.png",
+        "enlace_portal": "https://www.booking.com/",
+        "logo": "assets/img/hoteles/booking-logo-v1.png",
         "prioridad": "baja",
         "urgente": false,
         "tags": ["Hoteles", "Reservas"]
       },
         {
+        "id": "tripadvisor",
+        "nombre": "TripAdvidsor",
+        "enlace_portal": "https://www.tripadvisor.com/",
+        "logo": "assets/img/hoteles/tripadvisor-logo-v1.png",
+        "prioridad": "alta",
+        "urgente": true,
+        "tags": ["GDS", "Soporte", "24/7"]
+      },
+        {
         "id": "checkin_group",
-        "nombre": "Check-in Group",
-        "enlace_portal": "https://www.checkingroup.com",
-        "logo": "img/sabre.png",
+        "nombre": "CheckIN Group",
+        "enlace_portal": "https://booking.checkingrouprd.com/es/login/",
+        "logo": "assets/img/hoteles/checkingroup-logo-v1.png",
         "prioridad": "alta",
         "urgente": true,
         "tags": ["GDS", "Soporte", "24/7"]

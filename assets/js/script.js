@@ -20,17 +20,29 @@ async function JsonFetch() {
     return data;
 };
 
-function loadOptions(){
+function loadOptions() {
+    // 1. Referencias a los elementos del DOM
+    const modal = document.getElementById('modalOpciones');
+    const btnAbrir = document.getElementById('btnAbrir');
+    const btnCerrar = document.getElementById('btnCerrar');
 
-// Buscamos el botón por su ID
-const boton = document.getElementById('btnAbrir');
+    // 2. Abrir el modal
+    btnAbrir.addEventListener('click', () => {
+        modal.style.display = 'block';
+    });
 
-// Le asignamos la función cuando alguien haga clic
-boton.addEventListener('click', function() {
-    window.open("pages/settings.html", "_blank", "width=600,height=400");
-}); 
+    // 3. Cerrar el modal al hacer clic en la (X)
+    btnCerrar.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    // 4. Cerrar el modal si el usuario hace clic FUERA de la caja blanca
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
 }
-
 
 /**
  * Carga los enlaces e imágenes de los proveedores de GDS en el DOM.
@@ -56,7 +68,7 @@ function loadHoteles(data) {
     contenedorHoteles.innerHTML = ''; 
     crearElementoHoteles(data, 0, contenedorHoteles);
     crearElementoHoteles(data, 1, contenedorHoteles);
-    // crearElementoHoteles(data, 2, contenedorHoteles);
+    crearElementoHoteles(data, 2, contenedorHoteles);
     // crearElementoHoteles(data, 3, contenedorHoteles);
     // crearElementoHoteles(data, 4, contenedorHoteles);
     // crearElementoHoteles(data, 5, contenedorHoteles);
@@ -172,7 +184,7 @@ function crearElementoHoteles(data,indice, contenedor) {
     // Leemos la "libreta" para ver si ya había un estado guardado para este ID
     const estadoGuardadoHoteles = localStorage.getItem(`hoteles-item-${indice}`);
     
-    if (estadoGuardadoHoteles) {c
+    if (estadoGuardadoHoteles) {
         // Si existe una nota guardada, la aplicamos de inmediato
         linkHoteles.style.display = estadoGuardadoHoteles;
     }
@@ -181,8 +193,7 @@ function crearElementoHoteles(data,indice, contenedor) {
     imgHoteles.src = proveedorHoteles.logo; // Asigna la ruta de la imagen al atributo src del elemento
     imgHoteles.alt = `${proveedorHoteles.nombre} Logo`; // Asigna el texto alternativo al atributo alt del elemento
     imgHoteles.title = `Visitar el portal de ${proveedorHoteles.nombre}`; // Asigna el título al atributo title del elemento
-    imgHoteles.style.width = '45px '; // Ajusta el tamaño de la imagen
-    imgHoteles.style.height = 'auto';
+    imgHoteles.classList.add('logo-hoteles');
     imgHoteles.style.position = 'relative'; // Centra la imagen dentro del enlace  
     // Metemos la imagen DENTRO del enlace
     linkHoteles.appendChild(imgHoteles);
@@ -248,9 +259,7 @@ function crearElementoAviones(data,indice, contenedor) {
     imgAviones.alt = `${proveedorAviones.nombre} Logo`; // Asigna el texto alternativo al atributo alt del elemento
     imgAviones.title = `Visitar el portal de ${proveedorAviones.nombre}`; // Asigna el título al atributo title del elemento
         // AÑADIMOS LA CLASE:
-    imgAviones.classList.add('logo-mayorista');
-    imgAviones.style.position = 'relative'; // Centra la imagen dentro del enlace  
-    imgAviones.style.position = 'relative'; // Centra la imagen dentro del enlace  
+    imgAviones.classList.add('logo-aviones');
     // Metemos la imagen DENTRO del enlace
     linkAviones.appendChild(imgAviones);
     contenedor.appendChild(linkAviones);
@@ -336,9 +345,6 @@ function toggleProveedorEspecifico(indice) {
  * // la función ocultará la sección y cambiará el texto del botón.
  */
 async function cargarEstadoPersistente() {
-
-    // Definimos un mapa de las secciones que queremos persistir
-    // ID del botón : { idSeccion: 'id', textoMostrar: '...', textoOcultar: '...', storageKey: '...' }
     const configuraciones = [
         { btn: 'toggle-mayoristas', section: 'section-mayoristas', key: 'toggle-mayoristas', label: 'Mayoristas' },
         { btn: 'toggle-hotels', section: 'section-hoteles', key: 'toggle-hotels', label: 'Hoteles' },
@@ -346,19 +352,25 @@ async function cargarEstadoPersistente() {
         { btn: 'toggle-cars', section: 'section-renta', key: 'toggle-cars', label: 'RentCar' }
     ];
 
-    configuraciones.forEach(conf => { //no se usar un for en cada uno, pero me imagino que esta leyendo 
+    configuraciones.forEach(conf => {
         const btn = document.getElementById(conf.btn);
         const section = document.getElementById(conf.section);
         const savedStatus = localStorage.getItem(conf.key);
 
         if (savedStatus && section && btn) {
             section.style.display = savedStatus;
-            btn.textContent = (savedStatus === 'none') ? `Mostrar ${conf.label}` : `Ocultar ${conf.label}`;
+            
+            // Sincronizar texto y COLOR
+            if (savedStatus === 'none') {
+                btn.textContent = `Mostrar ${conf.label}`;
+                btn.classList.add('btn-off');
+            } else {
+                btn.textContent = `Ocultar ${conf.label}`;
+                btn.classList.remove('btn-off');
+            }
         }
     });
 }
-
-
 /**
  * Persiste la visibilidad de un módulo en la memoria del navegador y actualiza la interfaz.
  * * @param {string} key - El nombre de la "carpeta" o etiqueta en LocalStorage. 
@@ -379,18 +391,22 @@ function guardarPreferenciaUI(key, seccion, boton, etiqueta) {
     boton.textContent = (estadoActual === 'none') ? `Mostrar ${etiqueta}` : `Ocultar ${etiqueta}`;
 }
 
-function gestionarPersistencia(key, seccion, boton, etiqueta) {
+function gestionarPersistencia(key, seccion, botonId, etiqueta) {
+    const boton = document.getElementById(botonId); // Obtenemos el botón
     const estadoActual = seccion.style.display;
     
     // 1. Guardamos en la "memoria" del navegador
     localStorage.setItem(key, estadoActual);
     
-    // 2. Actualizamos el texto del botón según el estado
-    boton.textContent = (estadoActual === 'none') ? `Mostrar ${etiqueta}` : `Ocultar ${etiqueta}`;
-    
-    console.log(`Estado de ${etiqueta} guardado: ${estadoActual}`);
+    // 2. Lógica de colores y texto
+    if (estadoActual === 'none') {
+        boton.textContent = `Mostrar ${etiqueta}`;
+        boton.classList.add('btn-off'); // <-- Ponemos el color "Apagado"
+    } else {
+        boton.textContent = `Ocultar ${etiqueta}`;
+        boton.classList.remove('btn-off'); // <-- Volvemos al color original (Celeste)
+    }
 }
-
 
 /**
  * Sincroniza un elemento y un botón basado en una clave de LocalStorage

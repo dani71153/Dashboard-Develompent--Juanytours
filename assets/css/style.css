@@ -218,17 +218,24 @@ body {
     border-radius: 2px;
 }
 
+/* El contenedor que envuelve la lista de aviones */
 .data-wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1rem;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;     /* Centra verticalmente */
+    min-height: 200px;       /* Altura mínima para que respire */
+    background-color: #ffffff; 
+    padding: 40px;           /* Padding simétrico a todos los lados */
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: 0;
+    padding-top: 0;
 }
 
-/* Estilos adicionales para mejorar la experiencia */
-.dashboard-section p {
-    color: var(--text-secondary);
-    margin-bottom: 0.75rem;
-    line-height: 1.7;
+/* Reduce el espacio debajo del título */
+.dashboard-section h2 {
+    margin-bottom: 5px; /* Ajusta este valor a 0 si quieres pegarlo más */
+    padding-bottom: 0;
 }
 
 .dashboard-section ul {
@@ -593,4 +600,147 @@ table tr:last-child td {
     transform: scale(1.08) translateY(-5px); /* Se agranda un poco y sube */
     filter: grayscale(0%) drop-shadow(0 10px 15px rgba(6, 182, 212, 0.3)); /* Resalta el color y añade sombra */
     z-index: 10; /* Se asegura de estar por encima de otros elementos */
+}
+
+/**/
+.logo-hoteles {
+    width: 280px; /* Tu valor inicial deseado */
+    max-width: 100%; /* <--- CRUCIAL: Evita que se corte */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    transition: var(--transition-smooth); /* Para que el cambio de tamaño sea suave */
+    filter: grayscale(20%); /* Opcional: un toque sutil para que el color resalte al pasar el mouse */
+    cursor: pointer;
+}
+
+/* Las Media Queries de Aspect Ratio están bien, 
+   pero asegúrate de que no tengan la clase repetida dentro */
+@media (min-aspect-ratio: 16/9) {
+    .logo-hoteles {
+        width: 18vw; 
+        max-width: 350px; 
+    }
+}
+
+@media (max-aspect-ratio: 1/1) {
+    .logo-hoteles {
+        width: 60vw;
+    }
+}
+
+.logo-hoteles:hover {
+    transform: scale(1.08) translateY(-5px); /* Se agranda un poco y sube */
+    filter: grayscale(0%) drop-shadow(0 10px 15px rgba(6, 182, 212, 0.3)); /* Resalta el color y añade sombra */
+    z-index: 10; /* Se asegura de estar por encima de otros elementos */
+}
+
+/* --- ESTILOS DEL MODAL --- */
+
+/* Contenedor principal (fondo oscuro/overlay) */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 2000; /* Por encima del header (que tiene 1000) */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 23, 42, 0.7); /* Color primario con transparencia */
+    backdrop-filter: blur(8px); /* Efecto de desenfoque de fondo */
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Caja de contenido del modal */
+.modal-content {
+    background-color: var(--card-bg);
+    margin: 5% auto; /* 5% desde arriba y centrado */
+    width: 90%;
+    max-width: 600px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    position: relative;
+    animation: scaleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid var(--border-color);
+}
+
+/* Cabecera del Modal */
+.modal-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    color: white;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid var(--accent-color);
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: white; /* Sobreescribimos el color de h2 general */
+}
+
+.modal-header h2::after {
+    display: none; /* Quitamos la línea decorativa de los h2 generales aquí */
+}
+
+/* Botón de cerrar (X) */
+.close-btn {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    line-height: 1;
+}
+
+.close-btn:hover {
+    color: var(--accent-light);
+    transform: rotate(90deg);
+}
+
+/* Cuerpo del Modal */
+.modal-body {
+    padding: 2rem;
+    max-height: 70vh; /* Para que tenga scroll si hay muchas opciones */
+    overflow-y: auto;
+}
+
+/* Footer del Modal */
+.modal-footer {
+    padding: 1.25rem 2rem;
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+/* Estilo para botones dentro del modal (opcional para variar) */
+#btnGuardar {
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+    padding: 0.6rem 2rem;
+}
+
+.modal-grid-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espacio entre botones */
+    padding: 10px 0;
+}
+
+.btn-block {
+    width: 100%; /* Que ocupen todo el ancho del modal */
+    text-align: center;
+    padding: 1rem;
+    font-size: 1rem;
+}
+
+/* Clase que se aplicará cuando la sección esté oculta */
+.btn-off {
+    background: linear-gradient(135deg, #94a3b8, #64748b) !important; /* Gris azulado */
+    opacity: 0.8;
+    transform: scale(0.98);
 }

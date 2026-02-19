@@ -1,21 +1,11 @@
-Título del Commit
-fix: corregir desbordamiento de logos y añadir responsividad por aspect-ratio
+feat: implementar modal de configuración y refactorizar gestión de visibilidad
 
-Descripción (Body)
-Problema:
-Los logos de la sección de mayoristas se cortaban visualmente al redimensionar el navegador. Esto sucedía porque las imágenes tenían un ancho fijo de 280px definido por JavaScript, el cual excedía el tamaño de las columnas del grid (configuradas con un mínimo de 240px) y del contenedor padre que tiene overflow: hidden.
-
-Cambios realizados:
-
-Desacoplamiento de Estilos: Se eliminaron las definiciones de ancho (width) y alto (height) fijos directamente en el archivo JavaScript para delegar el diseño al CSS.
-
-Implementación de max-width: 100%: Se añadió esta propiedad a la clase .logo-mayorista. Esto garantiza que, si el contenedor de la columna se vuelve más estrecho que los 280px originales, la imagen se reduzca proporcionalmente en lugar de desbordarse y cortarse.
-
-Adaptación por Aspect Ratio: Se implementaron Media Queries basadas en la relación de aspecto del navegador:
-
-Modo Landscape (16/9): Los logos escalan dinámicamente usando unidades de viewport (vw) para aprovechar pantallas anchas.
-
-Modo Portrait (1/1 o menor): Los logos aumentan su tamaño relativo (60vw) para mantener la legibilidad en dispositivos móviles o ventanas verticales.
-
-Consistencia de Imagen: Se añadió height: auto y display: block para evitar espacios en blanco inesperados y asegurar que la proporción del logo no se deforme.
-
+- Se añade estructura HTML para el modal de opciones al final del body.
+- Se trasladan los botones de visibilidad (GDS, Hoteles, Aviones, RentCar) del header al interior del modal para limpiar la interfaz principal.
+- Refactorización de la lógica en script.js:
+    * Se añade la función loadOptions para gestionar la apertura/cierre del modal.
+    * Se actualiza gestionarPersistencia para aplicar feedback visual (cambio de color) en los botones según el estado de la sección.
+    * Sincronización de cargarEstadoPersistente para mantener los colores correctos al recargar la página.
+- Ajustes en el CSS:
+    * Implementación de efectos de desenfoque (backdrop-filter) y animaciones para el modal.
+    * Creación de la clase .btn-off para indicar estados inactivos mediante gradientes grises.

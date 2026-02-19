@@ -13,10 +13,6 @@
         <nav id="main-nav">
             <ul>
             <button id="ocultar-primero">Ocultar solo el primer logo</button>
-            <button id="toggle-mayoristas">Ocultar Mayoristas</button>
-            <button id="toggle-hotels">Mostrar Hoteles</button>
-            <button id="toggle-airplanes">Ocultar Aviones</button>
-            <button id="toggle-cars">Ocultar RentCar</button>
             <button id="btnAbrir">Opciones</button>
             </ul>
         </nav>
@@ -58,6 +54,28 @@
 
     </main>
 
+<div id="modalOpciones" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Configuración del Dashboard</h2>
+            <span id="btnCerrar" class="close-btn">&times;</span>
+        </div>
+        
+        <div class="modal-body">
+            <p class="mb-2">Selecciona qué secciones deseas visualizar:</p>
+            <div class="modal-grid-options">
+                <button id="toggle-mayoristas" class="btn-block">Ocultar Mayoristas</button>
+                <button id="toggle-hotels" class="btn-block">Mostrar Hoteles</button>
+                <button id="toggle-airplanes" class="btn-block">Ocultar Aviones</button>
+                <button id="toggle-cars" class="btn-block">Ocultar RentCar</button>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button id="btnCerrarModal" class="btn">Finalizar</button>
+        </div>
+    </div>
+</div>
     <script src="./assets/js/script.js"></script>
 </body>
 </html>
