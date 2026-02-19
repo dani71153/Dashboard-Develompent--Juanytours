@@ -21,27 +21,48 @@ async function JsonFetch() {
 };
 
 function loadOptions() {
-    // 1. Referencias a los elementos del DOM
     const modal = document.getElementById('modalOpciones');
     const btnAbrir = document.getElementById('btnAbrir');
-    const btnCerrar = document.getElementById('btnCerrar');
+    const btnX = document.getElementById('btnCerrar'); // La "X"
+    const btnFinalizar = document.getElementById('btnCerrarModal'); // El botón del footer
 
-    // 2. Abrir el modal
+    // Función reutilizable para cerrar
+    const cerrarModal = () => {
+        const modalContent = document.querySelector('.modal-content');
+        
+        // 1. Añadimos la clase de animación al contenido
+        modalContent.classList.add('modal-exit-anim');
+
+        // 2. Esperamos a que termine la animación (200ms) para ocultar el modal completo
+        setTimeout(() => {
+            modal.style.display = 'none';
+            
+            // 3. Limpiamos la clase para que la próxima vez que abra esté normal
+            modalContent.classList.remove('modal-exit-anim');
+        }, 200); 
+    };
+    
+    // Abrir
     btnAbrir.addEventListener('click', () => {
         modal.style.display = 'block';
     });
 
-    // 3. Cerrar el modal al hacer clic en la (X)
-    btnCerrar.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
+    // Cerrar con la X
+    btnX.addEventListener('click', cerrarModal);
 
-    // 4. Cerrar el modal si el usuario hace clic FUERA de la caja blanca
+    // Cerrar con el botón Finalizar
+    if (btnFinalizar) {
+        btnFinalizar.addEventListener('click', cerrarModal);
+    }
+
+    // Cerrar al hacer clic fuera de la caja blanca
     window.addEventListener('click', (event) => {
         if (event.target === modal) {
-            modal.style.display = 'none';
+            cerrarModal();
         }
     });
+
+    
 }
 
 /**

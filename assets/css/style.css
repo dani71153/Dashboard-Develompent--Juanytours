@@ -744,3 +744,18 @@ table tr:last-child td {
     opacity: 0.8;
     transform: scale(0.98);
 }
+/* Animación de salida */
+.modal-exit-anim {
+    animation: scaleOut 0.2s ease-in forwards;
+}
+
+@keyframes scaleOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.9); /* Se encoge un 10% */
+    }
+}
