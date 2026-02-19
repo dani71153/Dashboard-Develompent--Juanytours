@@ -1,11 +1,3 @@
-feat: implementar modal de configuración y refactorizar gestión de visibilidad
+style: mejorar UX del modal con animaciones de salida y cierre funcional
 
-- Se añade estructura HTML para el modal de opciones al final del body.
-- Se trasladan los botones de visibilidad (GDS, Hoteles, Aviones, RentCar) del header al interior del modal para limpiar la interfaz principal.
-- Refactorización de la lógica en script.js:
-    * Se añade la función loadOptions para gestionar la apertura/cierre del modal.
-    * Se actualiza gestionarPersistencia para aplicar feedback visual (cambio de color) en los botones según el estado de la sección.
-    * Sincronización de cargarEstadoPersistente para mantener los colores correctos al recargar la página.
-- Ajustes en el CSS:
-    * Implementación de efectos de desenfoque (backdrop-filter) y animaciones para el modal.
-    * Creación de la clase .btn-off para indicar estados inactivos mediante gradientes grises.
+Al usar el setTimeout de 200ms, has creado lo que llamamos una "interacción no bloqueante". El usuario siente que la aplicación es más fluida porque el cierre no es instantáneo y seco, sino que tiene una transición natural que el ojo humano procesa mejor.

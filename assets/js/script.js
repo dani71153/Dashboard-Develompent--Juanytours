@@ -306,6 +306,11 @@ function showFlights() {
             sectionContainerFlights.style.display='none';
             flightList.textContent = 'Mostrar Aviones'; 
         }
+
+                // --- BLOQUE DE PERSISTENCIA (GUARDAR) ---
+        // Guardamos el estado bajo el ID del elemento
+        // localStorage.setItem('toggle-gds', sectionContainer.style.display);
+        gestionarPersistencia('toggle-airplanes',sectionContainerFlights,'toggle-airplanes','Aviones');
     });
 }
 
