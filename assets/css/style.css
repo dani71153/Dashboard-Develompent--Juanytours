@@ -759,3 +759,29 @@ table tr:last-child td {
         transform: scale(0.9); /* Se encoge un 10% */
     }
 }
+
+/* Agrupamos los logos para aplicar el efecto de distinción */
+.logo-mayorista, 
+.logo-aviones, 
+.logo-hoteles {
+    /* Preparamos el espacio para la línea sin que mueva el contenido */
+    outline: 2px solid transparent;
+    outline-offset: 10px; 
+    border-radius: 12px;
+}
+
+.logo-mayorista:hover, 
+.logo-aviones:hover, 
+.logo-hoteles:hover {
+    /* La línea que distingue: usamos el color de acento */
+    outline: 2px solid var(--accent-color);
+    
+    /* El offset hace que la línea esté separada del logo, creando aire */
+    outline-offset: 1px;
+    
+    /* Agregamos un brillo exterior para que resalte del fondo */
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
+    
+    /* Mantenemos tus transformaciones previas y suavizamos */
+    transform: scale(1.05) translateY(-5px);
+}
