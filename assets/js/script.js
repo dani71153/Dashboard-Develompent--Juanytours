@@ -109,6 +109,8 @@ function loadAviones(data) {
     crearElementoAviones(data, 5, contenedorAviones);
     crearElementoAviones(data, 6, contenedorAviones);
     crearElementoAviones(data, 7, contenedorAviones);
+    crearElementoAviones(data, 8, contenedorAviones);
+
 }
 
 

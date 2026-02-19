@@ -153,6 +153,15 @@
         "prioridad": "alta",
         "urgente": true,
         "tags": ["Aerolínea", "USA", "Soporte"]
+      },
+      {
+        "id": "jetblue",
+        "nombre": "JetBlue - Pagina Principal",
+        "enlace_portal": "https://www.jetblue.com/",
+        "logo": "assets/img/vuelos/jetblue-logo-v1",
+        "prioridad": "alta",
+        "urgente": true,
+        "tags": ["Aerolínea", "USA", "Soporte"]
       }
     ],
 
