@@ -1,3 +1,14 @@
-style: mejorar UX del modal con animaciones de salida y cierre funcional
+Los cambios realizados:
 
-Al usar el setTimeout de 200ms, has creado lo que llamamos una "interacción no bloqueante". El usuario siente que la aplicación es más fluida porque el cierre no es instantáneo y seco, sino que tiene una transición natural que el ojo humano procesa mejor.
+HTML (index.html):
+
+4 <div class="config-column"> dentro de un <div class="config-grid">
+Cada columna: botón con ID (toggle-mayoristas, etc.) + <ol class="config-checklist-box"> con 4 checkboxes
+"Desactivar / Activar Todo" movido al footer (izquierda), "Finalizar" a la derecha
+CSS (settings.css):
+
+.config-grid: grid-template-columns: repeat(4, 1fr) — 4 columnas iguales
+.config-column: flex-direction: column — botón arriba, lista abajo
+.config-checklist-box: ol estilizado como caja con fondo y borde
+.modal-footer: justify-content: space-between — botones en extremos opuestos
+max-width del modal ampliado a 820px para que quepan 4 columnas
