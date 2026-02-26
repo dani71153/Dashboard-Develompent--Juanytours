@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard de Gestión de Viajes</title>
     <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/settings.css">
 </head>
 <body>
 
@@ -53,7 +54,7 @@
         </section>
 
     </main>
-
+<!-- 
 <div id="modalOpciones" class="modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -74,6 +75,73 @@
         <div class="modal-footer">
             <button id="btnCerrarModal" class="btn">Finalizar</button>
         </div>
+    </div>
+</div> -->
+
+<div id="modalOpciones" class="modal">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h2>Configuración del Dashboard</h2>
+            <span id="btnCerrar" class="close-btn">&times;</span>
+        </div>
+        
+        <div class="modal-body">
+            <!-- Grid de 4 columnas: botón + caja de checkboxes -->
+            <div class="config-grid">
+
+                <!-- Columna: Mayoristas -->
+                <div class="config-column">
+                    <button id="toggle-mayoristas" class="config-item active">Ocultar Mayoristas</button>
+                    <ol class="config-checklist-box">
+                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 1</label></li>
+                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 2</label></li>
+                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 3</label></li>
+                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 4</label></li>
+                    </ol>
+                </div>
+
+                <!-- Columna: Hoteles -->
+                <div class="config-column">
+                    <button id="toggle-hotels" class="config-item active">Ocultar Hoteles</button>
+                    <ol class="config-checklist-box">
+                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 1</label></li>
+                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 2</label></li>
+                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 3</label></li>
+                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 4</label></li>
+                    </ol>
+                </div>
+
+                <!-- Columna: Aviones -->
+                <div class="config-column">
+                    <button id="toggle-airplanes" class="config-item active">Ocultar Aviones</button>
+                    <ol class="config-checklist-box">
+                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 1</label></li>
+                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 2</label></li>
+                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 3</label></li>
+                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 4</label></li>
+                    </ol>
+                </div>
+
+                <!-- Columna: RentCar -->
+                <div class="config-column">
+                    <button id="toggle-cars" class="config-item active">Ocultar RentCar</button>
+                    <ol class="config-checklist-box">
+                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 1</label></li>
+                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 2</label></li>
+                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 3</label></li>
+                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 4</label></li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button class="section-master-toggle btn">Desactivar / Activar Todo</button>
+            <button id="btnCerrarModal" class="btn">Finalizar</button>
+        </div>
+
     </div>
 </div>
     <script src="./assets/js/script.js"></script>

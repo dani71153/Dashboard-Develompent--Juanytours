@@ -1,0 +1,238 @@
+/* --- ESTILOS DEL MODAL --- */
+
+/* Contenedor principal (fondo oscuro/overlay) */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 2000; /* Por encima del header (que tiene 1000) */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 23, 42, 0.7); /* Color primario con transparencia */
+    backdrop-filter: blur(8px); /* Efecto de desenfoque de fondo */
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Caja de contenido del modal */
+.modal-content {
+    background-color: var(--card-bg);
+    margin: 5% auto; /* 5% desde arriba y centrado */
+    width: 95%;
+    max-width: 820px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    position: relative;
+    animation: scaleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid var(--border-color);
+}
+
+/* Cabecera del Modal */
+.modal-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    color: white;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid var(--accent-color);
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: white; /* Sobreescribimos el color de h2 general */
+}
+
+.modal-header h2::after {
+    display: none; /* Quitamos la línea decorativa de los h2 generales aquí */
+}
+
+/* Botón de cerrar (X) */
+.close-btn {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    line-height: 1;
+}
+
+.close-btn:hover {
+    color: var(--accent-light);
+    transform: rotate(90deg);
+}
+
+/* Cuerpo del Modal */
+.modal-body {
+    padding: 2rem;
+    max-height: 70vh; /* Para que tenga scroll si hay muchas opciones */
+    overflow-y: auto;
+}
+
+/* Footer del Modal */
+.modal-footer {
+    padding: 1.25rem 2rem;
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Estilo para botones dentro del modal (opcional para variar) */
+#btnGuardar {
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+    padding: 0.6rem 2rem;
+}
+
+.modal-grid-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espacio entre botones */
+    padding: 10px 0;
+}
+
+.btn-block {
+    width: 100%; /* Que ocupen todo el ancho del modal */
+    text-align: center;
+    padding: 1rem;
+    font-size: 1rem;
+}
+
+/* Clase que se aplicará cuando la sección esté oculta */
+.btn-off {
+    background: linear-gradient(135deg, #94a3b8, #64748b) !important; /* Gris azulado */
+    opacity: 0.8;
+    transform: scale(0.98);
+}
+/* Animación de salida */
+.modal-exit-anim {
+    animation: scaleOut 0.2s ease-in forwards;
+}
+
+@keyframes scaleOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.9); /* Se encoge un 10% */
+    }
+}
+
+/* ───────────── GRUPOS DE OPCIONES JERÁRQUICOS ───────────── */
+
+.option-group {
+    margin-bottom: 1.5rem;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    background: linear-gradient(145deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-smooth);
+}
+
+/* Botón maestro mantiene tu estilo original */
+.option-group .btn-block {
+    border-radius: 0;
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+/* Contenedor subordinado */
+.option-subcontainer {
+    padding: 1.25rem 1.5rem;
+    background-color: var(--card-bg);
+}
+
+/* Grid de 4 columnas principal */
+.config-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+/* Columna individual: botón arriba + caja de checkboxes abajo */
+.config-column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Botón de cada columna */
+.config-item {
+    width: 100%;
+    padding: 0.65rem 0.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-secondary);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.82rem;
+    text-align: center;
+    transition: var(--transition-smooth);
+    color: inherit;
+}
+
+.config-item:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-color);
+}
+
+.config-item.active {
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+}
+
+.config-item.inactive {
+    opacity: 0.55;
+    background: #1e293b;
+}
+
+/* Caja de checkboxes debajo de cada botón */
+.config-checklist-box {
+    list-style: decimal;
+    padding-left: 1.4rem;
+    margin: 0;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 0.85rem 0.85rem 0.85rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    flex: 1;
+}
+
+/* Etiqueta del checkbox */
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    transition: var(--transition-smooth);
+}
+
+.checkbox-label:hover {
+    color: var(--accent-color);
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    accent-color: var(--accent-color);
+    flex-shrink: 0;
+}
+
+/* Footer con botones separados a los extremos */
