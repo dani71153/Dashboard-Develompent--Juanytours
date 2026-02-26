@@ -7,6 +7,7 @@
  * @returns {Promise<Object>} Devuelve una promesa que resuelve con los datos del JSON.
  */
 async function JsonFetch() {
+    IniciarSesion();
     const respuesta = await fetch('data/info.json');
     const data = await respuesta.json();
     
@@ -511,3 +512,15 @@ window.addEventListener('storage', (event) => {
         cargarEstadoPersistente();
     }
 });
+
+//Se le agrego una variable, para que al entrar, si en la memoria del navegador, no hay una sesion activa, te redirija
+//login.
+function IniciarSesion(){
+
+const session = JSON.parse(localStorage.getItem("session"));
+
+if (!session || Date.now() > session.expires) {
+  window.location.href = "pages/login.html";
+}
+
+}
