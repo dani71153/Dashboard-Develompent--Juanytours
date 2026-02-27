@@ -13,7 +13,6 @@
         <h1>Panel de Control de Viajes</h1>
         <nav id="main-nav">
             <ul>
-            <button id="ocultar-primero">Ocultar solo el primer logo</button>
             <button id="btnAbrir">Opciones</button>
             </ul>
         </nav>
@@ -54,29 +53,6 @@
         </section>
 
     </main>
-<!-- 
-<div id="modalOpciones" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>Configuración del Dashboard</h2>
-            <span id="btnCerrar" class="close-btn">&times;</span>
-        </div>
-        
-        <div class="modal-body">
-            <p class="mb-2">Selecciona qué secciones deseas visualizar:</p>
-            <div class="modal-grid-options">
-                <button id="toggle-mayoristas" class="btn-block">Ocultar Mayoristas</button>
-                <button id="toggle-hotels" class="btn-block">Mostrar Hoteles</button>
-                <button id="toggle-airplanes" class="btn-block">Ocultar Aviones</button>
-                <button id="toggle-cars" class="btn-block">Ocultar RentCar</button>
-            </div>
-        </div>
-
-        <div class="modal-footer">
-            <button id="btnCerrarModal" class="btn">Finalizar</button>
-        </div>
-    </div>
-</div> -->
 
 <div id="modalOpciones" class="modal">
     <div class="modal-content">
@@ -93,11 +69,7 @@
                 <!-- Columna: Mayoristas -->
                 <div class="config-column">
                     <button id="toggle-mayoristas" class="config-item active">Ocultar Mayoristas</button>
-                    <ol class="config-checklist-box">
-                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 1</label></li>
-                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 2</label></li>
-                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 3</label></li>
-                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 4</label></li>
+                    <ol id="checklist-mayoristas" class="config-checklist-box-mayoristas">
                     </ol>
                 </div>
 

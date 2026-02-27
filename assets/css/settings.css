@@ -197,7 +197,7 @@
 }
 
 /* Caja de checkboxes debajo de cada botón */
-.config-checklist-box {
+.config-checklist-box, .config-checklist-box-mayoristas {
     list-style: decimal;
     padding-left: 1.4rem;
     margin: 0;
@@ -209,6 +209,33 @@
     flex-direction: column;
     gap: 0.55rem;
     flex: 1;
+}
+
+/* Etiqueta del checkbox — mayoristas (nombres largos que hacen wrap) */
+.checkbox-label-mayorista {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--text-primary);
+    transition: var(--transition-smooth);
+}
+
+.checkbox-label-mayorista:hover {
+    color: var(--accent-color);
+}
+
+.checkbox-label-mayorista input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+    min-width: 14px;
+    cursor: pointer;
+    accent-color: var(--accent-color);
+    margin-top: 2px; /* alinea visualmente con la primera línea de texto */
+    flex-shrink: 0;
 }
 
 /* Etiqueta del checkbox */

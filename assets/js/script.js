@@ -18,6 +18,9 @@ async function JsonFetch() {
     loadMayoristas(data);
     loadHoteles(data);
     loadAviones(data);
+
+    //Cargamos el link.
+    renderChecklistMayoristas(data);
     return data;
 };
 
@@ -113,9 +116,6 @@ function loadAviones(data) {
     crearElementoAviones(data, 8, contenedorAviones);
 
 }
-
-
-
 
 /**
  * Crea un elemento de enlace con imagen para un proveedor y lo añade al DOM.
@@ -487,31 +487,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 
-document.getElementById('ocultar-primero').addEventListener('click', function() {
-    toggleProveedorEspecifico(0); // Llama a la función para el índice 0
-}); 
-
-/**
- * PUENTE DE COMUNICACIÓN
- * Expone la función de carga para que 'settings.js' pueda activarla.
- * Al usar windows.funcion() estoy declarando una funcion global en el contexto de la ventana
- */
-window.aplicarCambios = function() {
-    console.log("Recibida orden desde la ventana de opciones...");
-    cargarEstadoPersistente(); 
-};
-
-/**
- * ESCUCHADOR AUTOMÁTICO
- * Si la ventana de opciones cambia el LocalStorage, esto actualiza el Index
- * aunque no uses window.opener.
- */
-window.addEventListener('storage', (event) => {
-    // Si el cambio en la memoria es sobre nuestros botones
-    if (event.key.startsWith('toggle-')) {
-        cargarEstadoPersistente();
-    }
-});
+// document.getElementById('checkbox-label-mayorista').addEventListener('click', function() {
+//     toggleProveedorEspecifico(0); // Llama a la función para el índice 0
+// }); 
 
 //Se le agrego una variable, para que al entrar, si en la memoria del navegador, no hay una sesion activa, te redirija
 //login.
@@ -523,4 +501,85 @@ if (!session || Date.now() > session.expires) {
   window.location.href = "pages/login.html";
 }
 
+}
+
+//Creamos una funcion, que cree dentro de los 
+
+/**
+ * Genera dinámicamente un elemento <li> que contiene un checkbox
+ * asociado a un proveedor mayorista y lo inserta en el DOM.
+ *
+ * Funcionalidad:
+ * - Construye estructura: <li> → <label> → <input type="checkbox"> + texto.
+ * - Persiste el estado del checkbox en localStorage.
+ * - Restaura el estado guardado al recargar la página.
+ *
+ * ⚠ Nota arquitectónica:
+ * Actualmente usa el índice como identificador único.
+ * En producción debe utilizarse proveedor.id (ej: ID de Firestore).
+ *
+ * @function crearCheckboxMayorista
+ *
+ * @param {Object} data
+ * Objeto JSON que contiene las categorías y mayoristas.
+ *
+ * @param {number} indice
+ * Posición del proveedor dentro de data.categorias.mayoristas.
+ *
+ * @param {HTMLElement} contenedor
+ * Elemento del DOM donde se insertará el <li>.
+ *
+ * @returns {void}
+ */
+function crearCheckboxMayorista(data, indice, contenedor) {
+
+    const proveedor = data.categorias.mayoristas[indice];
+
+    const li = document.createElement('li');
+
+    const label = document.createElement('label');
+    label.classList.add('checkbox-label-mayorista');
+    label.setAttribute('data-id', proveedor.id || indice);
+
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.id = `mayoristas-checkbox-${indice}`;
+
+    // Usamos el estado del elemento como única fuente de verdad
+    const elementKey = `mayoristas-item-${indice}`;
+    const estadoGuardado = localStorage.getItem(elementKey);
+    // checked si el elemento está visible (o no tiene estado guardado aún)
+    checkbox.checked = estadoGuardado !== 'none';
+
+    checkbox.addEventListener('change', function () {
+        const elemento = document.getElementById(`mayoristas-item-${indice}`);
+        if (elemento) {
+            const nuevoEstado = checkbox.checked ? 'inline-block' : 'none';
+            elemento.style.display = nuevoEstado;
+            localStorage.setItem(elementKey, nuevoEstado);
+        }
+    });
+
+    const texto = document.createTextNode(` ${proveedor.nombre}`);
+
+    label.appendChild(checkbox);
+    label.appendChild(texto);
+    li.appendChild(label);
+    contenedor.appendChild(li);
+}
+
+function renderChecklistMayoristas(data) {
+
+    const contenedor = document.getElementById('checklist-mayoristas');
+
+    if (!contenedor) {
+        console.error("No existe checklist-mayoristas");
+        return;
+    }
+
+    contenedor.innerHTML = '';
+
+    data.categorias.mayoristas.forEach((_, indice) => {
+        crearCheckboxMayorista(data, indice, contenedor);
+    });
 }
