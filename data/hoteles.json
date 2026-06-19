@@ -1,0 +1,28 @@
+{
+  "proveedores": [
+    {
+      "id": "hotel_booking",
+      "nombre": "Booking",
+      "enlace_portal": "https://www.booking.com/",
+      "logo": "assets/img/hoteles/booking-logo-v1.png",
+      "prioridad": "baja",
+      "urgente": false
+    },
+    {
+      "id": "tripadvisor",
+      "nombre": "TripAdvisor",
+      "enlace_portal": "https://www.tripadvisor.com/",
+      "logo": "assets/img/hoteles/tripadvisor-logo-v1.png",
+      "prioridad": "alta",
+      "urgente": true
+    },
+    {
+      "id": "checkin_group",
+      "nombre": "CheckIN Group",
+      "enlace_portal": "https://booking.checkingrouprd.com/es/login/",
+      "logo": "assets/img/hoteles/checkingroup-logo-v1.png",
+      "prioridad": "alta",
+      "urgente": true
+    }
+  ]
+}
