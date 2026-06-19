@@ -2,7 +2,7 @@ backend:
   name: github
   repo: dani71153/Dashboard-Develompent--Juanytours
   branch: main
-  base_url: https://auth.sveltiacms.app
+  base_url: https://sveltia-cms-auth.dna291.workers.dev/
   app_id: Ov23liYMVmD4PmQvFT4O   # ← esta línea
 
 locale: es
