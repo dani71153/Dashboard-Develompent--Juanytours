@@ -1,0 +1,68 @@
+{
+  "proveedores": [
+    {
+      "id": "sky_high_dominicana",
+      "nombre": "Sky High Dominicana - Portal GDS",
+      "enlace_portal": "https://support.kiusys.com/portal/es/signin",
+      "logo": "assets/img/mayoristas/SkyHigh-GDS-V1.png",
+      "prioridad": "alta",
+      "urgente": true
+    },
+    {
+      "id": "word_2_flight",
+      "nombre": "Word2Flight - Portal GDS",
+      "enlace_portal": "https://kiu.click/",
+      "logo": "assets/img/mayoristas/world2fly-gds-v1.png",
+      "prioridad": "alta",
+      "urgente": true
+    },
+    {
+      "id": "sti_corporate_travel",
+      "nombre": "STI Corporate Travel-GDS",
+      "enlace_portal": "https://sti.travellink.com.br/Agencias30/guiAutenticador.aspx",
+      "logo": "assets/img/mayoristas/STICorporate-GDS-V1.png",
+      "prioridad": "alta",
+      "urgente": false
+    },
+    {
+      "id": "grupo_vdt",
+      "nombre": "Grupo VDT - Dominicana",
+      "enlace_portal": "https://www.grupovdt.com.do/wtc/do/vuelos/AppLogin.aspx",
+      "logo": "assets/img/mayoristas/grupovdt-gds-v1.png",
+      "prioridad": "alta",
+      "urgente": true
+    },
+    {
+      "id": "logitur_mayorista",
+      "nombre": "Logitur - Dominicana",
+      "enlace_portal": "https://reservas.viajeslogitur.com/es/login",
+      "logo": "assets/img/mayoristas/logitur-gds-v1.png",
+      "prioridad": "alta",
+      "urgente": true
+    },
+    {
+      "id": "agt_viajes",
+      "nombre": "Viajes AGT - Mayorista",
+      "enlace_portal": "https://reservas.viajesagt.com/es/login",
+      "logo": "assets/img/mayoristas/agt-gds-v1.png",
+      "prioridad": "alta",
+      "urgente": true
+    },
+    {
+      "id": "ratehawk",
+      "nombre": "RateHawk - Portal GDS",
+      "enlace_portal": "https://www.ratehawk.com/accounts/login/",
+      "logo": "assets/img/mayoristas/Ratehawk-loginv1.png",
+      "prioridad": "alta",
+      "urgente": true
+    },
+    {
+      "id": "tropico_tours",
+      "nombre": "Tropico Tours",
+      "enlace_portal": "https://www.sunparadise.com.do/es/login",
+      "logo": "assets/img/mayoristas/tropicotours-gds.png",
+      "prioridad": "alta",
+      "urgente": true
+    }
+  ]
+}

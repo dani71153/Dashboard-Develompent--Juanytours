@@ -1,0 +1,96 @@
+backend:
+  name: github
+  repo: dani71153/Dashboard-Develompent--Juanytours
+  branch: main
+  base_url: https://auth.sveltiacms.app
+  app_id: Ov23liYMVmD4PmQvFT4O   # ← esta línea
+
+locale: es
+
+site_url: https://dani71153.github.io/Dashboard-Develompent--Juanytours
+
+media_folder: assets/img
+public_folder: assets/img
+
+collections:
+
+  - name: mayoristas
+    label: "Mayoristas Turísticos"
+    files:
+      - name: mayoristas
+        label: "Lista de Mayoristas"
+        file: data/mayoristas.json
+        fields:
+          - name: proveedores
+            label: Proveedores
+            label_singular: Proveedor
+            widget: list
+            fields:
+              - { name: id,            label: "ID (sin espacios)",  widget: string }
+              - { name: nombre,        label: Nombre,               widget: string }
+              - { name: enlace_portal, label: "URL del Portal",     widget: string }
+              - name: logo
+                label: Logo
+                widget: image
+                media_folder: assets/img/mayoristas
+                public_folder: assets/img/mayoristas
+              - name: prioridad
+                label: Prioridad
+                widget: select
+                options: [alta, media, baja]
+                default: alta
+              - { name: urgente, label: Urgente, widget: boolean, default: false }
+
+  - name: hoteles
+    label: Hoteles
+    files:
+      - name: hoteles
+        label: "Lista de Hoteles"
+        file: data/hoteles.json
+        fields:
+          - name: proveedores
+            label: Proveedores
+            label_singular: Proveedor
+            widget: list
+            fields:
+              - { name: id,            label: "ID (sin espacios)",  widget: string }
+              - { name: nombre,        label: Nombre,               widget: string }
+              - { name: enlace_portal, label: "URL del Portal",     widget: string }
+              - name: logo
+                label: Logo
+                widget: image
+                media_folder: assets/img/hoteles
+                public_folder: assets/img/hoteles
+              - name: prioridad
+                label: Prioridad
+                widget: select
+                options: [alta, media, baja]
+                default: alta
+              - { name: urgente, label: Urgente, widget: boolean, default: false }
+
+  - name: aviones
+    label: "Vuelos y Aviones"
+    files:
+      - name: aviones
+        label: "Lista de Portales de Vuelos"
+        file: data/aviones.json
+        fields:
+          - name: proveedores
+            label: Proveedores
+            label_singular: Proveedor
+            widget: list
+            fields:
+              - { name: id,            label: "ID (sin espacios)",  widget: string }
+              - { name: nombre,        label: Nombre,               widget: string }
+              - { name: enlace_portal, label: "URL del Portal",     widget: string }
+              - name: logo
+                label: Logo
+                widget: image
+                media_folder: assets/img/vuelos
+                public_folder: assets/img/vuelos
+              - name: prioridad
+                label: Prioridad
+                widget: select
+                options: [alta, media, baja]
+                default: alta
+              - { name: urgente, label: Urgente, widget: boolean, default: false }

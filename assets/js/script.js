@@ -33,8 +33,27 @@ function reRenderSection(cat) {
 
 async function JsonFetch() {
     // IniciarSesion(); // Login deshabilitado temporalmente
-    const respuesta = await fetch('data/info.json');
-    originalData = await respuesta.json();
+
+    const [resMayoristas, resHoteles, resAviones] = await Promise.all([
+        fetch('data/mayoristas.json'),
+        fetch('data/hoteles.json'),
+        fetch('data/aviones.json'),
+    ]);
+
+    const [dataMayoristas, dataHoteles, dataAviones] = await Promise.all([
+        resMayoristas.json(),
+        resHoteles.json(),
+        resAviones.json(),
+    ]);
+
+    // Reconstruimos la misma estructura que espera el resto del código
+    originalData = {
+        categorias: {
+            mayoristas: dataMayoristas.proveedores,
+            hoteles:    dataHoteles.proveedores,
+            aviones:    dataAviones.proveedores,
+        }
+    };
 
     const data = getDataWithEdits();
     loadMayoristas(data);
