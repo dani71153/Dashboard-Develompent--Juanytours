@@ -22,6 +22,16 @@
 
     <header id="main-header">
         <h1>Panel de Control de Viajes</h1>
+        <div id="header-search">
+            <input type="search" id="search-input" placeholder="Buscar proveedor..." autocomplete="off">
+            <div id="priority-filters">
+                <button class="filter-btn active" data-priority="todos">Todos</button>
+                <button class="filter-btn" data-priority="alta">Alta</button>
+                <button class="filter-btn" data-priority="media">Media</button>
+                <button class="filter-btn" data-priority="baja">Baja</button>
+                <button class="filter-btn urgente" data-priority="urgente">Urgente</button>
+            </div>
+        </div>
         <div id="header-controls">
             <div id="zoom-control">
                 <button id="zoom-out"  class="zoom-btn" type="button">−</button>
@@ -31,17 +41,6 @@
             <button id="btnAbrir">Opciones</button>
         </div>
     </header>
-
-    <div id="search-filter-bar">
-        <input type="search" id="search-input" placeholder="Buscar proveedor..." autocomplete="off">
-        <div id="priority-filters">
-            <button class="filter-btn active" data-priority="todos">Todos</button>
-            <button class="filter-btn" data-priority="alta">Alta</button>
-            <button class="filter-btn" data-priority="media">Media</button>
-            <button class="filter-btn" data-priority="baja">Baja</button>
-            <button class="filter-btn urgente" data-priority="urgente">Urgente</button>
-        </div>
-    </div>
 
     <main id="dashboard-container">
         <section id="section-mayoristas" class="dashboard-section">

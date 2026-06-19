@@ -142,13 +142,12 @@ body {
 }
 
 /* ─── BÚSQUEDA Y FILTROS ─────────────────────────── */
-#search-filter-bar {
+#header-search {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.6rem 1.5rem;
-    background: var(--primary-light);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    gap: 0.6rem;
+    flex: 1;
+    margin: 0 1rem;
     flex-wrap: wrap;
 }
 
