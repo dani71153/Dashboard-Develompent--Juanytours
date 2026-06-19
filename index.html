@@ -32,6 +32,17 @@
         </div>
     </header>
 
+    <div id="search-filter-bar">
+        <input type="search" id="search-input" placeholder="Buscar proveedor..." autocomplete="off">
+        <div id="priority-filters">
+            <button class="filter-btn active" data-priority="todos">Todos</button>
+            <button class="filter-btn" data-priority="alta">Alta</button>
+            <button class="filter-btn" data-priority="media">Media</button>
+            <button class="filter-btn" data-priority="baja">Baja</button>
+            <button class="filter-btn urgente" data-priority="urgente">Urgente</button>
+        </div>
+    </div>
+
     <main id="dashboard-container">
         <section id="section-mayoristas" class="dashboard-section">
             <h2>Mayoristas Turisticos</h2>

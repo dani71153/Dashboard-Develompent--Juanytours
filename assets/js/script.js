@@ -29,6 +29,7 @@ function reRenderSection(cat) {
     if (cat === 'mayoristas') { loadMayoristas(data); renderChecklistMayoristas(data); }
     if (cat === 'hoteles')    { loadHoteles(data);    renderChecklistHoteles(data);    }
     if (cat === 'aviones')    { loadAviones(data);    renderChecklistAviones(data);    }
+    applyFilters();
 }
 
 async function JsonFetch() {
@@ -118,44 +119,20 @@ function loadOptions() {
  */
 function loadMayoristas(data) {
     const contenedor = document.getElementById('mayoristas-list');
-    contenedor.innerHTML = ''; 
-    crearElementoMayoristas(data, 0, contenedor);
-    crearElementoMayoristas(data, 1, contenedor);
-    crearElementoMayoristas(data, 2, contenedor);
-    crearElementoMayoristas(data, 3, contenedor);
-    crearElementoMayoristas(data, 4, contenedor);
-    crearElementoMayoristas(data, 5, contenedor);
-    crearElementoMayoristas(data, 6, contenedor);
-    crearElementoMayoristas(data, 7, contenedor);
+    contenedor.innerHTML = '';
+    data.categorias.mayoristas.forEach((_, i) => crearElementoMayoristas(data, i, contenedor));
 }
 
 function loadHoteles(data) {
     const contenedorHoteles = document.getElementById('hoteles-list');
-    contenedorHoteles.innerHTML = ''; 
-    crearElementoHoteles(data, 0, contenedorHoteles);
-    crearElementoHoteles(data, 1, contenedorHoteles);
-    crearElementoHoteles(data, 2, contenedorHoteles);
-    // crearElementoHoteles(data, 3, contenedorHoteles);
-    // crearElementoHoteles(data, 4, contenedorHoteles);
-    // crearElementoHoteles(data, 5, contenedorHoteles);
-    // crearElementoHoteles(data, 6, contenedorHoteles);
-    // crearElementoHoteles(data, 7, contenedorHoteles);
-    // crearElementoHoteles(data, 8, contenedorHoteles);
+    contenedorHoteles.innerHTML = '';
+    data.categorias.hoteles.forEach((_, i) => crearElementoHoteles(data, i, contenedorHoteles));
 }
 
 function loadAviones(data) {
     const contenedorAviones = document.getElementById('aviones-list');
-    contenedorAviones.innerHTML = ''; 
-    crearElementoAviones(data, 0, contenedorAviones);
-    crearElementoAviones(data, 1, contenedorAviones);
-    crearElementoAviones(data, 2, contenedorAviones);
-    crearElementoAviones(data, 3, contenedorAviones);
-    crearElementoAviones(data, 4, contenedorAviones);
-    crearElementoAviones(data, 5, contenedorAviones);
-    crearElementoAviones(data, 6, contenedorAviones);
-    crearElementoAviones(data, 7, contenedorAviones);
-    crearElementoAviones(data, 8, contenedorAviones);
-
+    contenedorAviones.innerHTML = '';
+    data.categorias.aviones.forEach((_, i) => crearElementoAviones(data, i, contenedorAviones));
 }
 
 /**
@@ -177,6 +154,9 @@ function crearElementoMayoristas(data,indice, contenedor) {
     linkgmayoristas.target = '_blank'; // Hace que el enlace se abra en una nueva pestaña
     linkgmayoristas.rel = 'noopener noreferrer'; // Mejora la seguridad al abrir el enlace en una nueva pestaña
     linkgmayoristas.id = `mayoristas-item-${indice}`;
+    linkgmayoristas.dataset.nombre    = proveedor.nombre.toLowerCase();
+    linkgmayoristas.dataset.prioridad = proveedor.prioridad || 'alta';
+    linkgmayoristas.dataset.urgente   = proveedor.urgente ? 'true' : 'false';
 
     // --- LÓGICA DE PERSISTENCIA ---
     // Leemos la "libreta" para ver si ya había un estado guardado para este ID
@@ -244,6 +224,9 @@ function crearElementoHoteles(data,indice, contenedor) {
     linkHoteles.target = '_blank'; // Hace que el enlace se abra en una nueva pestaña
     linkHoteles.rel = 'noopener noreferrer'; // Mejora la seguridad al abrir el enlace en una nueva pestaña
     linkHoteles.id = `hoteles-item-${indice}`;
+    linkHoteles.dataset.nombre    = proveedorHoteles.nombre.toLowerCase();
+    linkHoteles.dataset.prioridad = proveedorHoteles.prioridad || 'alta';
+    linkHoteles.dataset.urgente   = proveedorHoteles.urgente ? 'true' : 'false';
 
     // --- LÓGICA DE PERSISTENCIA ---
     // Leemos la "libreta" para ver si ya había un estado guardado para este ID
@@ -309,6 +292,9 @@ function crearElementoAviones(data,indice, contenedor) {
     linkAviones.target = '_blank'; // Hace que el enlace se abra en una nueva pestaña
     linkAviones.rel = 'noopener noreferrer'; // Mejora la seguridad al abrir el enlace en una nueva pestaña
     linkAviones.id = `aviones-item-${indice}`;
+    linkAviones.dataset.nombre    = proveedorAviones.nombre.toLowerCase();
+    linkAviones.dataset.prioridad = proveedorAviones.prioridad || 'alta';
+    linkAviones.dataset.urgente   = proveedorAviones.urgente ? 'true' : 'false';
 
     // --- LÓGICA DE PERSISTENCIA ---
     // Leemos la "libreta" para ver si ya había un estado guardado para este ID
@@ -502,6 +488,47 @@ function setupVisualSync(key, container, trigger) {
     updateUI(localStorage.getItem(key));
 }
 
+// ─── BÚSQUEDA Y FILTROS ───────────────────────────────────────────────────────
+
+let activeSearch   = '';
+let activePriority = 'todos';
+
+function applyFilters() {
+    const search = activeSearch.toLowerCase().trim();
+
+    document.querySelectorAll('#mayoristas-list a, #hoteles-list a, #aviones-list a').forEach(link => {
+        const manuallyHidden = localStorage.getItem(link.id) === 'none';
+        if (manuallyHidden) { link.style.display = 'none'; return; }
+
+        const nombre    = link.dataset.nombre    || '';
+        const prioridad = link.dataset.prioridad || 'alta';
+        const urgente   = link.dataset.urgente   === 'true';
+
+        const matchSearch   = !search || nombre.includes(search);
+        const matchPriority = activePriority === 'todos'
+            || (activePriority === 'urgente' && urgente)
+            || prioridad === activePriority;
+
+        link.style.display = (matchSearch && matchPriority) ? 'inline-block' : 'none';
+    });
+}
+
+function loadSearchAndFilters() {
+    document.getElementById('search-input').addEventListener('input', e => {
+        activeSearch = e.target.value;
+        applyFilters();
+    });
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            activePriority = btn.dataset.priority;
+            applyFilters();
+        });
+    });
+}
+
 // ─── EDITOR DE DATOS ─────────────────────────────────────────────────────────
 
 function renderEditorForCat(cat) {
@@ -637,6 +664,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     loadOptions();
     loadModalTabs();
     loadZoom();
+    loadSearchAndFilters();
     // 3. AHORA SÍ, cargamos la memoria.
     // Como pusimos 'await' arriba, aquí los elementos ya existen en el HTML.
     cargarEstadoPersistente();

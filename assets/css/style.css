@@ -141,6 +141,72 @@ body {
     transform: none;
 }
 
+/* ─── BÚSQUEDA Y FILTROS ─────────────────────────── */
+#search-filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1.5rem;
+    background: var(--primary-light);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    flex-wrap: wrap;
+}
+
+#search-input {
+    flex: 1;
+    min-width: 180px;
+    max-width: 320px;
+    padding: 0.4rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.08);
+    color: white;
+    font-size: 0.85rem;
+    outline: none;
+    transition: border-color var(--t), background var(--t);
+}
+
+#search-input::placeholder { color: rgba(255,255,255,0.4); }
+#search-input:focus {
+    border-color: var(--accent);
+    background: rgba(255,255,255,0.12);
+}
+
+#priority-filters {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: transparent;
+    color: rgba(255,255,255,0.65);
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background var(--t), color var(--t), border-color var(--t);
+}
+
+.filter-btn:hover {
+    background: rgba(255,255,255,0.1);
+    color: white;
+}
+
+.filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--primary);
+}
+
+.filter-btn.urgente.active {
+    background: #ef4444;
+    border-color: #ef4444;
+    color: white;
+}
+
 /* ─── GRID PRINCIPAL ─────────────────────────────── */
 #dashboard-container {
     display: grid;
