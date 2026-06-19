@@ -6,23 +6,45 @@
  * * @async
  * @returns {Promise<Object>} Devuelve una promesa que resuelve con los datos del JSON.
  */
-async function JsonFetch() {
-    IniciarSesion();
-    const respuesta = await fetch('data/info.json');
-    const data = await respuesta.json();
-    
-    // console.log(data);
-    // console.log(data.nombre);
-    // console.log(data.version);
+// Datos originales del JSON (nunca se mutan)
+let originalData = null;
 
+// Devuelve una copia del JSON con los overrides del usuario aplicados
+function getDataWithEdits() {
+    const data = JSON.parse(JSON.stringify(originalData));
+    ['mayoristas', 'hoteles', 'aviones'].forEach(cat => {
+        data.categorias[cat].forEach((p, i) => {
+            const stored = localStorage.getItem(`edit_${cat}_${i}`);
+            if (stored) {
+                try { Object.assign(p, JSON.parse(stored)); } catch(e) {}
+            }
+        });
+    });
+    return data;
+}
+
+// Re-renderiza una categoría en el dashboard y en el checklist del modal
+function reRenderSection(cat) {
+    const data = getDataWithEdits();
+    if (cat === 'mayoristas') { loadMayoristas(data); renderChecklistMayoristas(data); }
+    if (cat === 'hoteles')    { loadHoteles(data);    renderChecklistHoteles(data);    }
+    if (cat === 'aviones')    { loadAviones(data);    renderChecklistAviones(data);    }
+}
+
+async function JsonFetch() {
+    // IniciarSesion(); // Login deshabilitado temporalmente
+    const respuesta = await fetch('data/info.json');
+    originalData = await respuesta.json();
+
+    const data = getDataWithEdits();
     loadMayoristas(data);
     loadHoteles(data);
     loadAviones(data);
-
-    //Cargamos el link.
     renderChecklistMayoristas(data);
+    renderChecklistHoteles(data);
+    renderChecklistAviones(data);
     return data;
-};
+}
 
 function loadOptions() {
     const modal = document.getElementById('modalOpciones');
@@ -273,8 +295,7 @@ function crearElementoAviones(data,indice, contenedor) {
     // Leemos la "libreta" para ver si ya había un estado guardado para este ID
     const estadoGuardadAviones = localStorage.getItem(`aviones-item-${indice}`);
     
-    if (estadoGuardadAviones) {c
-        // Si existe una nota guardada, la aplicamos de inmediato
+    if (estadoGuardadAviones) {
         linkAviones.style.display = estadoGuardadAviones;
     }
     // ------------------------------
@@ -327,15 +348,12 @@ function showCarRentals() {
     // cuando se haga ese evento, es basicamente lo que se espera que suceda al presionar el elemento que llame del DOM
     //Al clickearlo se dispara la funcion y ejecuta las condicionales que ameritan.
     carlist.addEventListener('click', function(){
-
-        if(sectionContainerCar.style.display == 'none'){ //Si, no se muestra, se pasa al else.
-            sectionContainerCar.style.display='block';
-            carlist.textContent = 'Ocultar RentCar'; //Definimos el cambio de texto
-        }else {
-
-            sectionContainerCar.style.display='none';
-            carlist.textContent = 'Mostrar RentCar'; 
+        if (sectionContainerCar.style.display === 'none') {
+            sectionContainerCar.style.display = 'block';
+        } else {
+            sectionContainerCar.style.display = 'none';
         }
+        gestionarPersistencia('toggle-cars', sectionContainerCar, 'toggle-cars', 'RentCar');
     });
 }
 
@@ -465,7 +483,126 @@ function setupVisualSync(key, container, trigger) {
     updateUI(localStorage.getItem(key));
 }
 
+// ─── EDITOR DE DATOS ─────────────────────────────────────────────────────────
+
+function renderEditorForCat(cat) {
+    // Actualizar pestañas de categoría
+    document.querySelectorAll('.editor-cat-tab').forEach(t =>
+        t.classList.toggle('active', t.dataset.cat === cat));
+
+    const list = document.getElementById('editor-provider-list');
+    list.innerHTML = '';
+
+    const data      = getDataWithEdits();
+    const providers = data.categorias[cat];
+
+    providers.forEach((p, i) => {
+        const hasEdit = !!localStorage.getItem(`edit_${cat}_${i}`);
+
+        const card = document.createElement('div');
+        card.className = 'editor-card' + (hasEdit ? ' is-edited' : '');
+
+        card.innerHTML = `
+            <img class="editor-preview" alt="${p.nombre}">
+            <div class="editor-fields">
+                <input class="editor-input" data-field="nombre"         placeholder="Nombre">
+                <input class="editor-input" data-field="enlace_portal"  placeholder="URL del portal">
+                <input class="editor-input editor-input-logo" data-field="logo" placeholder="Ruta del logo">
+            </div>
+            <div class="editor-actions">
+                <button class="btn-edit-save" type="button">Guardar</button>
+                <button class="btn-edit-reset" type="button" title="Restablecer original">↩</button>
+            </div>`;
+
+        // Asignar valores sin riesgo de XSS
+        card.querySelector('.editor-preview').src                        = p.logo;
+        card.querySelector('[data-field="nombre"]').value                = p.nombre;
+        card.querySelector('[data-field="enlace_portal"]').value         = p.enlace_portal;
+        card.querySelector('[data-field="logo"]').value                  = p.logo;
+        if (!hasEdit) card.querySelector('.btn-edit-reset').hidden       = true;
+
+        // Preview en vivo al cambiar la ruta del logo
+        const logoInput = card.querySelector('[data-field="logo"]');
+        const preview   = card.querySelector('.editor-preview');
+        logoInput.addEventListener('input', () => { preview.src = logoInput.value; });
+
+        // Guardar
+        card.querySelector('.btn-edit-save').addEventListener('click', () => {
+            const edits = {};
+            card.querySelectorAll('.editor-input').forEach(inp => {
+                edits[inp.dataset.field] = inp.value.trim();
+            });
+            localStorage.setItem(`edit_${cat}_${i}`, JSON.stringify(edits));
+            reRenderSection(cat);
+            renderEditorForCat(cat);
+        });
+
+        // Restablecer original
+        card.querySelector('.btn-edit-reset').addEventListener('click', () => {
+            localStorage.removeItem(`edit_${cat}_${i}`);
+            reRenderSection(cat);
+            renderEditorForCat(cat);
+        });
+
+        list.appendChild(card);
+    });
+}
+
+// ─── TABS DEL MODAL ──────────────────────────────────────────────────────────
+
+function loadModalTabs() {
+    const modalTabs    = document.querySelectorAll('.modal-tab');
+    const panels       = document.querySelectorAll('.tab-panel');
+    const masterToggle = document.querySelector('.section-master-toggle');
+    let editorReady    = false;
+
+    modalTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            modalTabs.forEach(t => t.classList.remove('active'));
+            panels.forEach(p => { p.hidden = true; });
+            tab.classList.add('active');
+            document.getElementById(`tab-${tab.dataset.tab}`).hidden = false;
+
+            // Mostrar/ocultar botón master según la pestaña activa
+            masterToggle.style.display = tab.dataset.tab === 'visibilidad' ? '' : 'none';
+
+            // Inicializar editor la primera vez que se abre
+            if (tab.dataset.tab === 'editor' && !editorReady) {
+                editorReady = true;
+                renderEditorForCat('mayoristas');
+            }
+        });
+    });
+
+    // Sub-tabs de categoría dentro del editor
+    document.querySelectorAll('.editor-cat-tab').forEach(tab => {
+        tab.addEventListener('click', () => renderEditorForCat(tab.dataset.cat));
+    });
+}
+
 // Unificamos todo en un solo escuchador para controlar el ORDEN
+function loadZoom() {
+    const badge     = document.getElementById('zoom-badge');
+    const btnOut    = document.getElementById('zoom-out');
+    const btnIn     = document.getElementById('zoom-in');
+    const container = document.getElementById('dashboard-container');
+
+    let current = parseInt(localStorage.getItem('dashboardZoom') || '100');
+
+    function applyZoom(val) {
+        current = Math.min(150, Math.max(60, val));
+        container.style.zoom = current / 100;  // solo el contenido, nunca el modal
+        badge.textContent = current + '%';
+        localStorage.setItem('dashboardZoom', current);
+    }
+
+    applyZoom(current);
+
+    btnOut.addEventListener('click',   () => applyZoom(current - 10));
+    btnIn.addEventListener('click',    () => applyZoom(current + 10));
+    badge.addEventListener('dblclick', () => applyZoom(100));
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     console.log("Iniciando carga de la aplicación...");
 
@@ -479,7 +616,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     showFlights();
     showCarRentals();
     loadOptions();
-    // 3. AHORA SÍ, cargamos la memoria. 
+    loadModalTabs();
+    loadZoom();
+    // 3. AHORA SÍ, cargamos la memoria.
     // Como pusimos 'await' arriba, aquí los elementos ya existen en el HTML.
     cargarEstadoPersistente();
     
@@ -569,17 +708,82 @@ function crearCheckboxMayorista(data, indice, contenedor) {
 }
 
 function renderChecklistMayoristas(data) {
-
     const contenedor = document.getElementById('checklist-mayoristas');
-
-    if (!contenedor) {
-        console.error("No existe checklist-mayoristas");
-        return;
-    }
-
+    if (!contenedor) return;
     contenedor.innerHTML = '';
-
     data.categorias.mayoristas.forEach((_, indice) => {
         crearCheckboxMayorista(data, indice, contenedor);
+    });
+}
+
+function crearCheckboxHotel(data, indice, contenedor) {
+    const proveedor = data.categorias.hoteles[indice];
+    const elementKey = `hoteles-item-${indice}`;
+
+    const li       = document.createElement('li');
+    const label    = document.createElement('label');
+    label.classList.add('checkbox-label');
+
+    const checkbox     = document.createElement('input');
+    checkbox.type      = 'checkbox';
+    checkbox.checked   = localStorage.getItem(elementKey) !== 'none';
+
+    checkbox.addEventListener('change', function () {
+        const elemento = document.getElementById(`hoteles-item-${indice}`);
+        if (elemento) {
+            const nuevoEstado = checkbox.checked ? 'inline-block' : 'none';
+            elemento.style.display = nuevoEstado;
+            localStorage.setItem(elementKey, nuevoEstado);
+        }
+    });
+
+    label.appendChild(checkbox);
+    label.appendChild(document.createTextNode(` ${proveedor.nombre}`));
+    li.appendChild(label);
+    contenedor.appendChild(li);
+}
+
+function renderChecklistHoteles(data) {
+    const contenedor = document.getElementById('checklist-hoteles');
+    if (!contenedor) return;
+    contenedor.innerHTML = '';
+    data.categorias.hoteles.forEach((_, indice) => {
+        crearCheckboxHotel(data, indice, contenedor);
+    });
+}
+
+function crearCheckboxAvion(data, indice, contenedor) {
+    const proveedor = data.categorias.aviones[indice];
+    const elementKey = `aviones-item-${indice}`;
+
+    const li       = document.createElement('li');
+    const label    = document.createElement('label');
+    label.classList.add('checkbox-label');
+
+    const checkbox     = document.createElement('input');
+    checkbox.type      = 'checkbox';
+    checkbox.checked   = localStorage.getItem(elementKey) !== 'none';
+
+    checkbox.addEventListener('change', function () {
+        const elemento = document.getElementById(`aviones-item-${indice}`);
+        if (elemento) {
+            const nuevoEstado = checkbox.checked ? 'inline-block' : 'none';
+            elemento.style.display = nuevoEstado;
+            localStorage.setItem(elementKey, nuevoEstado);
+        }
+    });
+
+    label.appendChild(checkbox);
+    label.appendChild(document.createTextNode(` ${proveedor.nombre}`));
+    li.appendChild(label);
+    contenedor.appendChild(li);
+}
+
+function renderChecklistAviones(data) {
+    const contenedor = document.getElementById('checklist-aviones');
+    if (!contenedor) return;
+    contenedor.innerHTML = '';
+    data.categorias.aviones.forEach((_, indice) => {
+        crearCheckboxAvion(data, indice, contenedor);
     });
 }
