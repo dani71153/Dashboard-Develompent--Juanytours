@@ -1,662 +1,349 @@
-/* Variables para facilitar cambios de color globales */
+/* ═══════════════════════════════════════════════════
+   Juanytours — Dashboard Principal
+   Sin animaciones de entrada · App launcher layout
+   ═══════════════════════════════════════════════════ */
+
 :root {
-    --primary-color: #1e293b;
-    --primary-light: #334155;
-    --accent-color: #06b6d4;
-    --accent-hover: #0891b2;
-    --accent-light: #67e8f9;
-    --bg-color: #f8fafc;
-    --bg-secondary: #f1f5f9;
-    --card-bg: #ffffff;
-    --text-primary: #0f172a;
-    --text-secondary: #64748b;
-    --border-color: #e2e8f0;
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
-    --shadow-hover: 0 12px 40px rgba(6, 182, 212, 0.15);
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --primary:        #0f172a;
+    --primary-light:  #1e293b;
+
+    --accent:         #06b6d4;
+    --accent-hover:   #0891b2;
+    --accent-glow:    rgba(6, 182, 212, 0.15);
+
+    /* Color por categoría */
+    --cat-mayoristas: #06b6d4;
+    --cat-hoteles:    #10b981;
+    --cat-aviones:    #6366f1;
+    --cat-rentcar:    #f59e0b;
+
+    /* Tints de hover por categoría */
+    --tint-mayoristas: #f0fdfe;
+    --tint-hoteles:    #f0fdf4;
+    --tint-aviones:    #eef2ff;
+    --tint-rentcar:    #fffbeb;
+
+    --bg:         #f0f4f8;
+    --card-bg:    #ffffff;
+    --border:     #e2e8f0;
+    --border-mid: #cbd5e1;
+
+    --text:       #0f172a;
+    --text-muted: #64748b;
+
+    --shadow-sm:  0 1px 3px  rgba(0,0,0,0.06);
+    --shadow:     0 3px 10px rgba(0,0,0,0.08);
+
+    --t: 0.15s ease;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* ─── RESET ─────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
-    background-attachment: fixed;
-    margin: 0;
-    color: var(--text-primary);
-    line-height: 1.6;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    min-height: 100vh;
 }
 
-/* Header y Nav */
+/* ─── HEADER ─────────────────────────────────────── */
 #main-header {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    background: var(--primary);
     color: white;
-    padding: 1.25rem 2rem;
+    padding: 0.8rem 1.5rem;
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 100;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: var(--shadow-lg);
-    backdrop-filter: blur(10px);
-    border-bottom: 3px solid var(--accent-color);
-    animation: slideDown 0.5s ease-out;
+    border-bottom: 2px solid var(--accent);
+    box-shadow: var(--shadow);
 }
 
-@keyframes slideDown {
-    from {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-#main-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 8px;
-    margin: 0;
-    padding: 0;
-}
-
-#main-nav li {
-    position: relative;
-}
-
-#main-nav a {
-    color: rgba(255, 255, 255, 0.85);
-    text-decoration: none;
-    font-weight: 600;
-    padding: 0.625rem 1.25rem;
-    border-radius: 8px;
-    transition: var(--transition-smooth);
-    display: block;
-    position: relative;
-    overflow: hidden;
-}
-
-#main-nav a::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: -1;
-    border-radius: 8px;
-}
-
-#main-nav a:hover {
-    color: white;
-    transform: translateY(-2px);
-}
-
-#main-nav a:hover::before {
-    opacity: 0.2;
-}
-
-#main-nav a.active {
-    background: rgba(6, 182, 212, 0.2);
-    color: var(--accent-light);
-    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
-}
-
-/* Main y Secciones */
-#dashboard-container {
-    padding: 2rem;
-    max-width: 1600px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(240px, 1fr));
-    gap: 1.5rem;
-    align-items: start;
-    animation: fadeIn 0.6s ease-out;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.dashboard-section {
-    background: var(--card-bg);
-    padding: 1.75rem;
-    border-radius: 16px;
-    box-shadow: var(--shadow-md);
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    border: 1px solid var(--border-color);
-    transition: var(--transition-smooth);
-    position: relative;
-    overflow: hidden;
-    animation: scaleIn 0.5s ease-out backwards;
-}
-
-.dashboard-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--accent-color), var(--accent-light));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s ease;
-}
-
-.dashboard-section:hover::before {
-    transform: scaleX(1);
-}
-
-@keyframes scaleIn {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* Animación escalonada para las secciones */
-.dashboard-section:nth-child(1) { animation-delay: 0.05s; }
-.dashboard-section:nth-child(2) { animation-delay: 0.1s; }
-.dashboard-section:nth-child(3) { animation-delay: 0.15s; }
-.dashboard-section:nth-child(4) { animation-delay: 0.2s; }
-.dashboard-section:nth-child(5) { animation-delay: 0.25s; }
-.dashboard-section:nth-child(6) { animation-delay: 0.3s; }
-.dashboard-section:nth-child(7) { animation-delay: 0.35s; }
-.dashboard-section:nth-child(8) { animation-delay: 0.4s; }
-
-.dashboard-section:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-hover);
-    border-color: var(--accent-color);
-}
-
-.dashboard-section h2,
-.dashboard-section h3 {
-    color: var(--text-primary);
+#main-header h1 {
+    font-size: 1rem;
     font-weight: 700;
-    margin-bottom: 1rem;
-    font-size: 1.25rem;
-    position: relative;
-    padding-bottom: 0.75rem;
+    color: white;
+    letter-spacing: -0.2px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-.dashboard-section h2::after,
-.dashboard-section h3::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 40px;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent-color), var(--accent-light));
-    border-radius: 2px;
+#main-header h1::before {
+    content: '✈';
+    opacity: 0.75;
 }
 
-/* El contenedor que envuelve la lista de aviones */
-.data-wrapper {
-    display: grid;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center;     /* Centra verticalmente */
-    min-height: 200px;       /* Altura mínima para que respire */
-    background-color: #ffffff; 
-    padding: 40px;           /* Padding simétrico a todos los lados */
-    box-sizing: border-box;
-    width: 100%;
-    margin-top: 0;
-    padding-top: 0;
-}
+#main-nav ul { list-style: none; display: flex; gap: 0.5rem; }
 
-/* Reduce el espacio debajo del título */
-.dashboard-section h2 {
-    margin-bottom: 5px; /* Ajusta este valor a 0 si quieres pegarlo más */
-    padding-bottom: 0;
-}
-
-.dashboard-section ul {
-    list-style: none;
-    padding: 0;
-}
-
-.dashboard-section li {
-    padding: 0.625rem 0;
-    border-bottom: 1px solid var(--border-color);
-    transition: var(--transition-smooth);
+/* ─── CONTROLES DEL HEADER ───────────────────────── */
+#header-controls {
     display: flex;
     align-items: center;
     gap: 0.75rem;
 }
 
-.dashboard-section li:last-child {
-    border-bottom: none;
-}
-
-.dashboard-section li:hover {
-    padding-left: 0.5rem;
-    background: var(--bg-secondary);
+#zoom-control {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
     border-radius: 8px;
+    overflow: hidden;
 }
 
-/* Botones generales */
-button,
-.btn {
-    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+#zoom-badge {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.9);
+    padding: 0 0.6rem;
+    min-width: 42px;
+    text-align: center;
+    cursor: default;
+    user-select: none;
+    line-height: 1;
+}
+
+#zoom-badge:hover {
+    color: #67e8f9;
+}
+
+/* Tooltip al hacer doble click */
+#zoom-badge[title] { cursor: pointer; }
+
+.zoom-btn {
+    background: transparent;
+    color: rgba(255,255,255,0.75);
+    border: none;
+    border-radius: 0;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--t), color var(--t);
+}
+
+.zoom-btn:hover {
+    background: rgba(255,255,255,0.12);
+    color: white;
+    filter: none;
+    transform: none;
+}
+
+/* ─── GRID PRINCIPAL ─────────────────────────────── */
+#dashboard-container {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    align-items: start;
+}
+
+/* ─── CARDS DE SECCIÓN ───────────────────────────── */
+.dashboard-section {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Franja superior por categoría */
+#section-mayoristas { border-top-color: var(--cat-mayoristas); }
+#section-hoteles    { border-top-color: var(--cat-hoteles);    }
+#section-aviones    { border-top-color: var(--cat-aviones);    }
+#section-renta      { border-top-color: var(--cat-rentcar);    }
+
+/* Título de sección */
+.dashboard-section h2 {
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    padding: 0.75rem 0.9rem 0.6rem;
+    margin: 0;
+    border-bottom: 1px solid var(--border);
+    background: #f8fafc;
+    color: var(--text-muted);
+}
+
+/* Colores de título por categoría */
+#section-mayoristas h2 { color: var(--cat-mayoristas); }
+#section-hoteles    h2 { color: var(--cat-hoteles);    }
+#section-aviones    h2 { color: var(--cat-aviones);    }
+#section-renta      h2 { color: var(--cat-rentcar);    }
+
+.dashboard-section h2::after { display: none; }
+
+/* ─── CONTENEDOR DE LOGOS ────────────────────────── */
+.data-wrapper {
+    padding: 0.6rem;
+    background: var(--card-bg);
+}
+
+#mayoristas-list,
+#hoteles-list,
+#aviones-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+}
+
+/* ─── TARJETAS DE LOGO (app launcher) ───────────── */
+#mayoristas-list > a,
+#hoteles-list   > a,
+#aviones-list   > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.65rem 0.5rem;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    background: #fafbfc;
+    text-decoration: none;
+    min-height: 52px;
+    transition: border-color var(--t), background var(--t);
+}
+
+/* Hover con color de categoría */
+#mayoristas-list > a:hover { border-color: var(--cat-mayoristas); background: var(--tint-mayoristas); }
+#hoteles-list   > a:hover { border-color: var(--cat-hoteles);    background: var(--tint-hoteles);    }
+#aviones-list   > a:hover { border-color: var(--cat-aviones);    background: var(--tint-aviones);    }
+
+/* ─── LOGOS ──────────────────────────────────────── */
+.logo-mayorista,
+.logo-aviones,
+.logo-hoteles {
+    width: 100%;
+    max-width: 160px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    filter: grayscale(8%);
+    transition: filter var(--t);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.logo-mayorista:hover,
+.logo-aviones:hover,
+.logo-hoteles:hover {
+    filter: grayscale(0%) brightness(1.02);
+}
+
+/* ─── BOTONES ────────────────────────────────────── */
+button, .btn {
+    background: linear-gradient(135deg, var(--accent), var(--accent-hover));
     color: white;
     border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 10px;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
-    transition: var(--transition-smooth);
-    box-shadow: var(--shadow-sm);
-    font-size: 0.95rem;
+    transition: filter var(--t);
+    font-size: 0.88rem;
+    font-family: inherit;
+    line-height: 1.4;
 }
 
-button:hover,
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(6, 182, 212, 0.25);
-}
+button:hover, .btn:hover  { filter: brightness(1.1); }
+button:active, .btn:active { filter: brightness(0.95); }
 
-button:active,
-.btn:active {
-    transform: translateY(0);
-}
-
-/* Badges y etiquetas */
-.badge {
-    display: inline-block;
-    padding: 0.375rem 0.875rem;
-    background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
-    color: white;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    box-shadow: var(--shadow-sm);
-}
-
-/* Inputs y formularios */
-input,
-textarea,
-select {
+/* ─── FORMULARIOS ────────────────────────────────── */
+input, textarea, select {
     width: 100%;
-    padding: 0.75rem 1rem;
-    border: 2px solid var(--border-color);
-    border-radius: 10px;
-    font-size: 0.95rem;
-    transition: var(--transition-smooth);
+    padding: 0.65rem 0.9rem;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    color: var(--text);
     background: var(--card-bg);
-    color: var(--text-primary);
-}
-
-input:focus,
-textarea:focus,
-select:focus {
+    transition: border-color var(--t), box-shadow var(--t);
     outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
 }
 
-/* Tablas */
-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    margin-top: 1rem;
+input:focus, textarea:focus, select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
 }
 
-table th {
-    background: var(--bg-secondary);
-    padding: 1rem;
-    text-align: left;
-    font-weight: 600;
-    color: var(--text-primary);
-    border-bottom: 2px solid var(--accent-color);
+/* ─── ALERTAS ────────────────────────────────────── */
+.alert {
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+    border-left: 3px solid;
+    font-size: 0.88rem;
 }
+.alert-info    { background: #e0f7ff; border-color: var(--accent); color: #0c4a6e; }
+.alert-success { background: #d1fae5; border-color: #10b981;       color: #065f46; }
+.alert-warning { background: #fef3c7; border-color: #f59e0b;       color: #78350f; }
+.alert-error   { background: #fee2e2; border-color: #ef4444;       color: #991b1b; }
 
-table td {
-    padding: 0.875rem 1rem;
-    border-bottom: 1px solid var(--border-color);
-    transition: background 0.2s ease;
-}
+/* ─── SCROLLBAR ──────────────────────────────────── */
+::-webkit-scrollbar        { width: 5px; height: 5px; }
+::-webkit-scrollbar-track  { background: #f1f5f9; }
+::-webkit-scrollbar-thumb  { background: var(--border-mid); border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
-table tr:hover td {
-    background: var(--bg-secondary);
-}
-
-table tr:last-child td {
-    border-bottom: none;
-}
-
-/* Cards con estadísticas */
-.stat-card {
-    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
-    color: white;
-    padding: 1.5rem;
-    border-radius: 14px;
-    box-shadow: var(--shadow-md);
-    transition: var(--transition-smooth);
-}
-
-.stat-card:hover {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: var(--shadow-hover);
-}
-
-.stat-card h4 {
-    font-size: 0.875rem;
-    opacity: 0.9;
-    margin-bottom: 0.5rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.stat-card .value {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 0.25rem;
-}
-
-/* Loading spinner */
+/* ─── SPINNER ────────────────────────────────────── */
 .spinner {
-    width: 40px;
-    height: 40px;
-    border: 4px solid var(--border-color);
-    border-top-color: var(--accent-color);
+    width: 28px; height: 28px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
     border-radius: 50%;
-    animation: spin 0.8s linear infinite;
+    animation: spin 0.7s linear infinite;
+    margin: 1rem auto;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ─── UTILIDADES ─────────────────────────────────── */
+.glass-effect {
+    background: rgba(255,255,255,0.72);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.3);
 }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-/* Scrollbar personalizada */
-::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--bg-secondary);
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, var(--accent-color), var(--accent-hover));
-    border-radius: 10px;
-    transition: var(--transition-smooth);
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, var(--accent-hover), var(--accent-color));
-}
-
-/* Responsive Design */
+/* ─── RESPONSIVE ─────────────────────────────────── */
 @media (max-width: 1200px) {
-    #dashboard-container {
-        grid-template-columns: repeat(3, minmax(240px, 1fr));
-    }
+    #dashboard-container { grid-template-columns: repeat(2, 1fr); }
 }
 
-@media (max-width: 900px) {
-    #dashboard-container {
-        grid-template-columns: repeat(2, minmax(240px, 1fr));
-        padding: 1.5rem;
-        gap: 1.25rem;
-    }
-
-    #main-header {
-        padding: 1rem 1.5rem;
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    #main-nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-}
-
-@media (max-width: 600px) {
+@media (max-width: 700px) {
     #dashboard-container {
         grid-template-columns: 1fr;
-        padding: 1rem;
+        padding: 0.9rem;
+        gap: 0.8rem;
     }
-
     #main-header {
-        padding: 1rem;
-    }
-
-    #main-nav ul {
+        padding: 0.7rem 1rem;
+        flex-direction: column;
         gap: 0.5rem;
+        text-align: center;
     }
-
-    #main-nav a {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
+    #mayoristas-list,
+    #hoteles-list,
+    #aviones-list {
+        grid-template-columns: repeat(3, 1fr);
     }
-
-    .dashboard-section {
-        padding: 1.25rem;
-    }
-
-    .dashboard-section h2,
-    .dashboard-section h3 {
-        font-size: 1.1rem;
-    }
-}
-
-/* Efectos de profundidad y glassmorphism */
-.glass-effect {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-/* Gradientes de texto */
-.gradient-text {
-    background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: 700;
-}
-
-/* Utilidades de spacing */
-.mt-1 { margin-top: 0.5rem; }
-.mt-2 { margin-top: 1rem; }
-.mt-3 { margin-top: 1.5rem; }
-.mb-1 { margin-bottom: 0.5rem; }
-.mb-2 { margin-bottom: 1rem; }
-.mb-3 { margin-bottom: 1.5rem; }
-.p-1 { padding: 0.5rem; }
-.p-2 { padding: 1rem; }
-.p-3 { padding: 1.5rem; }
-
-/* Estados de alerta */
-.alert {
-    padding: 1rem 1.25rem;
-    border-radius: 10px;
-    margin-bottom: 1rem;
-    border-left: 4px solid;
-}
-
-.alert-info {
-    background: #e0f2fe;
-    border-color: var(--accent-color);
-    color: #0c4a6e;
-}
-
-.alert-success {
-    background: #d1fae5;
-    border-color: #10b981;
-    color: #065f46;
-}
-
-.alert-warning {
-    background: #fef3c7;
-    border-color: #f59e0b;
-    color: #92400e;
-}
-
-.alert-error {
-    background: #fee2e2;
-    border-color: #ef4444;
-    color: #991b1b;
-}
-
-#gds-list {
-    display: flex;
-    flex-direction: column; /* Alinea los hijos en vertical */
-    gap: 15px;              /* Deja un espacio elegante entre logos */
-    align-items: flex-start; /* Los alinea a la izquierda */
-}
-
-.logo-mayorista {
-    width: 280px; /* Tu valor inicial deseado */
-    max-width: 100%; /* <--- CRUCIAL: Evita que se corte */
-    height: auto;
-    display: block;
-    margin: 0 auto;
-    transition: var(--transition-smooth); /* Para que el cambio de tamaño sea suave */
-    filter: grayscale(20%); /* Opcional: un toque sutil para que el color resalte al pasar el mouse */
-    cursor: pointer;
-}
-
-/* Las Media Queries de Aspect Ratio están bien, 
-   pero asegúrate de que no tengan la clase repetida dentro */
-@media (min-aspect-ratio: 16/9) {
-    .logo-mayorista {
-        width: 18vw; 
-        max-width: 350px; 
-    }
-}
-
-@media (max-aspect-ratio: 1/1) {
-    .logo-mayorista {
-        width: 60vw;
-    }
-}
-
-.logo-mayorista:hover {
-    transform: scale(1.08) translateY(-5px); /* Se agranda un poco y sube */
-    filter: grayscale(0%) drop-shadow(0 10px 15px rgba(6, 182, 212, 0.3)); /* Resalta el color y añade sombra */
-    z-index: 10; /* Se asegura de estar por encima de otros elementos */
-}
-
-.logo-aviones {
-    width: 280px; /* Tu valor inicial deseado */
-    max-width: 100%; /* <--- CRUCIAL: Evita que se corte */
-    height: auto;
-    display: block;
-    margin: 0 auto;
-    transition: var(--transition-smooth); /* Para que el cambio de tamaño sea suave */
-    filter: grayscale(20%); /* Opcional: un toque sutil para que el color resalte al pasar el mouse */
-    cursor: pointer;
-}
-
-/* Las Media Queries de Aspect Ratio están bien, 
-   pero asegúrate de que no tengan la clase repetida dentro */
-@media (min-aspect-ratio: 16/9) {
-    .logo-aviones {
-        width: 18vw; 
-        max-width: 350px; 
-    }
-}
-
-@media (max-aspect-ratio: 1/1) {
-    .logo-aviones {
-        width: 60vw;
-    }
-}
-
-.logo-aviones:hover {
-    transform: scale(1.08) translateY(-5px); /* Se agranda un poco y sube */
-    filter: grayscale(0%) drop-shadow(0 10px 15px rgba(6, 182, 212, 0.3)); /* Resalta el color y añade sombra */
-    z-index: 10; /* Se asegura de estar por encima de otros elementos */
-}
-
-/**/
-.logo-hoteles {
-    width: 280px; /* Tu valor inicial deseado */
-    max-width: 100%; /* <--- CRUCIAL: Evita que se corte */
-    height: auto;
-    display: block;
-    margin: 0 auto;
-    transition: var(--transition-smooth); /* Para que el cambio de tamaño sea suave */
-    filter: grayscale(20%); /* Opcional: un toque sutil para que el color resalte al pasar el mouse */
-    cursor: pointer;
-}
-
-/* Las Media Queries de Aspect Ratio están bien, 
-   pero asegúrate de que no tengan la clase repetida dentro */
-@media (min-aspect-ratio: 16/9) {
-    .logo-hoteles {
-        width: 18vw; 
-        max-width: 350px; 
-    }
-}
-
-@media (max-aspect-ratio: 1/1) {
-    .logo-hoteles {
-        width: 60vw;
-    }
-}
-
-.logo-hoteles:hover {
-    transform: scale(1.08) translateY(-5px); /* Se agranda un poco y sube */
-    filter: grayscale(0%) drop-shadow(0 10px 15px rgba(6, 182, 212, 0.3)); /* Resalta el color y añade sombra */
-    z-index: 10; /* Se asegura de estar por encima de otros elementos */
-}
-
-/* Agrupamos los logos para aplicar el efecto de distinción */
-.logo-mayorista, 
-.logo-aviones, 
-.logo-hoteles {
-    /* Preparamos el espacio para la línea sin que mueva el contenido */
-    outline: 2px solid transparent;
-    outline-offset: 10px; 
-    border-radius: 12px;
-}
-
-.logo-mayorista:hover, 
-.logo-aviones:hover, 
-.logo-hoteles:hover {
-    /* La línea que distingue: usamos el color de acento */
-    outline: 2px solid var(--accent-color);
-    
-    /* El offset hace que la línea esté separada del logo, creando aire */
-    outline-offset: 1px;
-    
-    /* Agregamos un brillo exterior para que resalte del fondo */
-    box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
-    
-    /* Mantenemos tus transformaciones previas y suavizamos */
-    transform: scale(1.05) translateY(-5px);
 }

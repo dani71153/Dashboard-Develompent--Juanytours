@@ -6,16 +6,30 @@
     <title>Dashboard de Gestión de Viajes</title>
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/settings.css">
+    <style>
+        #dashboard-container {
+            zoom: var(--dashboard-zoom, 1);
+        }
+    </style>
+    <script>
+        (function () {
+            const z = localStorage.getItem('dashboardZoom');
+            if (z) document.documentElement.style.setProperty('--dashboard-zoom', z / 100);
+        })();
+    </script>
 </head>
 <body>
 
     <header id="main-header">
         <h1>Panel de Control de Viajes</h1>
-        <nav id="main-nav">
-            <ul>
+        <div id="header-controls">
+            <div id="zoom-control">
+                <button id="zoom-out"  class="zoom-btn" type="button">−</button>
+                <span id="zoom-badge">100%</span>
+                <button id="zoom-in"   class="zoom-btn" type="button">+</button>
+            </div>
             <button id="btnAbrir">Opciones</button>
-            </ul>
-        </nav>
+        </div>
     </header>
 
     <main id="dashboard-container">
@@ -61,52 +75,54 @@
             <h2>Configuración del Dashboard</h2>
             <span id="btnCerrar" class="close-btn">&times;</span>
         </div>
-        
+
+        <!-- Tabs principales -->
+        <div class="modal-tabs">
+            <button class="modal-tab active" data-tab="visibilidad">Visibilidad</button>
+            <button class="modal-tab"        data-tab="editor">Editor de Datos</button>
+        </div>
+
         <div class="modal-body">
-            <!-- Grid de 4 columnas: botón + caja de checkboxes -->
-            <div class="config-grid">
 
-                <!-- Columna: Mayoristas -->
-                <div class="config-column">
-                    <button id="toggle-mayoristas" class="config-item active">Ocultar Mayoristas</button>
-                    <ol id="checklist-mayoristas" class="config-checklist-box-mayoristas">
-                    </ol>
+            <!-- ── Tab: Visibilidad ── -->
+            <div id="tab-visibilidad" class="tab-panel">
+                <div class="config-grid">
+
+                    <div class="config-column">
+                        <button id="toggle-mayoristas" class="config-item active">Ocultar Mayoristas</button>
+                        <ol id="checklist-mayoristas" class="config-checklist-box-mayoristas"></ol>
+                    </div>
+
+                    <div class="config-column">
+                        <button id="toggle-hotels" class="config-item active">Ocultar Hoteles</button>
+                        <ol id="checklist-hoteles" class="config-checklist-box"></ol>
+                    </div>
+
+                    <div class="config-column">
+                        <button id="toggle-airplanes" class="config-item active">Ocultar Aviones</button>
+                        <ol id="checklist-aviones" class="config-checklist-box"></ol>
+                    </div>
+
+                    <div class="config-column">
+                        <button id="toggle-cars" class="config-item active">Ocultar RentCar</button>
+                        <ol id="checklist-rentcar" class="config-checklist-box">
+                            <li><span class="editor-empty">Sin proveedores aún</span></li>
+                        </ol>
+                    </div>
+
                 </div>
-
-                <!-- Columna: Hoteles -->
-                <div class="config-column">
-                    <button id="toggle-hotels" class="config-item active">Ocultar Hoteles</button>
-                    <ol class="config-checklist-box">
-                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 1</label></li>
-                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 2</label></li>
-                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 3</label></li>
-                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 4</label></li>
-                    </ol>
-                </div>
-
-                <!-- Columna: Aviones -->
-                <div class="config-column">
-                    <button id="toggle-airplanes" class="config-item active">Ocultar Aviones</button>
-                    <ol class="config-checklist-box">
-                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 1</label></li>
-                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 2</label></li>
-                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 3</label></li>
-                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 4</label></li>
-                    </ol>
-                </div>
-
-                <!-- Columna: RentCar -->
-                <div class="config-column">
-                    <button id="toggle-cars" class="config-item active">Ocultar RentCar</button>
-                    <ol class="config-checklist-box">
-                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 1</label></li>
-                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 2</label></li>
-                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 3</label></li>
-                        <li><label class="checkbox-label"><input type="checkbox" checked> Opción 4</label></li>
-                    </ol>
-                </div>
-
             </div>
+
+            <!-- ── Tab: Editor de Datos ── -->
+            <div id="tab-editor" class="tab-panel" hidden>
+                <div class="editor-cat-tabs">
+                    <button class="editor-cat-tab active" data-cat="mayoristas">Mayoristas</button>
+                    <button class="editor-cat-tab"        data-cat="hoteles">Hoteles</button>
+                    <button class="editor-cat-tab"        data-cat="aviones">Aviones</button>
+                </div>
+                <div id="editor-provider-list"></div>
+            </div>
+
         </div>
 
         <div class="modal-footer">

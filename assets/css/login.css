@@ -1,31 +1,120 @@
-.login_card {
-    width: 350px;
-    margin: 30px;
-    border: 30px;
-    padding: 30px;
-    background: rgb(66, 142, 241);
-    border-radius: 25px;
-    
-    /*Fijamos el contenido interno*/
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* ═══════════════════════════════════════════════════
+   Juanytours — Página de Login
+   ═══════════════════════════════════════════════════ */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  display: flex;
-  justify-content: center;  /* horizontal */
-  align-items: center;      /* vertical */
-  height: 100vh;
-  background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(145deg, #0f172a 0%, #1e3a5f 60%, #0f172a 100%);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 }
 
-.boton_login{
-    margin-top: 20px;
-    border-radius: 5px;
-    height: 45px;
+/* ─── CARD ────────────────────────────────────────── */
+.login_card {
+    width: 370px;
+    max-width: calc(100vw - 2rem);
+    padding: 2.5rem 2rem 2rem;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 28px 72px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    animation: cardIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.login_text{
-    margin-top: 5px;
+@keyframes cardIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+/* Logo / título */
+.login_card::before {
+    content: '✈ Juanytours';
+    display: block;
+    text-align: center;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #06b6d4;
+    letter-spacing: 0.5px;
+    margin-bottom: -0.25rem;
+}
+
+.login_card h1,
+.login_card h2 {
+    text-align: center;
+    color: #0f172a;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+.login_card h1::after,
+.login_card h2::after { display: none; }
+
+/* Subtexto */
+.login_text {
+    font-size: 0.82rem;
+    color: #94a3b8;
+    text-align: center;
+    margin-top: -0.5rem;
+}
+
+/* ─── INPUTS ──────────────────────────────────────── */
+.login_card input[type="email"],
+.login_card input[type="password"],
+.login_card input[type="text"] {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 9px;
+    font-size: 0.93rem;
+    font-family: inherit;
+    color: #0f172a;
+    background: #f8fafc;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    outline: none;
+}
+
+.login_card input:focus {
+    border-color: #06b6d4;
+    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.14);
+    background: #ffffff;
+}
+
+/* ─── BOTÓN LOGIN ─────────────────────────────────── */
+.boton_login {
+    width: 100%;
+    margin-top: 0.25rem;
+    padding: 0.8rem 1rem;
+    background: linear-gradient(135deg, #06b6d4, #0891b2);
+    color: white;
+    border: none;
+    border-radius: 9px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: filter 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+    letter-spacing: 0.2px;
+}
+
+.boton_login:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 22px rgba(6, 182, 212, 0.32);
+}
+
+.boton_login:active {
+    transform: translateY(0);
+    filter: brightness(0.96);
+    box-shadow: none;
 }
