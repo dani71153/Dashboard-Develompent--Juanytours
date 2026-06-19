@@ -315,6 +315,32 @@ body {
     filter: grayscale(0%) brightness(1.02);
 }
 
+/* ─── BOTÓN ADMIN ───────────────────────────────── */
+#btnAdmin {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 8px;
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    color: #fbbf24;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background var(--t), border-color var(--t), color var(--t);
+    font-family: inherit;
+}
+
+#btnAdmin::before { content: '⚙'; font-size: 0.85rem; }
+
+#btnAdmin:hover {
+    background: rgba(245, 158, 11, 0.25);
+    border-color: #fbbf24;
+    color: #fde68a;
+}
+
 /* ─── BOTONES ────────────────────────────────────── */
 button, .btn {
     background: linear-gradient(135deg, var(--accent), var(--accent-hover));
