@@ -315,7 +315,6 @@ body {
     filter: grayscale(0%) brightness(1.02);
 }
 
-<<<<<<< HEAD
 /* ─── BOTÓN ADMIN ───────────────────────────────── */
 #btnAdmin {
     display: inline-flex;
@@ -342,8 +341,6 @@ body {
     color: #fde68a;
 }
 
-=======
->>>>>>> cms-devel
 /* ─── BOTONES ────────────────────────────────────── */
 button, .btn {
     background: linear-gradient(135deg, var(--accent), var(--accent-hover));
