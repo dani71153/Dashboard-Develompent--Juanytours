@@ -488,6 +488,7 @@ function setupVisualSync(key, container, trigger) {
     updateUI(localStorage.getItem(key));
 }
 
+<<<<<<< HEAD
 // ─── BÚSQUEDA Y FILTROS ───────────────────────────────────────────────────────
 
 let activeSearch   = '';
@@ -529,6 +530,8 @@ function loadSearchAndFilters() {
     });
 }
 
+=======
+>>>>>>> cms-devel
 // ─── EDITOR DE DATOS ─────────────────────────────────────────────────────────
 
 function renderEditorForCat(cat) {
@@ -664,7 +667,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     loadOptions();
     loadModalTabs();
     loadZoom();
+<<<<<<< HEAD
     loadSearchAndFilters();
+=======
+>>>>>>> cms-devel
     // 3. AHORA SÍ, cargamos la memoria.
     // Como pusimos 'await' arriba, aquí los elementos ya existen en el HTML.
     cargarEstadoPersistente();
