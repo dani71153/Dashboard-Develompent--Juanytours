@@ -63,6 +63,14 @@
       "logo": "assets/img/mayoristas/tropicotours-gds.png",
       "prioridad": "alta",
       "urgente": true
+    },
+    {
+      "id": "ferries_del_caribe",
+      "nombre": "Ferries del Caribe",
+      "enlace_portal": "https://booking.ferriesdelcaribe.com/?langg=ES#step1",
+      "logo": "assets/img/mayoristas/ferries del caribe.png",
+      "prioridad": "alta",
+      "urgente": false
     }
   ]
 }
