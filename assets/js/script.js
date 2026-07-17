@@ -145,13 +145,32 @@ function mostrarErrorCarga(err) {
         </div>`;
 }
 
+// ─── NORMALIZACIÓN DE DATOS DEL CMS ────────────────────────────────────────────
+// El CMS puede guardar rutas/URLs en formatos que rompen en GitHub Pages
+// (ruta de logo con barra inicial, o URL sin https://). Las corregimos aquí.
+
+/** Normaliza la ruta de un logo: quita la barra inicial para que sea relativa. */
+function rutaLogo(logo) {
+    if (!logo) return '';
+    if (/^(https?:)?\/\//i.test(logo) || logo.startsWith('data:')) return logo; // URL o data-uri
+    return logo.replace(/^\/+/, ''); // "/assets/img/x.png" → "assets/img/x.png"
+}
+
+/** Normaliza una URL: si no trae protocolo, le antepone https:// */
+function normalizarUrl(u) {
+    const url = (u || '').trim();
+    if (!url) return '';
+    if (/^(https?:)?\/\//i.test(url) || /^(mailto:|tel:)/i.test(url)) return url;
+    return 'https://' + url; // "prueba.com/login" → "https://prueba.com/login"
+}
+
 // ─── MODO: acceso (login) vs público (sin login) ──────────────────────────────
 const MODOS = { acceso: 'enlace_portal', publico: 'enlace_publico' };
 let activeModo = localStorage.getItem('dashboardModo') || 'acceso';
 
 /** Devuelve la URL del proveedor según el modo activo (string vacío si no tiene). */
 function urlDeProveedor(proveedor, modo = activeModo) {
-    return proveedor[MODOS[modo]] || '';
+    return normalizarUrl(proveedor[MODOS[modo]] || '');
 }
 
 // ─── VISIBILIDAD DE SECCIONES POR MODO ─────────────────────────────────────────
@@ -328,7 +347,7 @@ function crearElemento(cat, data, indice, contenedor) {
     link.dataset.sinurl    = url ? 'false' : 'true'; // sin enlace para el modo actual
 
     const img = document.createElement('img');
-    img.src = proveedor.logo;
+    img.src = rutaLogo(proveedor.logo);
     img.alt = `${proveedor.nombre} Logo`;
     img.title = `Visitar el portal de ${proveedor.nombre}`;
     img.classList.add('logo-item');
@@ -594,7 +613,7 @@ function renderEditorForCat(cat) {
             </div>`;
 
         // Asignar valores sin riesgo de XSS
-        card.querySelector('.editor-preview').src               = p.logo;
+        card.querySelector('.editor-preview').src               = rutaLogo(p.logo);
         card.querySelector('[data-field="nombre"]').value         = p.nombre;
         card.querySelector('[data-field="enlace_portal"]').value  = p.enlace_portal || '';
         card.querySelector('[data-field="enlace_publico"]').value = p.enlace_publico || '';
