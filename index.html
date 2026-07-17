@@ -15,6 +15,8 @@
         (function () {
             const z = localStorage.getItem('dashboardZoom');
             if (z) document.documentElement.style.setProperty('--dashboard-zoom', z / 100);
+            const c = localStorage.getItem('dashboardCardSize');
+            if (c) document.documentElement.style.setProperty('--card-min', c + 'px');
         })();
     </script>
 </head>
@@ -38,46 +40,14 @@
                 <span id="zoom-badge">100%</span>
                 <button id="zoom-in"   class="zoom-btn" type="button">+</button>
             </div>
+            <button id="btnModo" type="button">🔒 Con acceso</button>
             <a id="btnAdmin" href="./admin/" target="_blank" rel="noopener noreferrer">Admin</a>
             <button id="btnAbrir">Opciones</button>
         </div>
     </header>
 
-    <main id="dashboard-container">
-        <section id="section-mayoristas" class="dashboard-section">
-            <h2>Mayoristas Turisticos</h2>
-            <div id="container-mayoristas" class="data-wrapper">
-                <ol id="mayoristas-list">
-                    <li>Cargando datos de mayoristas...</li>
-                </ol>
-                </div>
-        </section>
-
-        <section id="section-hoteles" class="dashboard-section">
-            <h2>Gestión de Hoteles</h2>
-            <div id="container-hoteles" class="data-wrapper">
-                <ol id="hoteles-list">
-                    <li>Cargando datos de hoteles...</li>
-                </ol>
-                </div>
-        </section>
-
-        <section id="section-aviones" class="dashboard-section">
-            <h2>Vuelos y Aviones</h2>
-            <div id="container-aviones" class="data-wrapper">
-                <ol id="aviones-list">
-                    <li>Cargando datos de vuelos...</li>
-                    </ol>
-                </div>
-        </section>
-
-        <section id="section-renta" class="dashboard-section">
-            <h2>Renta de Vehículos</h2>
-            <div id="container-renta" class="data-wrapper">
-                </div>
-        </section>
-
-    </main>
+    <!-- Las secciones se generan dinámicamente desde SECCIONES (assets/js/script.js) -->
+    <main id="dashboard-container"></main>
 
 <div id="modalOpciones" class="modal">
     <div class="modal-content">
@@ -90,6 +60,8 @@
         <!-- Tabs principales -->
         <div class="modal-tabs">
             <button class="modal-tab active" data-tab="visibilidad">Visibilidad</button>
+            <button class="modal-tab"        data-tab="modos">Por Modo</button>
+            <button class="modal-tab"        data-tab="tamano">Tamaño</button>
             <button class="modal-tab"        data-tab="editor">Editor de Datos</button>
         </div>
 
@@ -97,40 +69,48 @@
 
             <!-- ── Tab: Visibilidad ── -->
             <div id="tab-visibilidad" class="tab-panel">
-                <div class="config-grid">
+                <p class="modo-config-intro" id="vis-modo-hint"></p>
+                <!-- Columnas generadas dinámicamente desde SECCIONES -->
+                <div class="config-grid" id="config-grid"></div>
+            </div>
 
-                    <div class="config-column">
-                        <button id="toggle-mayoristas" class="config-item active">Ocultar Mayoristas</button>
-                        <ol id="checklist-mayoristas" class="config-checklist-box-mayoristas"></ol>
-                    </div>
+            <!-- ── Tab: Por Modo ── -->
+            <div id="tab-modos" class="tab-panel" hidden>
+                <p class="modo-config-intro">
+                    Elige qué secciones se muestran en cada modo del dashboard.
+                    <br><strong>🔒 Con acceso</strong>: portales con login de la empresa.
+                    <strong>🌐 Público</strong>: webs y buscadores sin login.
+                </p>
+                <table class="modo-config-table">
+                    <thead>
+                        <tr>
+                            <th>Sección</th>
+                            <th>🔒 Con acceso</th>
+                            <th>🌐 Público</th>
+                        </tr>
+                    </thead>
+                    <tbody id="modo-config-body"></tbody>
+                </table>
+            </div>
 
-                    <div class="config-column">
-                        <button id="toggle-hotels" class="config-item active">Ocultar Hoteles</button>
-                        <ol id="checklist-hoteles" class="config-checklist-box"></ol>
-                    </div>
-
-                    <div class="config-column">
-                        <button id="toggle-airplanes" class="config-item active">Ocultar Aviones</button>
-                        <ol id="checklist-aviones" class="config-checklist-box"></ol>
-                    </div>
-
-                    <div class="config-column">
-                        <button id="toggle-cars" class="config-item active">Ocultar RentCar</button>
-                        <ol id="checklist-rentcar" class="config-checklist-box">
-                            <li><span class="editor-empty">Sin proveedores aún</span></li>
-                        </ol>
-                    </div>
-
+            <!-- ── Tab: Tamaño ── -->
+            <div id="tab-tamano" class="tab-panel" hidden>
+                <p class="modo-config-intro">Ajusta el ancho de las tarjetas del dashboard.</p>
+                <div class="size-presets">
+                    <button type="button" data-size="200">Pequeño</button>
+                    <button type="button" data-size="260">Mediano</button>
+                    <button type="button" data-size="340">Grande</button>
+                </div>
+                <div class="size-slider-row">
+                    <input type="range" id="size-slider" min="160" max="440" step="10">
+                    <span id="size-value">260px</span>
                 </div>
             </div>
 
             <!-- ── Tab: Editor de Datos ── -->
             <div id="tab-editor" class="tab-panel" hidden>
-                <div class="editor-cat-tabs">
-                    <button class="editor-cat-tab active" data-cat="mayoristas">Mayoristas</button>
-                    <button class="editor-cat-tab"        data-cat="hoteles">Hoteles</button>
-                    <button class="editor-cat-tab"        data-cat="aviones">Aviones</button>
-                </div>
+                <!-- Pestañas de categoría generadas dinámicamente desde SECCIONES -->
+                <div class="editor-cat-tabs" id="editor-cat-tabs"></div>
                 <div id="editor-provider-list"></div>
             </div>
 

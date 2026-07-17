@@ -209,7 +209,9 @@ body {
 /* ─── GRID PRINCIPAL ─────────────────────────────── */
 #dashboard-container {
     display: grid;
-    grid-template-columns: repeat(4, minmax(200px, 1fr));
+    /* auto-fit colapsa columnas vacías y estira las tarjetas para llenar el ancho.
+       --card-min controla el ancho mínimo de cada tarjeta (pestaña "Tamaño"). */
+    grid-template-columns: repeat(auto-fit, minmax(var(--card-min, 260px), 1fr));
     gap: 1rem;
     padding: 1.25rem 1.5rem;
     max-width: 1600px;
@@ -222,18 +224,13 @@ body {
     background: var(--card-bg);
     border-radius: 12px;
     border: 1px solid var(--border);
-    border-top: 3px solid var(--border);
+    /* La franja superior usa el color de la sección (--cat, inline por JS). */
+    border-top: 3px solid var(--cat, var(--border));
     box-shadow: var(--shadow-sm);
     overflow: hidden;
     display: flex;
     flex-direction: column;
 }
-
-/* Franja superior por categoría */
-#section-mayoristas { border-top-color: var(--cat-mayoristas); }
-#section-hoteles    { border-top-color: var(--cat-hoteles);    }
-#section-aviones    { border-top-color: var(--cat-aviones);    }
-#section-renta      { border-top-color: var(--cat-rentcar);    }
 
 /* Título de sección */
 .dashboard-section h2 {
@@ -245,14 +242,8 @@ body {
     margin: 0;
     border-bottom: 1px solid var(--border);
     background: #f8fafc;
-    color: var(--text-muted);
+    color: var(--cat, var(--text-muted));
 }
-
-/* Colores de título por categoría */
-#section-mayoristas h2 { color: var(--cat-mayoristas); }
-#section-hoteles    h2 { color: var(--cat-hoteles);    }
-#section-aviones    h2 { color: var(--cat-aviones);    }
-#section-renta      h2 { color: var(--cat-rentcar);    }
 
 .dashboard-section h2::after { display: none; }
 
@@ -262,9 +253,7 @@ body {
     background: var(--card-bg);
 }
 
-#mayoristas-list,
-#hoteles-list,
-#aviones-list {
+.data-list {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -274,9 +263,7 @@ body {
 }
 
 /* ─── TARJETAS DE LOGO (app launcher) ───────────── */
-#mayoristas-list > a,
-#hoteles-list   > a,
-#aviones-list   > a {
+.data-list > a {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -289,15 +276,24 @@ body {
     transition: border-color var(--t), background var(--t);
 }
 
-/* Hover con color de categoría */
-#mayoristas-list > a:hover { border-color: var(--cat-mayoristas); background: var(--tint-mayoristas); }
-#hoteles-list   > a:hover { border-color: var(--cat-hoteles);    background: var(--tint-hoteles);    }
-#aviones-list   > a:hover { border-color: var(--cat-aviones);    background: var(--tint-aviones);    }
+/* Hover con el color de la sección (heredado de --cat/--tint). */
+.data-list > a:hover {
+    border-color: var(--cat, var(--accent));
+    background: var(--tint, #f8fafc);
+}
+
+/* Placeholder de secciones sin datos aún */
+.seccion-vacia {
+    grid-column: 1 / -1;
+    list-style: none;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    padding: 0.6rem;
+}
 
 /* ─── LOGOS ──────────────────────────────────────── */
-.logo-mayorista,
-.logo-aviones,
-.logo-hoteles {
+.logo-item {
     width: 100%;
     max-width: 160px;
     height: auto;
@@ -309,9 +305,7 @@ body {
     cursor: pointer;
 }
 
-.logo-mayorista:hover,
-.logo-aviones:hover,
-.logo-hoteles:hover {
+.logo-item:hover {
     filter: grayscale(0%) brightness(1.02);
 }
 
@@ -339,6 +333,35 @@ body {
     background: rgba(245, 158, 11, 0.25);
     border-color: #fbbf24;
     color: #fde68a;
+}
+
+/* ─── BOTÓN MODO (acceso / público) ──────────────── */
+#btnModo {
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.45);
+    color: #bfdbfe;
+    padding: 0.4rem 0.9rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background var(--t), border-color var(--t), color var(--t);
+}
+
+#btnModo:hover {
+    background: rgba(59, 130, 246, 0.28);
+    filter: none;
+}
+
+#btnModo.modo-publico {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: rgba(16, 185, 129, 0.5);
+    color: #a7f3d0;
+}
+
+#btnModo.modo-publico:hover {
+    background: rgba(16, 185, 129, 0.28);
 }
 
 /* ─── BOTONES ────────────────────────────────────── */
@@ -416,10 +439,8 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* ─── RESPONSIVE ─────────────────────────────────── */
-@media (max-width: 1200px) {
-    #dashboard-container { grid-template-columns: repeat(2, 1fr); }
-}
-
+/* En pantallas amplias/medianas el número de columnas lo decide auto-fit
+   según --card-min (pestaña "Tamaño"); no forzamos un número fijo aquí. */
 @media (max-width: 700px) {
     #dashboard-container {
         grid-template-columns: 1fr;
@@ -432,9 +453,7 @@ input:focus, textarea:focus, select:focus {
         gap: 0.5rem;
         text-align: center;
     }
-    #mayoristas-list,
-    #hoteles-list,
-    #aviones-list {
+    .data-list {
         grid-template-columns: repeat(3, 1fr);
     }
 }

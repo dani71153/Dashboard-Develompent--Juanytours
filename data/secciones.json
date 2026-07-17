@@ -1,0 +1,232 @@
+{
+  "secciones": [
+    {
+      "key": "mayoristas",
+      "titulo": "Mayoristas Turísticos",
+      "label": "Mayoristas",
+      "color": "#06b6d4",
+      "tint": "#f0fdfe",
+      "defaultPublico": false,
+      "proveedores": [
+        {
+          "id": "sky_high_dominicana",
+          "nombre": "Sky High Dominicana - Portal GDS",
+          "enlace_portal": "https://support.kiusys.com/portal/es/signin",
+          "enlace_publico": "",
+          "logo": "assets/img/mayoristas/SkyHigh-GDS-V1.png",
+          "prioridad": "alta",
+          "urgente": true
+        },
+        {
+          "id": "word_2_flight",
+          "nombre": "Word2Flight - Portal GDS",
+          "enlace_portal": "https://kiu.click/",
+          "enlace_publico": "",
+          "logo": "assets/img/mayoristas/world2fly-gds-v1.png",
+          "prioridad": "alta",
+          "urgente": true
+        },
+        {
+          "id": "sti_corporate_travel",
+          "nombre": "STI Corporate Travel-GDS",
+          "enlace_portal": "https://sti.travellink.com.br/Agencias30/guiAutenticador.aspx",
+          "enlace_publico": "",
+          "logo": "assets/img/mayoristas/STICorporate-GDS-V1.png",
+          "prioridad": "alta",
+          "urgente": false
+        },
+        {
+          "id": "grupo_vdt",
+          "nombre": "Grupo VDT - Dominicana",
+          "enlace_portal": "https://www.grupovdt.com.do/wtc/do/vuelos/AppLogin.aspx",
+          "enlace_publico": "https://www.grupovdt.com.do/",
+          "logo": "assets/img/mayoristas/grupovdt-gds-v1.png",
+          "prioridad": "alta",
+          "urgente": true
+        },
+        {
+          "id": "logitur_mayorista",
+          "nombre": "Logitur - Dominicana",
+          "enlace_portal": "https://reservas.viajeslogitur.com/es/login",
+          "enlace_publico": "https://www.viajeslogitur.com/",
+          "logo": "assets/img/mayoristas/logitur-gds-v1.png",
+          "prioridad": "alta",
+          "urgente": true
+        },
+        {
+          "id": "agt_viajes",
+          "nombre": "Viajes AGT - Mayorista",
+          "enlace_portal": "https://reservas.viajesagt.com/es/login",
+          "enlace_publico": "https://www.viajesagt.com/",
+          "logo": "assets/img/mayoristas/agt-gds-v1.png",
+          "prioridad": "alta",
+          "urgente": true
+        },
+        {
+          "id": "ratehawk",
+          "nombre": "RateHawk - Portal GDS",
+          "enlace_portal": "https://www.ratehawk.com/accounts/login/",
+          "enlace_publico": "https://www.ratehawk.com/",
+          "logo": "assets/img/mayoristas/Ratehawk-loginv1.png",
+          "prioridad": "alta",
+          "urgente": true
+        },
+        {
+          "id": "tropico_tours",
+          "nombre": "Tropico Tours",
+          "enlace_portal": "https://www.sunparadise.com.do/es/login",
+          "enlace_publico": "https://www.sunparadise.com.do/",
+          "logo": "assets/img/mayoristas/tropicotours-gds.png",
+          "prioridad": "alta",
+          "urgente": true
+        },
+        {
+          "id": "ferries_del_caribe",
+          "nombre": "Ferries del Caribe",
+          "enlace_portal": "https://booking.ferriesdelcaribe.com/?langg=ES#step1",
+          "enlace_publico": "https://www.ferriesdelcaribe.com/",
+          "logo": "assets/img/mayoristas/ferries del caribe.png",
+          "prioridad": "alta",
+          "urgente": false
+        }
+      ]
+    },
+    {
+      "key": "hoteles",
+      "titulo": "Gestión de Hoteles",
+      "label": "Hoteles",
+      "color": "#10b981",
+      "tint": "#f0fdf4",
+      "defaultPublico": true,
+      "proveedores": [
+        {
+          "id": "hotel_booking",
+          "nombre": "Booking",
+          "enlace_portal": "https://www.booking.com/",
+          "enlace_publico": "https://www.booking.com/",
+          "logo": "assets/img/hoteles/booking-logo-v1.png",
+          "prioridad": "baja",
+          "urgente": false
+        },
+        {
+          "id": "tripadvisor",
+          "nombre": "TripAdvisor",
+          "enlace_portal": "https://www.tripadvisor.com/",
+          "enlace_publico": "https://www.tripadvisor.com/",
+          "logo": "assets/img/hoteles/tripadvisor-logo-v1.png",
+          "prioridad": "alta",
+          "urgente": true
+        },
+        {
+          "id": "checkin_group",
+          "nombre": "CheckIN Group",
+          "enlace_portal": "https://booking.checkingrouprd.com/es/login/",
+          "enlace_publico": "https://checkingrouprd.com/",
+          "logo": "assets/img/hoteles/checkingroup-logo-v1.png",
+          "prioridad": "alta",
+          "urgente": true
+        }
+      ]
+    },
+    {
+      "key": "aviones",
+      "titulo": "Vuelos y Aviones",
+      "label": "Aviones",
+      "color": "#6366f1",
+      "tint": "#eef2ff",
+      "defaultPublico": true,
+      "proveedores": [
+        {
+          "id": "air_arajet_ventas",
+          "nombre": "Arajet Portal de Ventas",
+          "enlace_portal": "https://ezy.arajet.com/es/ta",
+          "enlace_publico": "https://www.arajet.com",
+          "logo": "assets/img/vuelos/Arajet-portalventas-v1.png",
+          "prioridad": "media",
+          "urgente": false
+        },
+        {
+          "id": "air_arajet_principal",
+          "nombre": "Arajet Portal Principal",
+          "enlace_portal": "https://www.arajet.com",
+          "enlace_publico": "https://www.arajet.com",
+          "logo": "assets/img/vuelos/Arajet-portalprincipal-v1.png",
+          "prioridad": "alta",
+          "urgente": true
+        },
+        {
+          "id": "air_copa",
+          "nombre": "Copa Airlines",
+          "enlace_portal": "https://www.copaair.com/",
+          "enlace_publico": "https://www.copaair.com/",
+          "logo": "assets/img/vuelos/copaairlines-portalprincipal-v1.png",
+          "prioridad": "alta",
+          "urgente": true
+        },
+        {
+          "id": "air_copa_connect_miles",
+          "nombre": "Copa Connect Miles",
+          "enlace_portal": "https://cm.farelogix.com/sprk/",
+          "enlace_publico": "",
+          "logo": "assets/img/vuelos/copaconnect-portalgds-v1.png",
+          "prioridad": "alta",
+          "urgente": true
+        },
+        {
+          "id": "air_copa_checkin",
+          "nombre": "Copa Check-In",
+          "enlace_portal": "https://checkin.copaair.com/",
+          "enlace_publico": "https://checkin.copaair.com/",
+          "logo": "assets/img/vuelos/copaairlines-checkinv1.png",
+          "prioridad": "alta",
+          "urgente": true
+        },
+        {
+          "id": "air_copa_flight_status",
+          "nombre": "Copa Flight Status",
+          "enlace_portal": "https://www.copaair.com/es-gs/flight-status/",
+          "enlace_publico": "https://www.copaair.com/es-gs/flight-status/",
+          "logo": "assets/img/vuelos/copaairlines-estatusvuelo-v1.png",
+          "prioridad": "alta",
+          "urgente": true
+        },
+        {
+          "id": "air_copa_requisitos",
+          "nombre": "Copa Flight Requirements",
+          "enlace_portal": "https://www.copaair.com/es-gs/requisitos-de-viaje",
+          "enlace_publico": "https://www.copaair.com/es-gs/requisitos-de-viaje",
+          "logo": "assets/img/vuelos/copaairlines-requisitosviajes-v1.png",
+          "prioridad": "alta",
+          "urgente": true
+        },
+        {
+          "id": "air_copa_facturacion",
+          "nombre": "Copa Facturación Electrónica",
+          "enlace_portal": "https://copado.getyourinvoice.com/",
+          "enlace_publico": "",
+          "logo": "assets/img/vuelos/copaairlines-facturacion-v1.png",
+          "prioridad": "alta",
+          "urgente": true
+        },
+        {
+          "id": "jetblue",
+          "nombre": "JetBlue - Página Principal",
+          "enlace_portal": "https://www.jetblue.com/",
+          "enlace_publico": "https://www.jetblue.com/",
+          "logo": "assets/img/vuelos/jetblue-logo-v1.png",
+          "prioridad": "alta",
+          "urgente": true
+        }
+      ]
+    },
+    {
+      "key": "renta",
+      "titulo": "Renta de Vehículos",
+      "label": "RentCar",
+      "color": "#f59e0b",
+      "tint": "#fffbeb",
+      "defaultPublico": true,
+      "proveedores": []
+    }
+  ]
+}

@@ -14,83 +14,43 @@ public_folder: assets/img
 
 collections:
 
-  - name: mayoristas
-    label: "Mayoristas Turísticos"
+  - name: dashboard
+    label: "Dashboard"
     files:
-      - name: mayoristas
-        label: "Lista de Mayoristas"
-        file: data/mayoristas.json
+      - name: secciones
+        label: "Secciones del Dashboard"
+        file: data/secciones.json
+        description: >
+          Cada sección es una tarjeta del dashboard con su lista de proveedores.
+          Para AGREGAR una sección nueva, usa el botón "Agregar Sección".
         fields:
-          - name: proveedores
-            label: Proveedores
-            label_singular: Proveedor
+          - name: secciones
+            label: Secciones
+            label_singular: Sección
             widget: list
+            # Muestra el título de cada sección en la lista plegada.
+            summary: "{{fields.titulo}}  ·  {{fields.proveedores.length}} proveedores"
             fields:
-              - { name: id,            label: "ID (sin espacios)",  widget: string }
-              - { name: nombre,        label: Nombre,               widget: string }
-              - { name: enlace_portal, label: "URL del Portal",     widget: string }
-              - name: logo
-                label: Logo
-                widget: image
-                media_folder: assets/img/mayoristas
-                public_folder: assets/img/mayoristas
-              - name: prioridad
-                label: Prioridad
-                widget: select
-                options: [alta, media, baja]
-                default: alta
-              - { name: urgente, label: Urgente, widget: boolean, default: false }
-
-  - name: hoteles
-    label: Hoteles
-    files:
-      - name: hoteles
-        label: "Lista de Hoteles"
-        file: data/hoteles.json
-        fields:
-          - name: proveedores
-            label: Proveedores
-            label_singular: Proveedor
-            widget: list
-            fields:
-              - { name: id,            label: "ID (sin espacios)",  widget: string }
-              - { name: nombre,        label: Nombre,               widget: string }
-              - { name: enlace_portal, label: "URL del Portal",     widget: string }
-              - name: logo
-                label: Logo
-                widget: image
-                media_folder: assets/img/hoteles
-                public_folder: assets/img/hoteles
-              - name: prioridad
-                label: Prioridad
-                widget: select
-                options: [alta, media, baja]
-                default: alta
-              - { name: urgente, label: Urgente, widget: boolean, default: false }
-
-  - name: aviones
-    label: "Vuelos y Aviones"
-    files:
-      - name: aviones
-        label: "Lista de Portales de Vuelos"
-        file: data/aviones.json
-        fields:
-          - name: proveedores
-            label: Proveedores
-            label_singular: Proveedor
-            widget: list
-            fields:
-              - { name: id,            label: "ID (sin espacios)",  widget: string }
-              - { name: nombre,        label: Nombre,               widget: string }
-              - { name: enlace_portal, label: "URL del Portal",     widget: string }
-              - name: logo
-                label: Logo
-                widget: image
-                media_folder: assets/img/vuelos
-                public_folder: assets/img/vuelos
-              - name: prioridad
-                label: Prioridad
-                widget: select
-                options: [alta, media, baja]
-                default: alta
-              - { name: urgente, label: Urgente, widget: boolean, default: false }
+              - { name: key,   label: "Clave (sin espacios, única)", widget: string, hint: "Ej: seguros, traslados. Solo minúsculas y sin espacios." }
+              - { name: titulo, label: "Título (encabezado de la tarjeta)", widget: string }
+              - { name: label,  label: "Nombre corto (botones)", widget: string }
+              - { name: color,  label: "Color de acento", widget: color, default: "#06b6d4" }
+              - { name: tint,   label: "Color de fondo al pasar el mouse", widget: color, default: "#f0fdfe" }
+              - { name: defaultPublico, label: "Visible por defecto en modo Público", widget: boolean, default: true }
+              - name: proveedores
+                label: Proveedores
+                label_singular: Proveedor
+                widget: list
+                summary: "{{fields.nombre}}"
+                fields:
+                  - { name: id,             label: "ID (sin espacios)",       widget: string }
+                  - { name: nombre,         label: Nombre,                    widget: string }
+                  - { name: enlace_portal,  label: "URL con acceso (login)",  widget: string }
+                  - { name: enlace_publico, label: "URL pública (sin login)", widget: string, required: false }
+                  - { name: logo,           label: Logo,                      widget: image }
+                  - name: prioridad
+                    label: Prioridad
+                    widget: select
+                    options: [alta, media, baja]
+                    default: alta
+                  - { name: urgente, label: Urgente, widget: boolean, default: false }
