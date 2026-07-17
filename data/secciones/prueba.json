@@ -1,0 +1,20 @@
+{
+  "orden": 5,
+  "key": "Prueba",
+  "titulo": "Pruebas!",
+  "label": "Prueba",
+  "color": "#06b6d4",
+  "tint": "#f0fdfe",
+  "defaultPublico": true,
+  "proveedores": [
+    {
+      "id": "Prueba",
+      "nombre": "Prueba",
+      "enlace_portal": "prueba.com/login",
+      "enlace_publico": "prueba.com",
+      "logo": "/assets/img/mayoristas/agt-gds-v1.png",
+      "prioridad": "alta",
+      "urgente": false
+    }
+  ]
+}
