@@ -346,15 +346,29 @@ function crearElemento(cat, data, indice, contenedor) {
     link.dataset.urgente   = proveedor.urgente ? 'true' : 'false';
     link.dataset.sinurl    = url ? 'false' : 'true'; // sin enlace para el modo actual
 
-    const img = document.createElement('img');
-    img.src = rutaLogo(proveedor.logo);
-    img.alt = `${proveedor.nombre} Logo`;
-    img.title = `Visitar el portal de ${proveedor.nombre}`;
-    img.classList.add('logo-item');
-    img.style.position = 'relative';
-
-    link.appendChild(img);
+    const logo = rutaLogo(proveedor.logo);
+    if (logo) {
+        const img = document.createElement('img');
+        img.src = logo;
+        img.alt = `${proveedor.nombre} Logo`;
+        img.title = `Visitar el portal de ${proveedor.nombre}`;
+        img.classList.add('logo-item');
+        img.style.position = 'relative';
+        // Si el logo no carga, mostramos el nombre en texto (evita el ícono roto).
+        img.addEventListener('error', () => img.replaceWith(logoFallback(proveedor.nombre)));
+        link.appendChild(img);
+    } else {
+        link.appendChild(logoFallback(proveedor.nombre));
+    }
     contenedor.appendChild(link);
+}
+
+/** Crea un rótulo de texto para usar cuando un proveedor no tiene logo o este falla. */
+function logoFallback(nombre) {
+    const span = document.createElement('span');
+    span.className = 'logo-fallback';
+    span.textContent = nombre;
+    return span;
 }
 
 // ─── VISIBILIDAD DE SECCIONES (Ocultar/Mostrar Mayoristas, Hoteles…) ───────────

@@ -309,6 +309,18 @@ body {
     filter: grayscale(0%) brightness(1.02);
 }
 
+/* Rótulo de texto cuando no hay logo (o falla la imagen) */
+.logo-fallback {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--cat, var(--text));
+    line-height: 1.25;
+    padding: 0.2rem 0.1rem;
+}
+
 /* ─── BOTÓN ADMIN ───────────────────────────────── */
 #btnAdmin {
     display: inline-flex;

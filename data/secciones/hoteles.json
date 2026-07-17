@@ -33,6 +33,96 @@
       "logo": "assets/img/hoteles/checkingroup-logo-v1.png",
       "prioridad": "alta",
       "urgente": true
+    },
+    {
+      "id": "hotel_expedia",
+      "nombre": "Expedia",
+      "enlace_portal": "https://www.expedia.com/",
+      "enlace_publico": "https://www.expedia.com/",
+      "logo": "https://www.google.com/s2/favicons?domain=expedia.com&sz=128",
+      "prioridad": "alta",
+      "urgente": false
+    },
+    {
+      "id": "hotel_hotels_com",
+      "nombre": "Hotels.com",
+      "enlace_portal": "https://www.hotels.com/",
+      "enlace_publico": "https://www.hotels.com/",
+      "logo": "https://www.google.com/s2/favicons?domain=hotels.com&sz=128",
+      "prioridad": "media",
+      "urgente": false
+    },
+    {
+      "id": "hotel_trivago",
+      "nombre": "Trivago",
+      "enlace_portal": "https://www.trivago.com/",
+      "enlace_publico": "https://www.trivago.com/",
+      "logo": "https://www.google.com/s2/favicons?domain=trivago.com&sz=128",
+      "prioridad": "media",
+      "urgente": false
+    },
+    {
+      "id": "hotel_kayak",
+      "nombre": "Kayak",
+      "enlace_portal": "https://www.kayak.com/hotels",
+      "enlace_publico": "https://www.kayak.com/hotels",
+      "logo": "https://www.google.com/s2/favicons?domain=kayak.com&sz=128",
+      "prioridad": "media",
+      "urgente": false
+    },
+    {
+      "id": "hotel_agoda",
+      "nombre": "Agoda",
+      "enlace_portal": "https://www.agoda.com/",
+      "enlace_publico": "https://www.agoda.com/",
+      "logo": "https://www.google.com/s2/favicons?domain=agoda.com&sz=128",
+      "prioridad": "media",
+      "urgente": false
+    },
+    {
+      "id": "hotel_despegar",
+      "nombre": "Despegar",
+      "enlace_portal": "https://www.despegar.com/",
+      "enlace_publico": "https://www.despegar.com/",
+      "logo": "https://www.google.com/s2/favicons?domain=despegar.com&sz=128",
+      "prioridad": "alta",
+      "urgente": false
+    },
+    {
+      "id": "hotel_airbnb",
+      "nombre": "Airbnb",
+      "enlace_portal": "https://www.airbnb.com/",
+      "enlace_publico": "https://www.airbnb.com/",
+      "logo": "https://www.google.com/s2/favicons?domain=airbnb.com&sz=128",
+      "prioridad": "alta",
+      "urgente": false
+    },
+    {
+      "id": "hotel_hostelworld",
+      "nombre": "Hostelworld",
+      "enlace_portal": "https://www.hostelworld.com/",
+      "enlace_publico": "https://www.hostelworld.com/",
+      "logo": "https://www.google.com/s2/favicons?domain=hostelworld.com&sz=128",
+      "prioridad": "baja",
+      "urgente": false
+    },
+    {
+      "id": "hotel_priceline",
+      "nombre": "Priceline",
+      "enlace_portal": "https://www.priceline.com/",
+      "enlace_publico": "https://www.priceline.com/",
+      "logo": "https://www.google.com/s2/favicons?domain=priceline.com&sz=128",
+      "prioridad": "baja",
+      "urgente": false
+    },
+    {
+      "id": "hotel_google",
+      "nombre": "Google Hotels",
+      "enlace_portal": "https://www.google.com/travel/hotels",
+      "enlace_publico": "https://www.google.com/travel/hotels",
+      "logo": "https://www.google.com/s2/favicons?domain=google.com&sz=128",
+      "prioridad": "media",
+      "urgente": false
     }
   ]
 }

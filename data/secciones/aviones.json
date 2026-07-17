@@ -87,6 +87,114 @@
       "logo": "assets/img/vuelos/jetblue-logo-v1.png",
       "prioridad": "alta",
       "urgente": true
+    },
+    {
+      "id": "air_american",
+      "nombre": "American Airlines",
+      "enlace_portal": "https://www.aa.com/",
+      "enlace_publico": "https://www.aa.com/",
+      "logo": "https://www.google.com/s2/favicons?domain=aa.com&sz=128",
+      "prioridad": "alta",
+      "urgente": false
+    },
+    {
+      "id": "air_delta",
+      "nombre": "Delta Air Lines",
+      "enlace_portal": "https://www.delta.com/",
+      "enlace_publico": "https://www.delta.com/",
+      "logo": "https://www.google.com/s2/favicons?domain=delta.com&sz=128",
+      "prioridad": "alta",
+      "urgente": false
+    },
+    {
+      "id": "air_united",
+      "nombre": "United Airlines",
+      "enlace_portal": "https://www.united.com/",
+      "enlace_publico": "https://www.united.com/",
+      "logo": "https://www.google.com/s2/favicons?domain=united.com&sz=128",
+      "prioridad": "alta",
+      "urgente": false
+    },
+    {
+      "id": "air_avianca",
+      "nombre": "Avianca",
+      "enlace_portal": "https://www.avianca.com/",
+      "enlace_publico": "https://www.avianca.com/",
+      "logo": "https://www.google.com/s2/favicons?domain=avianca.com&sz=128",
+      "prioridad": "alta",
+      "urgente": false
+    },
+    {
+      "id": "air_latam",
+      "nombre": "LATAM Airlines",
+      "enlace_portal": "https://www.latamairlines.com/",
+      "enlace_publico": "https://www.latamairlines.com/",
+      "logo": "https://www.google.com/s2/favicons?domain=latamairlines.com&sz=128",
+      "prioridad": "media",
+      "urgente": false
+    },
+    {
+      "id": "air_aeromexico",
+      "nombre": "Aeroméxico",
+      "enlace_portal": "https://www.aeromexico.com/",
+      "enlace_publico": "https://www.aeromexico.com/",
+      "logo": "https://www.google.com/s2/favicons?domain=aeromexico.com&sz=128",
+      "prioridad": "media",
+      "urgente": false
+    },
+    {
+      "id": "air_aireuropa",
+      "nombre": "Air Europa",
+      "enlace_portal": "https://www.aireuropa.com/",
+      "enlace_publico": "https://www.aireuropa.com/",
+      "logo": "https://www.google.com/s2/favicons?domain=aireuropa.com&sz=128",
+      "prioridad": "alta",
+      "urgente": false
+    },
+    {
+      "id": "air_iberia",
+      "nombre": "Iberia",
+      "enlace_portal": "https://www.iberia.com/",
+      "enlace_publico": "https://www.iberia.com/",
+      "logo": "https://www.google.com/s2/favicons?domain=iberia.com&sz=128",
+      "prioridad": "media",
+      "urgente": false
+    },
+    {
+      "id": "air_spirit",
+      "nombre": "Spirit Airlines",
+      "enlace_portal": "https://www.spirit.com/",
+      "enlace_publico": "https://www.spirit.com/",
+      "logo": "https://www.google.com/s2/favicons?domain=spirit.com&sz=128",
+      "prioridad": "media",
+      "urgente": false
+    },
+    {
+      "id": "air_frontier",
+      "nombre": "Frontier Airlines",
+      "enlace_portal": "https://www.flyfrontier.com/",
+      "enlace_publico": "https://www.flyfrontier.com/",
+      "logo": "https://www.google.com/s2/favicons?domain=flyfrontier.com&sz=128",
+      "prioridad": "baja",
+      "urgente": false
+    },
+    {
+      "id": "air_aircanada",
+      "nombre": "Air Canada",
+      "enlace_portal": "https://www.aircanada.com/",
+      "enlace_publico": "https://www.aircanada.com/",
+      "logo": "https://www.google.com/s2/favicons?domain=aircanada.com&sz=128",
+      "prioridad": "alta",
+      "urgente": false
+    },
+    {
+      "id": "air_westjet",
+      "nombre": "WestJet",
+      "enlace_portal": "https://www.westjet.com/",
+      "enlace_publico": "https://www.westjet.com/",
+      "logo": "https://www.google.com/s2/favicons?domain=westjet.com&sz=128",
+      "prioridad": "media",
+      "urgente": false
     }
   ]
 }
