@@ -203,8 +203,20 @@ function urlDeProveedor(proveedor, modo = activeModo) {
 
 // ─── VISIBILIDAD DE SECCIONES POR MODO ─────────────────────────────────────────
 /**
+ * Lee la visibilidad por defecto de una sección desde la matriz central de
+ * options.json (Opciones Generales). Devuelve undefined si no está definida ahí.
+ */
+function visibilidadCentral(key, modo) {
+    const arr = OPTIONS.visibilidadSecciones || [];
+    const entry = arr.find(e => e.seccion === key);
+    if (!entry) return undefined;
+    return modo === 'publico' ? entry.publico !== false : entry.acceso !== false;
+}
+
+/**
  * ¿Debe verse la sección `toggleId` en el modo indicado?
- * Prioridad: preferencia local del usuario > default de producción (del repo).
+ * Prioridad: preferencia local del usuario > matriz central (Opciones Generales)
+ *            > default de la propia sección (compatibilidad) > visible.
  */
 function getModoVisible(modo, toggleId) {
     const guardado = localStorage.getItem(`modo_vis_${modo}_${toggleId}`);
@@ -212,6 +224,10 @@ function getModoVisible(modo, toggleId) {
 
     const seccion = SECCION_POR_TOGGLE[toggleId];
     if (!seccion) return true;
+
+    const central = visibilidadCentral(seccion.key, modo);
+    if (central !== undefined) return central;
+
     return modo === 'publico' ? seccion.defaultPublico : seccion.defaultAcceso;
 }
 

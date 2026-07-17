@@ -32,6 +32,16 @@ collections:
             default: acceso
           - { name: tamanoTarjeta, label: "Tamaño de tarjeta por defecto (px)", widget: number, default: 260, value_type: int, min: 160, max: 440 }
           - { name: zoomInicial,   label: "Zoom inicial (%)", widget: number, default: 100, value_type: int, min: 60, max: 150 }
+          - name: visibilidadSecciones
+            label: "Visibilidad de secciones por modo"
+            label_singular: "Sección"
+            widget: list
+            summary: "{{fields.seccion}} — acceso: {{fields.acceso}} · público: {{fields.publico}}"
+            hint: "Define qué secciones se ven por defecto en cada modo. La 'clave' debe coincidir con la de la sección."
+            fields:
+              - { name: seccion, label: "Clave de la sección (ej. mayoristas)", widget: string }
+              - { name: acceso,  label: "Visible en modo Con acceso", widget: boolean, default: true }
+              - { name: publico, label: "Visible en modo Público",     widget: boolean, default: true }
 
   # Cada sección del dashboard es un archivo dentro de data/secciones/.
   # "Agregar Sección" crea un archivo nuevo; cada sección se edita por separado.
@@ -53,8 +63,8 @@ collections:
       - { name: label,  label: "Nombre corto (para botones)", widget: string }
       - { name: color,  label: "Color de acento", widget: color, default: "#06b6d4" }
       - { name: tint,   label: "Color de fondo al pasar el mouse", widget: color, default: "#f0fdfe" }
-      - { name: defaultAcceso,  label: "Visible por defecto en modo Con acceso", widget: boolean, default: true }
-      - { name: defaultPublico, label: "Visible por defecto en modo Público",    widget: boolean, default: true }
+      # La visibilidad por defecto de la SECCIÓN se controla en "Opciones Generales"
+      # (visibilidadSecciones). Aquí solo se define el contenido de la sección.
       - name: proveedores
         label: Proveedores
         label_singular: Proveedor

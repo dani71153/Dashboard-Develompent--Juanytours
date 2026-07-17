@@ -2,5 +2,11 @@
   "titulo": "Panel de Control de Viajes",
   "modoInicial": "acceso",
   "tamanoTarjeta": 260,
-  "zoomInicial": 100
+  "zoomInicial": 100,
+  "visibilidadSecciones": [
+    { "seccion": "mayoristas", "acceso": true, "publico": false },
+    { "seccion": "hoteles", "acceso": true, "publico": true },
+    { "seccion": "aviones", "acceso": true, "publico": true },
+    { "seccion": "renta", "acceso": true, "publico": true }
+  ]
 }
