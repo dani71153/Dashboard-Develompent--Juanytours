@@ -5,7 +5,6 @@
   "label": "Hoteles",
   "color": "#10b981",
   "tint": "#f0fdf4",
-  "defaultPublico": true,
   "proveedores": [
     {
       "id": "hotel_booking",
@@ -39,7 +38,7 @@
       "nombre": "Expedia",
       "enlace_portal": "https://www.expedia.com/",
       "enlace_publico": "https://www.expedia.com/",
-      "logo": "https://www.google.com/s2/favicons?domain=expedia.com&sz=128",
+      "logo": "https://www.expedia.com/_dms/header/logo.svg?locale=en_US&siteid=1&2",
       "prioridad": "alta",
       "urgente": false
     },
@@ -48,7 +47,7 @@
       "nombre": "Hotels.com",
       "enlace_portal": "https://www.hotels.com/",
       "enlace_publico": "https://www.hotels.com/",
-      "logo": "https://www.google.com/s2/favicons?domain=hotels.com&sz=128",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Hotels.com_Logo_2023.png",
       "prioridad": "media",
       "urgente": false
     },
@@ -57,7 +56,7 @@
       "nombre": "Trivago",
       "enlace_portal": "https://www.trivago.com/",
       "enlace_publico": "https://www.trivago.com/",
-      "logo": "https://www.google.com/s2/favicons?domain=trivago.com&sz=128",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Trivago_logo_2023.svg/1280px-Trivago_logo_2023.svg.png",
       "prioridad": "media",
       "urgente": false
     },
@@ -66,7 +65,7 @@
       "nombre": "Kayak",
       "enlace_portal": "https://www.kayak.com/hotels",
       "enlace_publico": "https://www.kayak.com/hotels",
-      "logo": "https://www.google.com/s2/favicons?domain=kayak.com&sz=128",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/KAYAK_Software_Corporation_logo.svg/3840px-KAYAK_Software_Corporation_logo.svg.png",
       "prioridad": "media",
       "urgente": false
     },
@@ -75,17 +74,8 @@
       "nombre": "Agoda",
       "enlace_portal": "https://www.agoda.com/",
       "enlace_publico": "https://www.agoda.com/",
-      "logo": "https://www.google.com/s2/favicons?domain=agoda.com&sz=128",
+      "logo": "https://logos-world.net/wp-content/uploads/2024/07/Agoda-Logo.jpg",
       "prioridad": "media",
-      "urgente": false
-    },
-    {
-      "id": "hotel_despegar",
-      "nombre": "Despegar",
-      "enlace_portal": "https://www.despegar.com/",
-      "enlace_publico": "https://www.despegar.com/",
-      "logo": "https://www.google.com/s2/favicons?domain=despegar.com&sz=128",
-      "prioridad": "alta",
       "urgente": false
     },
     {
@@ -93,7 +83,7 @@
       "nombre": "Airbnb",
       "enlace_portal": "https://www.airbnb.com/",
       "enlace_publico": "https://www.airbnb.com/",
-      "logo": "https://www.google.com/s2/favicons?domain=airbnb.com&sz=128",
+      "logo": "https://logosmarken.com/wp-content/uploads/2020/04/Airbnb-Emblem.png",
       "prioridad": "alta",
       "urgente": false
     },
@@ -102,7 +92,7 @@
       "nombre": "Hostelworld",
       "enlace_portal": "https://www.hostelworld.com/",
       "enlace_publico": "https://www.hostelworld.com/",
-      "logo": "https://www.google.com/s2/favicons?domain=hostelworld.com&sz=128",
+      "logo": "https://www.wysetc.org/wp-content/uploads/sites/19/2018/09/hostelworld-logo.png",
       "prioridad": "baja",
       "urgente": false
     },
@@ -111,7 +101,7 @@
       "nombre": "Priceline",
       "enlace_portal": "https://www.priceline.com/",
       "enlace_publico": "https://www.priceline.com/",
-      "logo": "https://www.google.com/s2/favicons?domain=priceline.com&sz=128",
+      "logo": "https://tse1.mm.bing.net/th/id/OIP.HtIPdVVFMw6Opd_9zociDQHaCl?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
       "prioridad": "baja",
       "urgente": false
     },
@@ -120,9 +110,10 @@
       "nombre": "Google Hotels",
       "enlace_portal": "https://www.google.com/travel/hotels",
       "enlace_publico": "https://www.google.com/travel/hotels",
-      "logo": "https://www.google.com/s2/favicons?domain=google.com&sz=128",
+      "logo": "https://th.bing.com/th/id/OIP.KsJ0tZaRiwGesGPIOuamnwHaBz?r=0&o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
       "prioridad": "media",
       "urgente": false
     }
-  ]
+  ],
+  "defaultPublico": true
 }
