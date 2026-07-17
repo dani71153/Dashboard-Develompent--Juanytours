@@ -14,6 +14,25 @@ public_folder: assets/img
 
 collections:
 
+  # Opciones globales del dashboard (un solo archivo, editable directamente).
+  - name: opciones
+    label: "Opciones Generales"
+    files:
+      - name: options
+        label: "Configuración General"
+        file: data/options.json
+        fields:
+          - { name: titulo, label: "Título del panel (encabezado)", widget: string }
+          - name: modoInicial
+            label: "Modo con el que abre el dashboard"
+            widget: select
+            options:
+              - { label: "Con acceso (login)", value: acceso }
+              - { label: "Público (sin login)", value: publico }
+            default: acceso
+          - { name: tamanoTarjeta, label: "Tamaño de tarjeta por defecto (px)", widget: number, default: 260, value_type: int, min: 160, max: 440 }
+          - { name: zoomInicial,   label: "Zoom inicial (%)", widget: number, default: 100, value_type: int, min: 60, max: 150 }
+
   # Cada sección del dashboard es un archivo dentro de data/secciones/.
   # "Agregar Sección" crea un archivo nuevo; cada sección se edita por separado.
   - name: secciones

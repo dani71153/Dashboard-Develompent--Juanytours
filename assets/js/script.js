@@ -28,11 +28,37 @@ const RAMA_GITHUB   = 'main';
 const CARPETA_SECCIONES = 'data/secciones';
 const CACHE_CONFIG_KEY  = 'configCache';
 
+// Archivo de opciones GLOBALES del dashboard (editable desde el CMS).
+const ARCHIVO_OPTIONS = 'data/options.json';
+const OPTIONS_DEFAULT = { titulo: 'Panel de Control de Viajes', modoInicial: 'acceso', tamanoTarjeta: 260, zoomInicial: 100 };
+let OPTIONS = { ...OPTIONS_DEFAULT };
+
 let SECCIONES = [];           // metadata de cada sección (+ IDs derivados)
 let CATEGORIAS = {};          // key → sección
 let CAT_KEYS = [];            // orden de las claves de sección
 let SECCION_POR_TOGGLE = {};  // toggleId → sección
 let originalData = null;      // { categorias: { key: [proveedores] } } — nunca se muta
+
+/** Carga data/options.json (defaults globales). Si falla, se usan los de fábrica. */
+async function cargarOptions() {
+    try {
+        const res = await fetch(ARCHIVO_OPTIONS);
+        if (res.ok) OPTIONS = { ...OPTIONS_DEFAULT, ...(await res.json()) };
+    } catch (e) {
+        console.warn('No se pudo leer options.json, usando defaults:', e.message);
+    }
+}
+
+/** Aplica las opciones globales que deben fijarse antes de renderizar. */
+function aplicarOpcionesGlobales() {
+    const h1 = document.querySelector('#main-header h1');
+    if (h1 && OPTIONS.titulo) h1.textContent = OPTIONS.titulo;
+
+    // Modo inicial: solo si el usuario no ha elegido uno en su navegador.
+    if (!localStorage.getItem('dashboardModo')) {
+        activeModo = OPTIONS.modoInicial === 'publico' ? 'publico' : 'acceso';
+    }
+}
 
 /** Lista los archivos .json de la carpeta de secciones usando la API de GitHub. */
 async function listarArchivosSecciones() {
@@ -764,7 +790,7 @@ function loadZoom() {
     const btnIn     = document.getElementById('zoom-in');
     const container = document.getElementById('dashboard-container');
 
-    let current = parseInt(localStorage.getItem('dashboardZoom') || '100');
+    let current = parseInt(localStorage.getItem('dashboardZoom') || OPTIONS.zoomInicial || 100);
 
     function applyZoom(val) {
         current = Math.min(150, Math.max(60, val));
@@ -802,7 +828,7 @@ function aplicarTamano(px) {
 }
 
 function loadTamano() {
-    let actual = parseInt(localStorage.getItem('dashboardCardSize') || CARD_SIZE_DEFAULT, 10);
+    let actual = parseInt(localStorage.getItem('dashboardCardSize') || OPTIONS.tamanoTarjeta || CARD_SIZE_DEFAULT, 10);
     aplicarTamano(actual);
 
     const slider = document.getElementById('size-slider');
@@ -816,13 +842,15 @@ function loadTamano() {
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('Iniciando carga de la aplicación...');
 
-    // 1. Cargamos la configuración (secciones + proveedores) desde el archivo.
+    // 1. Cargamos la configuración (secciones + proveedores) y las opciones globales.
     try {
         await cargarConfig();
     } catch (err) {
         mostrarErrorCarga(err);
         return; // Sin datos no hay nada que construir.
     }
+    await cargarOptions();
+    aplicarOpcionesGlobales();
 
     // 2. Construimos la UI (contenedores vacíos → HTML) desde SECCIONES.
     construirSecciones();
