@@ -95,7 +95,9 @@ function aplicarConfig(lista) {
             label:          item.label,
             color:          item.color,
             tint:           item.tint,
-            defaultPublico: !!item.defaultPublico,
+            // Visibilidad por defecto de la SECCIÓN en cada modo (default: visible).
+            defaultAcceso:  item.defaultAcceso  !== false,
+            defaultPublico: item.defaultPublico !== false,
             // IDs derivados de la clave (no se guardan en el JSON).
             sectionId:   `section-${item.key}`,
             listId:      `${item.key}-list`,
@@ -174,15 +176,17 @@ function urlDeProveedor(proveedor, modo = activeModo) {
 }
 
 // ─── VISIBILIDAD DE SECCIONES POR MODO ─────────────────────────────────────────
-/** ¿Debe verse la sección `toggleId` en el modo indicado? (lee config o default). */
+/**
+ * ¿Debe verse la sección `toggleId` en el modo indicado?
+ * Prioridad: preferencia local del usuario > default de producción (del repo).
+ */
 function getModoVisible(modo, toggleId) {
     const guardado = localStorage.getItem(`modo_vis_${modo}_${toggleId}`);
-    if (guardado !== null) return guardado === 'true';
+    if (guardado !== null) return guardado === 'true'; // preferencia del usuario
 
-    // Default: con acceso todo visible; en público según defaultPublico de la sección.
-    if (modo === 'acceso') return true;
     const seccion = SECCION_POR_TOGGLE[toggleId];
-    return seccion ? seccion.defaultPublico : true;
+    if (!seccion) return true;
+    return modo === 'publico' ? seccion.defaultPublico : seccion.defaultAcceso;
 }
 
 /** Guarda la preferencia de visibilidad de una sección para un modo concreto. */
@@ -345,6 +349,9 @@ function crearElemento(cat, data, indice, contenedor) {
     link.dataset.prioridad = proveedor.prioridad || 'alta';
     link.dataset.urgente   = proveedor.urgente ? 'true' : 'false';
     link.dataset.sinurl    = url ? 'false' : 'true'; // sin enlace para el modo actual
+    // Default de producción (del repo): oculto por defecto en cada modo si el campo es false.
+    link.dataset.defAcceso  = proveedor.mostrar_acceso  === false ? 'oculto' : 'visible';
+    link.dataset.defPublico = proveedor.mostrar_publico === false ? 'oculto' : 'visible';
 
     const logo = rutaLogo(proveedor.logo);
     if (logo) {
@@ -518,9 +525,12 @@ function applyFilters() {
     const search = activeSearch.toLowerCase().trim();
 
     document.querySelectorAll('.data-list > a').forEach(link => {
-        const manuallyHidden = localStorage.getItem(itemVisKey(link.id)) === 'none';
-        const sinUrl         = link.dataset.sinurl === 'true';
-        if (manuallyHidden || sinUrl) { link.style.display = 'none'; return; }
+        // Preferencia local del usuario > default de producción (del repo).
+        const stored = localStorage.getItem(itemVisKey(link.id));
+        const defOculto = (activeModo === 'publico' ? link.dataset.defPublico : link.dataset.defAcceso) === 'oculto';
+        const oculto = stored !== null ? stored === 'none' : defOculto;
+        const sinUrl = link.dataset.sinurl === 'true';
+        if (oculto || sinUrl) { link.style.display = 'none'; return; }
 
         const nombre    = link.dataset.nombre    || '';
         const prioridad = link.dataset.prioridad || 'alta';
@@ -571,7 +581,10 @@ function crearCheckbox(cat, data, indice, contenedor) {
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.id = `${cat}-checkbox-${indice}`;
-    checkbox.checked = localStorage.getItem(itemVisKey(itemId)) !== 'none';
+    // Preferencia local del usuario > default de producción (del repo).
+    const stored = localStorage.getItem(itemVisKey(itemId));
+    const defOculto = (activeModo === 'publico' ? proveedor.mostrar_publico : proveedor.mostrar_acceso) === false;
+    checkbox.checked = stored !== null ? stored !== 'none' : !defOculto;
 
     checkbox.addEventListener('change', () => {
         localStorage.setItem(itemVisKey(itemId), checkbox.checked ? 'inline-block' : 'none');
@@ -718,6 +731,32 @@ function loadModalTabs() {
     });
 }
 
+// ─── RESTABLECER A CONFIGURACIÓN DE PRODUCCIÓN ─────────────────────────────────
+/**
+ * Borra las preferencias LOCALES de visibilidad (secciones y proveedores, en
+ * ambos modos) y el modo guardado, de modo que la app vuelva a mostrar lo que
+ * define el repositorio. No toca zoom, tamaño ni ediciones de datos.
+ */
+function restablecerProduccion() {
+    const ok = confirm(
+        '¿Restablecer la visibilidad a la configuración de producción?\n\n' +
+        'Se borrarán TUS cambios locales de mostrar/ocultar (secciones y proveedores) ' +
+        'y se volverá a lo definido en el repositorio. No afecta el zoom ni el tamaño.'
+    );
+    if (!ok) return;
+
+    Object.keys(localStorage)
+        .filter(k => k.startsWith('modo_vis_') || k.startsWith('vis_') || k === 'dashboardModo')
+        .forEach(k => localStorage.removeItem(k));
+
+    location.reload(); // recarga limpia: se reaplican los defaults del repo
+}
+
+function setupResetProduccion() {
+    const btn = document.getElementById('btnResetProduccion');
+    if (btn) btn.addEventListener('click', restablecerProduccion);
+}
+
 // ─── ZOOM ──────────────────────────────────────────────────────────────────────
 function loadZoom() {
     const badge     = document.getElementById('zoom-badge');
@@ -803,6 +842,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     loadZoom();
     loadTamano();
     loadSearchAndFilters();
+    setupResetProduccion();
 
     // 6. Aplicamos qué secciones se ven según el modo activo + filtros iniciales.
     aplicarVisibilidadPorModo();

@@ -268,6 +268,31 @@
     font-size: 0.9rem;
 }
 
+/* ─── RESTABLECER A PRODUCCIÓN ───────────────────── */
+.reset-produccion {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.btn-reset-prod {
+    background: #fff7ed !important;
+    color: #c2410c;
+    border: 1.5px solid #fdba74;
+    padding: 0.55rem 1rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-reset-prod:hover {
+    background: #ffedd5 !important;
+    border-color: #fb923c;
+    filter: none;
+}
+
 /* ─── CHECKLIST ──────────────────────────────────── */
 .config-checklist-box,
 .config-checklist-box-mayoristas {

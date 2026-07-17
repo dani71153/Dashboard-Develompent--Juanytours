@@ -34,7 +34,8 @@ collections:
       - { name: label,  label: "Nombre corto (para botones)", widget: string }
       - { name: color,  label: "Color de acento", widget: color, default: "#06b6d4" }
       - { name: tint,   label: "Color de fondo al pasar el mouse", widget: color, default: "#f0fdfe" }
-      - { name: defaultPublico, label: "Visible por defecto en modo Público", widget: boolean, default: true }
+      - { name: defaultAcceso,  label: "Visible por defecto en modo Con acceso", widget: boolean, default: true }
+      - { name: defaultPublico, label: "Visible por defecto en modo Público",    widget: boolean, default: true }
       - name: proveedores
         label: Proveedores
         label_singular: Proveedor
@@ -52,3 +53,5 @@ collections:
             options: [alta, media, baja]
             default: alta
           - { name: urgente, label: Urgente, widget: boolean, default: false }
+          - { name: mostrar_acceso,  label: "Mostrar por defecto en modo Con acceso", widget: boolean, default: true }
+          - { name: mostrar_publico, label: "Mostrar por defecto en modo Público",    widget: boolean, default: true }
