@@ -1,0 +1,10 @@
+{
+  "orden": 4,
+  "key": "renta",
+  "titulo": "Renta de Vehículos",
+  "label": "RentCar",
+  "color": "#f59e0b",
+  "tint": "#fffbeb",
+  "defaultPublico": true,
+  "proveedores": []
+}

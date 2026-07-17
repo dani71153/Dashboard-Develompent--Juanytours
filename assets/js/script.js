@@ -20,7 +20,13 @@
  */
 
 // ─── ESTADO DE CONFIGURACIÓN (se llena al cargar data/secciones.json) ──────────
-const ARCHIVO_CONFIG = 'data/secciones.json';
+// Cada sección es un archivo JSON dentro de esta carpeta. Se descubren listando
+// la carpeta con la API de GitHub (repo público). El CMS (colección de carpeta)
+// crea/edita esos archivos; así agregar una sección es 100% visual.
+const REPO_GITHUB   = 'dani71153/Dashboard-Develompent--Juanytours';
+const RAMA_GITHUB   = 'main';
+const CARPETA_SECCIONES = 'data/secciones';
+const CACHE_CONFIG_KEY  = 'configCache';
 
 let SECCIONES = [];           // metadata de cada sección (+ IDs derivados)
 let CATEGORIAS = {};          // key → sección
@@ -28,17 +34,55 @@ let CAT_KEYS = [];            // orden de las claves de sección
 let SECCION_POR_TOGGLE = {};  // toggleId → sección
 let originalData = null;      // { categorias: { key: [proveedores] } } — nunca se muta
 
+/** Lista los archivos .json de la carpeta de secciones usando la API de GitHub. */
+async function listarArchivosSecciones() {
+    const url = `https://api.github.com/repos/${REPO_GITHUB}/contents/${CARPETA_SECCIONES}?ref=${RAMA_GITHUB}`;
+    const res = await fetch(url, { headers: { Accept: 'application/vnd.github+json' } });
+    if (!res.ok) throw new Error(`API de GitHub HTTP ${res.status}`);
+    const arr = await res.json();
+    return arr.filter(f => f.type === 'file' && f.name.toLowerCase().endsWith('.json'))
+              .map(f => f.name);
+}
+
+/** Descarga y parsea un archivo de sección (ruta relativa, mismo origen). */
+async function fetchSeccion(nombreArchivo) {
+    try {
+        const res = await fetch(`${CARPETA_SECCIONES}/${nombreArchivo}`);
+        if (!res.ok) return null;
+        return await res.json();
+    } catch (e) {
+        console.warn(`No se pudo leer ${nombreArchivo}:`, e.message);
+        return null;
+    }
+}
+
 /**
- * Descarga data/secciones.json y construye SECCIONES (metadata + IDs derivados),
- * CATEGORIAS, CAT_KEYS, SECCION_POR_TOGGLE y originalData.categorias.
- * Es el único punto donde se define qué secciones existen.
+ * Descubre las secciones (carpeta vía API de GitHub), descarga cada archivo,
+ * las ordena por `orden` y construye el estado de la app. Si algo falla, usa
+ * la última configuración guardada en caché (localStorage).
  */
 async function cargarConfig() {
-    const res  = await fetch(ARCHIVO_CONFIG);
-    if (!res.ok) throw new Error(`No se pudo leer ${ARCHIVO_CONFIG} (HTTP ${res.status})`);
-    const json = await res.json();
-    const lista = json.secciones || [];
+    let lista;
+    try {
+        const archivos = await listarArchivosSecciones();
+        const secciones = await Promise.all(archivos.map(fetchSeccion));
+        lista = secciones.filter(Boolean);
+        if (!lista.length) throw new Error('La carpeta de secciones está vacía o no se pudo leer.');
 
+        lista.sort((a, b) => (a.orden ?? 999) - (b.orden ?? 999));
+        localStorage.setItem(CACHE_CONFIG_KEY, JSON.stringify(lista)); // respaldo
+    } catch (err) {
+        const cache = localStorage.getItem(CACHE_CONFIG_KEY);
+        if (!cache) throw err; // sin respaldo → que el arranque muestre el error
+        console.warn('Usando configuración en caché (fallo al leer la carpeta):', err.message);
+        lista = JSON.parse(cache);
+    }
+
+    aplicarConfig(lista);
+}
+
+/** Construye SECCIONES / CATEGORIAS / CAT_KEYS / originalData desde la lista de secciones. */
+function aplicarConfig(lista) {
     SECCIONES          = [];
     CATEGORIAS         = {};
     SECCION_POR_TOGGLE = {};
@@ -72,7 +116,7 @@ function tieneDatos(cat) {
     return !!(originalData && originalData.categorias[cat] && originalData.categorias[cat].length);
 }
 
-/** Muestra un mensaje claro si no se pudo leer data/secciones.json. */
+/** Muestra un mensaje claro si no se pudieron cargar las secciones. */
 function mostrarErrorCarga(err) {
     console.error('Error al cargar la configuración:', err);
     const cont = document.getElementById('dashboard-container');
@@ -85,8 +129,9 @@ function mostrarErrorCarga(err) {
            usa la extensión <b>Live Server</b> de VS Code, o ejecuta
            <code>npx serve</code> (o <code>python -m http.server</code>) dentro de la carpeta del proyecto,
            y abre la dirección <code>http://localhost</code> que te indique.`
-        : `No se encontró o no se pudo leer <code>${ARCHIVO_CONFIG}</code>.
-           Verifica que el archivo exista y que la ruta sea correcta.`;
+        : `No se pudo leer la carpeta <code>${CARPETA_SECCIONES}</code>.
+           Puede ser un problema de red o un límite temporal de la API de GitHub;
+           vuelve a intentar en unos minutos.`;
 
     cont.innerHTML = `
         <div style="grid-column:1/-1; background:#fee2e2; border:1px solid #fecaca;
